@@ -1,32 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+@mixin flexFunction($direction,$justify){
+    display: flex;
+    justify-content: $justify;
+    align-items: center;
+    flex-direction: $direction
+}
+@mixin divFunction($direction,$justify,$width){
+    @include flexFunction($direction,$justify);
+    width:$width;
+}
+@mixin flex-me() {
+    display: inline-flex;
+    flex-flow: row wrap;
+  }
 .loginForm{
+    @include flexFunction(column, center);
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+.loginFormDiv1{
+    @include flexFunction(column,space-around);
+    @include flex-me();
+    width:30%;
+    height: 29em;
     border-radius: 10px;
-    position:fixed;
-    top: 50%;
-    left: 50%;
-    width:28em;
-    height:32em;
-    margin-top: -15em; /*set to a negative number 1/2 of your height*/
-    margin-left: -15em; /*set to a negative number 1/2 of your width*/
     border: 1px solid #ccc;
 }
-#myDiv{
-    text-align: center;
-    display: flex;
-    flex-flow: column;
-    border-width: 2px;
-    // position:fixed;
-    margin-top: -3em; /*set to a negative number 1/2 of your height*/
-    margin-left: -3em; /*set to a negative number 1/2 of your width*/
+.divTextClass{
+     @include divFunction(none,space-around,100%);
+     margin-top:-2em;
 }
-.signSpan{
-    font-size: 2em;
+.create-Button-View{
+    @include divFunction(row,none,110%);
+    .createAccount{
+        @include divFunction(row,start,100%);
+        color: cornflowerblue;
+        width:67%
+    }
+    .nextButton{
+        @include divFunction(row,end,100%);
+        width:33%
+    }
 }
-#forgotDiv{
-color: cornflowerblue;
+.forgotDiv{
+    //@include divFunction(row,start,none);    
+    color: cornflowerblue;
+    margin-left:-1.5em;
 }
-#create-Button-View{
-    display:inline;
+.email_bar{
+    width:90%;
 }
-#formDiv{
-    flex:1;
+.notComputer{
+    width:90%;
+}
+.learnMore{
+ margin-left: -1em;
+}
+*{
+    font-family: 'Lato', sans-serif;
 }

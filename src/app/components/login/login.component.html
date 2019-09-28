@@ -1,33 +1,39 @@
-<!-- <div class="loginForm">
-  <div id="#myDiv">
-    <div>
-      Fundoo
-    </div>
-    <div>
-      <mat-list>
-        <mat-list-item>
-          <span class="signSpan">Sign in</span>
-        </mat-list-item>
-        <mat-list-item>Use your fundoo Account</mat-list-item>
-      </mat-list>
-    </div>
-    <div>
-      <form>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Email" [formControl]="emailFormController">
-        </mat-form-field>
-      </form>
-      <div>Forgot email?</div>
-    </div>
-    <div>
-      <div style="width:'60%'">create account</div>
-      <div style="width:'30%'"><button mat-raised-button color="primary">Next</button></div>
-    </div>
+<div class="loginForm" fxLayout="row" fxLayout.xs="row" fxLayoutAlign="space-around center">
+  <div class="loginForm">
+    <mat-card class="loginFormDiv1">
+      <mat-card-title>Fundoo</mat-card-title>
+      <mat-card-content class="divTextClass" style="font-size:1.5em">Sign in</mat-card-content>
+      <mat-card-content class="divTextClass">Use your fundoo Account</mat-card-content>
+
+      <mat-form-field class="email_bar" floatLable="auto" hideRequiredMarker appearance="outline">
+        <mat-label>Email or phone</mat-label>
+        <input matInput [formControl]="emailFormController" [(ngModel)]="email">
+        <mat-hint><button mat-button class="forgotDiv">Forgot email?</button></mat-hint>
+      </mat-form-field>
+      <mat-card-content class="notComputer">Not your computer? Use Guest mode to sign in privately. 
+        <button mat-button color="primary" class="learnMore">Learn more</button>
+      </mat-card-content>
+      <mat-card-content class="create-Button-View">
+        <div class="createAccount"><button mat-button [matMenuTriggerFor]="menu">create account</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="btnClick()">For myself</button>
+            <button mat-menu-item>To manage my business</button>
+          </mat-menu>
+        </div>
+        <div class="nextButton"><button mat-raised-button color="primary">Next</button></div>
+      </mat-card-content>
+    </mat-card>
+    <!-- <mat-form-field>
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let food of 5" >
+            {{val+$index}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
   </div>
-</div> -->
-
-
-<div class="container"
+</div>
+<!-- <div class="container"
      fxLayout
      fxLayout.xs="column"
      fxLayoutAlign="center"
@@ -46,4 +52,4 @@
      fxLayoutGap.xs="0">
   <div class="item item-4" fxFlex fxFlexOffset="50px"  fxFlexOffset.xs="0">Item 4</div>
   <div class="item item-5" fxFlex="200px">Item 5</div>
-</div>
+</div> -->
