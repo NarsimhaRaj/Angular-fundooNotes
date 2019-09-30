@@ -1,5 +1,6 @@
 <div class="login-page" fxLayout="column" fxLayoutAlign="center center">
-  <div fxLayoutAlign="center center" fxLayout="column" ngClass.gt-xs="border-class" ngClass.lt-sm="no-border-class">
+  <div [fxHide]="forgotButton" fxLayoutAlign="center center" fxLayout="column" ngClass.gt-xs="border-class"
+    ngClass.lt-sm="no-border-class">
     <div class="fundoo-title-class" fxFlex="5%">Fundoo</div>
     <div class="signin-text" fxFlex="5%">Sign in</div>
     <div class="use-text" fxFlex="5%">Use your Fundoo Account</div>
@@ -21,9 +22,9 @@
       <div><button mat-raised-button color="primary">Next</button></div>
     </div>
   </div>
+</div>
 
-
-  <!-- <div class="loginForm" fxLayout="row" fxLayout.xs="row" fxLayoutAlign="space-around center">
+<!-- <div class="loginForm" fxLayout="row" fxLayout.xs="row" fxLayoutAlign="space-around center">
   <div class="loginForm">
     <mat-card class="loginFormDiv1">
       <mat-card-title>Fundoo</mat-card-title>

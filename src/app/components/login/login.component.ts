@@ -9,17 +9,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public _router:Router;
   public emailFormController: FormControl;
-  constructor() {
+  forgotButton:Boolean=false;
+  constructor(private router:Router) {
     this.emailFormController = new FormControl('', [
       Validators.required,
       Validators.email
     ]);
   }
   btnClick():void {
-    this._router.navigateByUrl('/register');
+    this.router.navigateByUrl("/register");
   };
+  forgotEmailToggle(){
+    this.forgotButton=!this.forgotButton;
+  }
   ngOnInit() {
 
   }
