@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule, MatListModule, MatButtonModule, MatCardModule } from '@angular/material'
+import { MatInputModule, MatListModule, MatButtonModule } from '@angular/material'
 import { MatMenuModule, MatOptionModule, MatSelectModule } from '@angular/material'
+import { MatFormFieldModule ,MatIconModule } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './/app-routing.module';
 import { LoginComponent } from './components/login/login.component';
@@ -24,7 +25,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatInputModule,
     MatListModule,
     MatButtonModule,
-    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
     MatMenuModule,
     MatOptionModule,
     MatSelectModule,

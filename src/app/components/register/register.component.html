@@ -1,3 +1,59 @@
-<p>
-  register works!
-</p>
+<div class="register-page" fxLayout="row" fxLayoutAlign="center center">
+  <div fxLayoutAlign="center center" fxLayout="column" ngClass.gt-xs="border-class"
+    ngClass.lt-sm="no-border-register-class">
+    <!-- title of form -->
+    <div class="fundoo-title-register common-property" fxLayoutAlign="start center" fxFlex="5%">Fundoo</div>
+    <div class="account-register common-property" fxLayoutAlign="start center" fxFlex="5%">Create your Fundoo Account
+    </div>
+    <div fxLayout.gt-xs="row" fxLayout.lt-sm="column" class="common-property" fxLayoutAlign="space-between center">
+      <!-- frist name -->
+      <mat-form-field ngClass.gt-xs="first-last-name" ngClass.lt-sm="first-last-name-sm" appearance="outline">
+        <mat-label>First name</mat-label>
+        <input matInput />
+      </mat-form-field>
+      <!-- Last name -->
+      <mat-form-field ngClass.gt-xs="first-last-name" ngClass.lt-sm="first-last-name-sm" appearance="outline">
+        <mat-label>Last name</mat-label>
+        <input matInput />
+      </mat-form-field>
+    </div>
+    <!-- Username -->
+    <mat-form-field class="common-property" appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput />
+      <span matSuffix>@gmail.com</span>
+      <mat-hint fxLayoutAlign="start center">you can use letters, numbers & periods</mat-hint>
+    </mat-form-field>
+    <!-- to use existed email address -->
+    <div fxLayoutAlign="start center" class="common-property margin"><a href="">Use my current email address instead</a>
+    </div>
+    <!-- password field -->
+    <div fxLayout="row" class="common-property" fxLayoutAlign="space-between center">
+      <div class="password-div" fxLayout.lt-sm="column" fxLayout.gt-xs="row" fxLayoutAlign="space-between center">
+        <mat-form-field ngClass.gt-xs="password-gt-xs" ngClass.lt-sm="password-lt-sm" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'">
+          <mat-hint fxShow fxHide.lt-sm="false">Use 8 or more characters with a mix of letters, numbers & symbols
+          </mat-hint>
+        </mat-form-field>
+        <!-- Confirm Password -->
+        <mat-form-field ngClass.gt-xs="password-gt-xs" ngClass.lt-sm="password-lt-sm" appearance="outline">
+          <mat-label>Confirm</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'">
+        </mat-form-field>
+      </div>
+      <div class="eye-icon-div" fxLayoutAlign="start start" >
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </div>
+    </div>
+    <!-- next or sign in buttons -->
+    <div class="further-step common-property" fxLayout="row" fxLayoutAlign="space-between center">
+      <div><a href="/login">Sign in instead</a></div>
+      <div><button mat-raised-button color="primary">Next</button></div>
+    </div>
+  </div>
+  <!-- <div fxHide.lt-md="true" fxShow.gt-sm="true">Hello</div> -->
+</div>
