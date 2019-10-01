@@ -1,14 +1,26 @@
 <div class="login-page" fxLayout="column" fxLayoutAlign="center center">
   <div [fxHide]="forgotButton" fxLayoutAlign="center center" fxLayout="column" ngClass.gt-xs="border-class"
     ngClass.lt-sm="no-border-class">
+    <!-- title -->
     <div class="fundoo-title-class" fxFlex="5%">Fundoo</div>
+    <!-- page description-->
     <div class="signin-text" fxFlex="5%">Sign in</div>
     <div class="use-text" fxFlex="5%">Use your Fundoo Account</div>
+    <!-- Email or phone input field -->
     <mat-form-field class="email-bar" appearance="outline">
       <mat-label>Email or phone</mat-label>
       <input matInput [formControl]="emailFormController" />
     </mat-form-field>
-    <div class="forgot-class" fxFlexLayoutAlign="start start"><a href="/forgotEmail">Forgot email?</a></div>
+    <!-- password field -->
+    <mat-form-field class="password-bar" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'" />
+      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="forgot-class" fxFlexLayoutAlign="start start"><a href="/forgotEmail">Forgot password?</a></div>
     <div class="notComputer">Not your computer? Use Guest mode to sign in privately.
       <a class="learnMore">Learn more</a>
     </div>

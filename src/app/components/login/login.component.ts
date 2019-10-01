@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   public emailFormController: FormControl;
   forgotButton:Boolean=false;
+  public hidePassword=true;
   constructor(private router:Router) {
     this.emailFormController = new FormControl('', [
       Validators.required,

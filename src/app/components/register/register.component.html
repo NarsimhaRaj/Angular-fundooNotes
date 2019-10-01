@@ -1,9 +1,9 @@
 <div class="register-page" fxLayout="row" fxLayoutAlign="center center">
-    <div fxLayoutAlign="space-around center" fxLayout.gt-sm="row" ngClass.gt-md="border-greater-than-medium" ngClass.sm="border-register">
+    <div fxLayoutAlign="space-around center" fxLayout.gt-sm="row" ngClass.gt-sm="border-greater-than-medium" ngClass.sm="border-register">
       <div fxLayout="column" fxLayoutAlign="center center" ngClass.lt-sm="no-border-register">
       <!-- title of form -->
-      <div class="fundoo-title-register common-property" fxLayoutAlign="start center" fxFlex="5%">Fundoo</div>
-      <div class="account-register common-property" fxLayoutAlign="start center" fxFlex="5%">Create your Fundoo Account
+      <div class="fundoo-title-register common-property" fxLayoutAlign="start center" >Fundoo</div>
+      <div class="account-register common-property" fxLayoutAlign="start center" >Create your Fundoo Account
       </div>
       <div fxLayout.gt-xs="row" fxLayout.lt-sm="column" class="common-property" fxLayoutAlign="space-between center">
         <!-- frist name -->
@@ -42,6 +42,7 @@
             <input matInput [type]="hide ? 'password' : 'text'">
           </mat-form-field>
         </div>
+        <!-- eye mat icon for passwords -->
         <div class="eye-icon-div" fxLayoutAlign="start start">
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide">

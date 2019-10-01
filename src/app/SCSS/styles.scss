@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; }
+
+html, body { height: 100%; }
+body { margin: 0;}
+
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+*{
+    font-family: 'Lato', sans-serif;
+}
+.mat-icon{
+    font-family: 'Material Icons' !important;
+}
+
+$commonMatWidth:88%;
+
+$fullWidth:100%;
+$fullHeight:100%;
+$positionAbsolute:absolute;
+
+@mixin page-resolution(){
+    width:100%;
+    height:100%;
+}
+@mixin border-gt-xs($width,$minWidth,$height){
+    width: $width;
+    min-width: $minWidth;
+    max-width: $fullWidth;
+    height:$height;
+    border: 1px solid darkgrey;
+    border-radius:10px;
+}
+a{
+    color: blue;
+    text-decoration: none;
+    cursor: pointer;
+}

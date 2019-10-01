@@ -1,20 +1,14 @@
+@import 'src/app/SCSS/styles';
 .login-page{
-    width:100%;
-    height:100%
+    @include page-resolution();
 }
 .border-class{
-    width: 450px;
-    min-width: 35%;
-    max-width: 100%;
-    height:31em;
-    border: 1px solid darkgrey;
-    border-radius:10px;
+    @include border-gt-xs(450px,35%,31em);
 }
 .no-border-class{
-    position: absolute;
-	margin-top:-5em;
-    width:100%;
-    height: 100%;
+    position: $positionAbsolute;
+    width:$fullWidth;
+    height: $fullHeight;
 }
 .fundoo-title-class{
     font-size:20px;
@@ -28,85 +22,22 @@
 }
 .email-bar{
     margin-top:1em;
-    width:88%;
+    width:$commonMatWidth;
+}
+.password-bar{
+    width:$commonMatWidth;
 }
 .forgot-class{
     margin-top:-1em;
-    width:88%
+    width:$commonMatWidth;
 }
 .notComputer{
     margin-top:2em;
-    width:88%;
+    width:$commonMatWidth;
     font-size:14.5px;
     color: grey;
 }
-a{
-    color: blue;
-    text-decoration: none;
-    cursor: pointer;
-}
 .further-step{
     margin-top:3em;
-    width:88%;
+    width:$commonMatWidth;
 }
-// @mixin flexFunction($direction,$justify){
-//     display: flex;
-//     justify-content: $justify;
-//     align-items: center;
-//     flex-direction: $direction
-// }
-// @mixin divFunction($direction,$justify,$width){
-//     @include flexFunction($direction,$justify);
-//     width:$width;
-// }
-// @mixin flex-me() {
-//     display: inline-flex;
-//     flex-flow: row wrap;
-//   }
-// .loginForm{
-//     @include flexFunction(column, center);
-// 	position: absolute;
-// 	top:0;
-// 	bottom: 0;
-// 	left: 0;
-// 	right: 0;
-// 	margin: auto;
-// }
-// .loginFormDiv1{
-//     @include flexFunction(column,space-around);
-//     @include flex-me();
-//     width:30%;
-//     height: 29em;
-//     border-radius: 10px;
-//     border: 1px solid #ccc;
-// }
-// .divTextClass{
-//      @include divFunction(none,space-around,100%);
-//      margin-top:-2em;
-// }
-// .create-Button-View{
-//     @include divFunction(row,none,110%);
-//     .createAccount{
-//         @include divFunction(row,start,100%);
-//         color: cornflowerblue;
-//         width:67%
-//     }
-//     .nextButton{
-//         @include divFunction(row,end,100%);
-//         width:33%
-//     }
-// }
-// .forgotDiv{
-//     //@include divFunction(row,start,none);    
-//     color: cornflowerblue;
-//     margin-left:-1.5em;
-// }
-// .email_bar{
-//     width:90%;
-// }
-// .notComputer{
-//     width:90%;
-// }
-// .learnMore{
-//  margin-left: -1em;
-// }
