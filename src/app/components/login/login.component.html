@@ -9,65 +9,29 @@
     <!-- Email or phone input field -->
     <mat-form-field class="email-bar" appearance="outline">
       <mat-label>Email or phone</mat-label>
-      <input matInput [formControl]="emailFormController" />
+      <input matInput [formControl]="emailFormController" [(ngModel)]="email"/>
     </mat-form-field>
     <!-- password field -->
     <mat-form-field class="password-bar" appearance="outline">
       <mat-label>Password</mat-label>
-      <input matInput [type]="hidePassword ? 'password' : 'text'" />
+      <input matInput [type]="hidePassword ? 'password' : 'text'" [(ngModel)]="password"/>
       <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hidePassword">
         <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
-    <div class="forgot-class" fxFlexLayoutAlign="start start"><a href="/forgotEmail">Forgot password?</a></div>
+    <div class="forgot-class" fxFlexLayoutAlign="start start"><a (click)="forgotPassword()">Forgot password?</a></div>
     <div class="notComputer">Not your computer? Use Guest mode to sign in privately.
       <a class="learnMore">Learn more</a>
     </div>
     <div class="further-step" fxLayout="row" fxLayoutAlign="space-between center">
       <div><a mat-button [matMenuTriggerFor]="menu">create account</a>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="btnClick()">For myself</button>
+          <button mat-menu-item (click)="registerPage()">For myself</button>
           <button mat-menu-item>To manage my business</button>
         </mat-menu>
       </div>
-      <div><button mat-raised-button color="primary">Next</button></div>
+      <div><button mat-raised-button color="primary" (click)="login()">Login</button></div>
     </div>
   </div>
 </div>
-
-<!-- <div class="loginForm" fxLayout="row" fxLayout.xs="row" fxLayoutAlign="space-around center">
-  <div class="loginForm">
-    <mat-card class="loginFormDiv1">
-      <mat-card-title>Fundoo</mat-card-title>
-      <mat-card-content class="divTextClass" style="font-size:1.5em">Sign in</mat-card-content>
-      <mat-card-content class="divTextClass">Use your fundoo Account</mat-card-content>
-
-      <mat-form-field class="email_bar" floatLable="auto" hideRequiredMarker appearance="outline">
-        <mat-label>Email or phone</mat-label>
-        <input matInput [formControl]="emailFormController" [(ngModel)]="email">
-        <mat-hint><button mat-button class="forgotDiv">Forgot email?</button></mat-hint>
-      </mat-form-field>
-      <mat-card-content class="notComputer">Not your computer? Use Guest mode to sign in privately. 
-        <button mat-button color="primary" class="learnMore">Learn more</button>
-      </mat-card-content>
-      <mat-card-content class="create-Button-View">
-        <div class="createAccount"><button mat-button [matMenuTriggerFor]="menu">create account</button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="btnClick()">For myself</button>
-            <button mat-menu-item>To manage my business</button>
-          </mat-menu>
-        </div>
-        <div class="nextButton"><button mat-raised-button color="primary">Next</button></div>
-      </mat-card-content>
-    </mat-card>
-    <mat-form-field>
-        <mat-label>Favorite food</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let food of 5" >
-            {{val+$index}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-  </div>
-</div> -->

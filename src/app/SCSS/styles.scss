@@ -17,8 +17,12 @@ body { margin: 0;}
 $commonMatWidth:88%;
 
 $fullWidth:100%;
+
 $fullHeight:100%;
+
 $positionAbsolute:absolute;
+
+$overflowAuto:auto;
 
 @mixin page-resolution(){
     width:100%;

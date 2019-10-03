@@ -11,6 +11,7 @@
     position: $positionAbsolute;
     width:$fullWidth;
     height: $fullHeight;
+    overflow: $overflowAuto;
 }
 .border-register{
     @include border-gt-xs(450px,50%,35em);
