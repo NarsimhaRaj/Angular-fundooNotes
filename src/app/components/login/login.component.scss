@@ -20,13 +20,14 @@
 }
 .use-text{
     margin-top: 0.5em;
+    margin-bottom: 1em;
 }
 .email-bar{
-    margin-top:1em;
-    width:$commonMatWidth;
+    // margin-top:1em;
+    width:$fullWidth;
 }
 .password-bar{
-    width:$commonMatWidth;
+    width:$fullWidth;
 }
 .forgot-class{
     margin-top:-1em;
@@ -40,5 +41,9 @@
 }
 .further-step{
     margin-top:3em;
+    width:$commonMatWidth;
+}
+
+.form-width{
     width:$commonMatWidth;
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/httpServices/http.service';
 
@@ -11,33 +11,34 @@ import { HttpService } from 'src/app/services/httpServices/http.service';
 })
 export class LoginComponent implements OnInit {
 
-  //login details
-  email:String;
-  password:any;
+  loginFormGroup: FormGroup;
+  hidePassword = true;
 
-  emailFormController: FormControl;
-  forgotButton:Boolean=false;
-  hidePassword=true;
+  constructor(private router: Router, private formBuilder: FormBuilder, private svc: HttpService) {
   
-  constructor(private router:Router,private svc:HttpService) {
-    this.emailFormController = new FormControl('', [
-      Validators.required,
-      Validators.email
-    ]);
+    this.loginFormGroup = this.formBuilder.group({
+      "email": new FormControl('', [
+        Validators.email
+      ]),
+      "password": new FormControl('', [
+        Validators.minLength(8)
+      ])
+    })
   }
-  login(){
-    var loginData={email:this.email,password:this.password}
-    this.svc.login(loginData).subscribe((response)=>{console.log(response)});
+
+  login() {
+    var loginData = { email: this.loginFormGroup.get("email").value, password: this.loginFormGroup.get("password").value }
+    this.svc.login(loginData).subscribe((response) => { console.log("successfully loggedin");console.log(response) });
   }
-  registerPage():void {
+
+  registerPage(): void {
     this.router.navigateByUrl("/register");
-  };
-  forgotPassword(){
+  }
+
+  forgotPassword() {
     this.router.navigateByUrl("/forgotPassword")
   }
-  forgotEmailToggle(){
-    this.forgotButton=!this.forgotButton;
-  }
+
   ngOnInit() {
 
   }
