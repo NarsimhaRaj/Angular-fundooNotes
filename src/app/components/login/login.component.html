@@ -26,12 +26,7 @@
       <a class="learnMore">Learn more</a>
     </div>
     <div class="further-step" fxLayout="row" fxLayoutAlign="space-between center">
-      <div><a mat-button [matMenuTriggerFor]="menu">create account</a>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="registerPage()">For myself</button>
-          <button mat-menu-item>To manage my business</button>
-        </mat-menu>
-      </div>
+      <div><a mat-button (click)="registerPage()">create account</a></div>
       <div><button mat-raised-button color="primary" (click)="login()">Login</button></div>
     </div>
   </div>

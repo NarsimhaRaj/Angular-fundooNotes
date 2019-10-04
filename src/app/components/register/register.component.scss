@@ -23,7 +23,7 @@
     font-size:24px;
 }
 .account-register{
-    margin-bottom:1em;
+    margin-bottom:0.5em;
     font-size:24px;
 }
 .first-last-name{
@@ -52,13 +52,22 @@
     height:$fullHeight;
 }
 .register-further-step{
-    margin-top:3em;
+    margin-top:0.8em;
     width:$commonMatWidth;
 }
 .form-width{
     width:$commonMatWidth;
+    .inside-form{
+        width:$fullWidth;
+    }
 }
-
+.select-menu-gt-xs{
+    margin-top: 1em;
+    width:$fullWidth;
+}
+.select-menu-lt-sm{
+    width:$fullWidth;
+}
 ::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding: 0.4em 0px !important;}
 ::ng-deep .mat-form-field-label-wrapper { top: -1.5em; }
 

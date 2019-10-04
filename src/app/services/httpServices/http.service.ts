@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,18 @@ export class HttpService {
 
   constructor(private http:HttpClient) { }
   getData(){
-    return this.http.get("http://fundoonotes.incubation.bridgelabz.com/api/user");
+    return this.http.get(environment.baseDomainUrl+"/user");
   }
   login(data){
-    return this.http.post("http://fundoonotes.incubation.bridgelabz.com/api/user/login",data);
+    return this.http.post(environment.baseDomainUrl+"/user/login",data);
   }
   register(data){
-    return this.http.post("http://fundoonotes.incubation.bridgelabz.com/api/user/userSignUp",data);
+    return this.http.post(environment.baseDomainUrl+"/user/userSignUp",data);
+  }
+  forgotPassword(data){
+    return this.http.post(environment.baseDomainUrl+"/user/reset",data);
+  }
+  resetPassword(passwordData,token){
+    return this.http.post(environment.baseDomainUrl+"/user/reset-password",passwordData,{headers:{'access_token':token}});
   }
 }

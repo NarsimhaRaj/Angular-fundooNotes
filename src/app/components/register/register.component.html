@@ -7,7 +7,7 @@
       <div class="account-register common-property" fxLayoutAlign="start center">Create your Fundoo Account
       </div>
       <form class="form-width" fxLayout="column" [formGroup]="registerFormGroup">
-        <div fxLayout.gt-xs="row" fxLayout.lt-sm="column" class="common-property" fxLayoutAlign="space-between center">
+        <div fxLayout.gt-xs="row" fxLayout.lt-sm="column" class="inside-form" fxLayoutAlign="space-between center">
           <!-- frist name -->
           <mat-form-field ngClass.gt-xs="first-last-name" ngClass.lt-sm="first-last-name-sm" appearance="outline">
             <mat-label>First name</mat-label>
@@ -20,17 +20,15 @@
           </mat-form-field>
         </div>
         <!-- Username -->
-        <mat-form-field class="common-property" appearance="outline">
+        <mat-form-field class="inside-form" appearance="outline">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email" />
           <mat-hint fxLayoutAlign="start center">you can use letters, numbers & periods</mat-hint>
         </mat-form-field>
-        <!-- to use existed email address -->
-        <div fxLayoutAlign="start center" class="common-property margin"><a href="">Use my current email address
-            instead</a>
-        </div>
-        <!-- password field -->
-        <div fxLayout="row" class="common-property" fxLayoutAlign="space-around start">
+      </form>
+      <!-- password field -->
+      <form class="form-width" fxLayout="column" [formGroup]="registerFormGroup">
+        <div fxLayout="row" class="inside-form" fxLayoutAlign="space-around start" formGroupName="passwordFormGroup">
           <div class="password-div" fxLayout.lt-sm="column" fxLayout.gt-xs="row" fxLayoutAlign="space-between center">
             <mat-form-field ngClass.gt-xs="password-gt-xs" ngClass.lt-sm="password-lt-sm" appearance="outline">
               <mat-label>Password</mat-label>
@@ -43,6 +41,10 @@
             <mat-form-field ngClass.gt-xs="password-gt-xs" ngClass.lt-sm="password-lt-sm" appearance="outline">
               <mat-label>Confirm</mat-label>
               <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" />
+              <mat-error
+                *ngIf="registerFormGroup.controls.passwordFormGroup.get('confirmPassword').hasError('mismatch')">
+                passwords misMatch;
+              </mat-error>
             </mat-form-field>
           </div>
           <!-- eye mat icon for passwords -->
@@ -56,10 +58,26 @@
       </form>
       <mat-hint class="common-property" fxHide.lt-sm="true">Use 8 or more characters with a mix of letters, numbers &
         symbols</mat-hint>
+      <!-- service -->
+      <form class="form-width" [formGroup]="registerFormGroup">
+        <div class="inside-form">
+          <mat-form-field ngClass.lt-sm="select-menu-lt-sm" ngClass.gt-xs="select-menu-gt-xs">
+            <mat-label>Service</mat-label>
+            <mat-select formControlName="service">
+              <mat-option value="Basic">
+                Basic
+              </mat-option>
+              <mat-option value="Advance">
+                Advance
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
       <!-- next or sign in buttons -->
       <div class="register-further-step common-property" fxLayout="row" fxLayoutAlign="space-between center">
         <div><a href="/login">Sign in instead</a></div>
-        <div><button mat-raised-button color="primary" (click)="register()">Next</button></div>
+        <div><button mat-raised-button color="primary" (click)="register()">Sign Up</button></div>
       </div>
     </div>
     <div fxHide.lt-md="true" fxShow.gt-sm="true">
