@@ -17,7 +17,6 @@ import { HttpService } from './services/httpServices/http.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { HeaderComponent } from './components/dashboard/header/header.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +25,7 @@ import { HeaderComponent } from './components/dashboard/header/header.component'
     RegisterComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    DashboardComponent,
-    HeaderComponent
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
