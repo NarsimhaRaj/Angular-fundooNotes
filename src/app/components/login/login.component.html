@@ -1,17 +1,27 @@
 <div class="login-page" fxLayout="column" fxLayoutAlign="center center">
   <div fxLayoutAlign="center center" fxLayout="column" ngClass.gt-xs="border-class" ngClass.lt-sm="no-border-class">
+
     <!-- title -->
     <div class="fundoo-title-class">Fundoo</div>
+
     <!-- page description-->
+  
     <div class="signin-text">Sign in</div>
     <div class="use-text">Use your Fundoo Account</div>
+  
     <!-- Email or phone input field -->
+  
     <form class="form-width" fxLayout="column" [formGroup]="loginFormGroup">
+      
+      <!-- email or phone field -->
+      
       <mat-form-field class="email-bar" appearance="outline">
         <mat-label>Email or phone</mat-label>
         <input matInput formControlName="email" />
       </mat-form-field>
+      
       <!-- password field -->
+  
       <mat-form-field class="password-bar" appearance="outline">
         <mat-label>Password</mat-label>
         <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"/>
@@ -20,14 +30,18 @@
           <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
+
     </form>
+  
     <div class="forgot-class" fxFlexLayoutAlign="start start"><a (click)="forgotPassword()">Forgot password?</a></div>
     <div class="notComputer">Not your computer? Use Guest mode to sign in privately.
       <a class="learnMore">Learn more</a>
     </div>
+
     <div class="further-step" fxLayout="row" fxLayoutAlign="space-between center">
       <div><a mat-button (click)="registerPage()">create account</a></div>
       <div><button mat-raised-button color="primary" (click)="login()">Login</button></div>
     </div>
+
   </div>
 </div>

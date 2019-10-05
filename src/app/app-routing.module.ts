@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Route[] = [
   { path: '', redirectTo: "/login", pathMatch: 'full' },
@@ -12,6 +13,7 @@ const routes: Route[] = [
   { path: 'register', component: RegisterComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'resetpassword/:token', component: ResetPasswordComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: '**', redirectTo: "/login" }
 ];
 

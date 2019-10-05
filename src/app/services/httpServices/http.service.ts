@@ -7,20 +7,23 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class HttpService {
 
-  constructor(private http:HttpClient) { }
-  getData(){
-    return this.http.get(environment.baseDomainUrl+"/user");
+  constructor(private http: HttpClient) { }
+  getData() {
+    return this.http.get(environment.baseDomainUrl + "/user");
   }
-  login(data){
-    return this.http.post(environment.baseDomainUrl+"/user/login",data);
+  login(data) {
+    return this.http.post(environment.baseDomainUrl + "/user/login", data);
   }
-  register(data){
-    return this.http.post(environment.baseDomainUrl+"/user/userSignUp",data);
+  register(data) {
+    return this.http.post(environment.baseDomainUrl + "/user/userSignUp", data);
   }
-  forgotPassword(data){
-    return this.http.post(environment.baseDomainUrl+"/user/reset",data);
+  forgotPassword(data) {
+    return this.http.post(environment.baseDomainUrl + "/user/reset", data);
   }
-  resetPassword(passwordData,token){
-    return this.http.post(environment.baseDomainUrl+"/user/reset-password",passwordData,{headers:{'access_token':token}});
+  resetPassword(passwordData, token) {
+    let headersOptions = new HttpHeaders({
+      "Authorization": token
+    });
+    return this.http.post(environment.baseDomainUrl + "/user/reset-password", passwordData, { headers:headersOptions});
   }
 }

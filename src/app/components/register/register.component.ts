@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms'
-import { HttpService } from 'src/app/services/httpServices/http.service';
+import { UserService } from 'src/app/services/userServices/user.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from "@angular/router";
 
@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
   passwordFormGroup: FormGroup;
   hide: Boolean = true;
 
-  constructor(private httpService: HttpService,private snackBar:MatSnackBar,private route:Router) 
+  constructor(private userService: UserService,private snackBar:MatSnackBar,private route:Router) 
   {
     this.registerFormGroup = new FormGroup({
       email: new FormControl('', [Validators.email, Validators.required]),
@@ -38,26 +38,30 @@ export class RegisterComponent implements OnInit {
   }
   //register new user to database
   register() {
+  
     if (this.registerFormGroup.valid) {
+  
       var newUser = {
-
         firstName: this.registerFormGroup.get("firstName").value,
         lastName: this.registerFormGroup.get("lastName").value,
         email: this.registerFormGroup.get("email").value,
         password: this.registerFormGroup.get("passwordFormGroup").get("password").value,
-        // confirmPassword:this.passwordFormGroup.get("confirmPassword").value,
         service: this.registerFormGroup.get("service").value
-        // service:this.registerFormGroup.get("service").value
       }
-      this.httpService.register(newUser).subscribe((response:any) => {
+
+      this.userService.register(newUser).subscribe((response:any) => {
         this.snackBar.open(response.message,undefined,{duration:2000})
         this.route.navigateByUrl('/login');
       },(error)=>{
         this.snackBar.open(error.message,undefined,{duration:2000});
         this.registerFormGroup.reset();
       });
-    } else {
+
+    } 
+    else {
+      
       this.snackBar.open("Invalid Details Entered, Register again ",undefined,{duration:2000});
+    
     }
   }
 
