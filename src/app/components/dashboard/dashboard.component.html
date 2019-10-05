@@ -1,11 +1,45 @@
-<div class="dashboard">
-  <div class="header" fxLayoutAlign="center center" fxLayout="row">
-    <div>
-      <mat-form-field class="search-bar" appearance="outline">
-        <mat-icon>search</mat-icon>
-        <mat-label>Search</mat-label>
-        <input matInput type="search" />
-      </mat-form-field>
+<div class="dashboard" fxLayoutAlign="space-around center" fxLayout="column">
+  <div class="header" fxLayoutAlign="space-around center" fxLayout="row">
+    <div fxLayoutAlign="center center">
+      <mat-icon (click)="drawer.toggle(); hideSideNav=!hideSideNav">menu</mat-icon>
     </div>
+    <div fxLayoutAlign="center center">
+      Notes
+    </div>
+    <div class="search-div" fxLayoutAlign="space-between center" fxLayout="row">
+      <mat-form-field class="search-bar" appearance="standard">
+        <span matPrefix>
+          <button mat-button>
+              <mat-icon>search</mat-icon>
+          </button>
+        </span>
+        <mat-label fxHide.lt-sm="true">Search</mat-label>
+        <input fxHide.lt-sm="true" matInput type="search" />
+      </mat-form-field>
+      <div fxLayout="row" class="mat-icons-div" fxLayoutAlign="space-around center">
+          <div><mat-icon>refresh</mat-icon></div>
+          <div fxHide.lt-sm="true"><mat-icon>list</mat-icon></div>
+          <div><mat-icon>settings</mat-icon></div>
+      </div>
+      <div>
+          <button mat-mini-fab color="primary">N</button>
+      </div>
+    </div>
+    
+  </div>
+  <div style="width:100%;height:88%" fxlayout="row" fxLayoutAlign="start center">
+    <div [fxHide]="hideSideNav" ngClass.gt-xs="sidenav-div-gt-xs" ngClass.lt-sm="sidenav-div-lt-sm">
+      <mat-drawer-container class="container" autosize>
+        <mat-drawer #drawer class="sidenav" mode="side">
+          <p>Auto-resizing sidenav</p>
+        </mat-drawer>
+      </mat-drawer-container>
+    </div>
+    <div style="height:100%;width:100%;background: grey;z-index:1;">
+    <div>
+
+    </div>
+    </div>
+
   </div>
 </div>
