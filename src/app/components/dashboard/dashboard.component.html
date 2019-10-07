@@ -1,45 +1,58 @@
-<div class="dashboard" fxLayoutAlign="space-around center" fxLayout="column">
-  <div class="header" fxLayoutAlign="space-around center" fxLayout="row">
-    <div fxLayoutAlign="center center">
-      <mat-icon (click)="drawer.toggle(); hideSideNav=!hideSideNav">menu</mat-icon>
-    </div>
-    <div fxLayoutAlign="center center">
-      Notes
-    </div>
-    <div class="search-div" fxLayoutAlign="space-between center" fxLayout="row">
-      <mat-form-field class="search-bar" appearance="standard">
-        <span matPrefix>
-          <button mat-button>
-              <mat-icon>search</mat-icon>
-          </button>
-        </span>
-        <mat-label fxHide.lt-sm="true">Search</mat-label>
-        <input fxHide.lt-sm="true" matInput type="search" />
-      </mat-form-field>
-      <div fxLayout="row" class="mat-icons-div" fxLayoutAlign="space-around center">
-          <div><mat-icon>refresh</mat-icon></div>
-          <div fxHide.lt-sm="true"><mat-icon>list</mat-icon></div>
-          <div><mat-icon>settings</mat-icon></div>
-      </div>
-      <div>
-          <button mat-mini-fab color="primary">N</button>
-      </div>
+<!-- <div class="dashboard" fxLayoutAlign="space-around center" fxLayout="column"> -->
+  <div class="header" fxLayout="row">
+
+    <!-- menu icon -->
+    <div ngClass.lt-sm="menu-notes-lt-xs" ngClass.gt-xs="menu-notes-gt-xs" fxLayoutAlign="start center" fxLayout="row">
+      <div class="menu-div" fxLayoutAlign="center center"><mat-icon (click)="drawer.toggle()">menu</mat-icon></div>
+      <div class="notes-div" fxLayoutAlign="center center"><mat-icon fxHide.lt-sm="true">turned_in_not</mat-icon><h4>Notes</h4></div>
     </div>
     
-  </div>
-  <div style="width:100%;height:88%" fxlayout="row" fxLayoutAlign="start center">
-    <div [fxHide]="hideSideNav" ngClass.gt-xs="sidenav-div-gt-xs" ngClass.lt-sm="sidenav-div-lt-sm">
-      <mat-drawer-container class="container" autosize>
-        <mat-drawer #drawer class="sidenav" mode="side">
-          <p>Auto-resizing sidenav</p>
-        </mat-drawer>
-      </mat-drawer-container>
+    <!-- search box -->
+    <div fxHide.lt-sm="true" class="search-div" fxLayoutAlign.lt-sm="center center" fxLayoutAlign.gt-xs="center center"
+      fxLayout="row">
+      <mat-form-field class="search-bar" appearance="outline">
+        <span matPrefix><mat-icon>search</mat-icon></span>
+        <mat-label>Search</mat-label>
+        <input matInput type="search" />
+      </mat-form-field>
     </div>
-    <div style="height:100%;width:100%;background: grey;z-index:1;">
-    <div>
+    
+    <!-- mat icons -->
+    <div fxLayout="row" ngClass.lt-sm="mat-icons-lt-sm" ngClass="mat-icons-gt-xs" fxLayoutAlign="space-around center">
+      <div><button mat-mini-fab color="" fxHide.gt-xs="true"><mat-icon>search</mat-icon></button></div>
+      <div><mat-icon>refresh</mat-icon></div>
+      <div fxHide.lt-sm="true"><mat-icon>list</mat-icon></div>
+      <div><mat-icon>settings</mat-icon></div>
+    </div>
+    
+    <!-- account icon -->
+    <div class="account-div" fxLayoutAlign="center center">
+      <button mat-mini-fab color="primary">N</button>
+    </div>
 
-    </div>
-    </div>
-
   </div>
-</div>
+  
+  <!-- mat drawer sidenav -->
+  <mat-sidenav-container class="container" >
+      <mat-sidenav #drawer ngClass.gt-xs="sidenav-gt-xs" ngClass.lt-sm="sidenav-lt-sm" mode="side">
+        <div><mat-icon>turned_in_not</mat-icon>Notes</div>
+        <div><mat-icon>notifications_none</mat-icon>Remainders</div>
+          <hr/>
+          <div>
+            <mat-label>labels</mat-label>
+            <div>
+              <mat-icon>edit</mat-icon><button mat-button>EditLables</button>
+            </div>
+          </div>
+          <hr>
+          <div>
+            <div><mat-icon>archive</mat-icon><button mat-button>Archive</button></div>
+            <div><mat-icon>restore_from_trash</mat-icon><button mat-button>Trash</button></div>
+          </div>
+      </mat-sidenav>
+    <mat-sidenav-content>
+
+    </mat-sidenav-content>
+    </mat-sidenav-container>
+    
+<!-- </div> -->
