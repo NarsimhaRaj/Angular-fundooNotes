@@ -1,58 +1,78 @@
-<!-- <div class="dashboard" fxLayoutAlign="space-around center" fxLayout="column"> -->
-  <div class="header" fxLayout="row">
+<mat-toolbar fxLayoutAlign="start center" class="toolbar-class">
+  <div ngClass.gt-xs="menu-notes-gt-xs" ngClass.lt-sm="menu-notes-lt-sm" fxLayoutAlign="start center">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+          <!-- *ngIf="isHandset$ | async" -->
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <mat-icon fxHide.lt-sm="true">turned_in_not</mat-icon>
+        <h3>Notes</h3>
+  </div>
 
-    <!-- menu icon -->
-    <div ngClass.lt-sm="menu-notes-lt-xs" ngClass.gt-xs="menu-notes-gt-xs" fxLayoutAlign="start center" fxLayout="row">
-      <div class="menu-div" fxLayoutAlign="center center"><mat-icon (click)="drawer.toggle()">menu</mat-icon></div>
-      <div class="notes-div" fxLayoutAlign="center center"><mat-icon fxHide.lt-sm="true">turned_in_not</mat-icon><h4>Notes</h4></div>
-    </div>
-    
-    <!-- search box -->
-    <div fxHide.lt-sm="true" class="search-div" fxLayoutAlign.lt-sm="center center" fxLayoutAlign.gt-xs="center center"
-      fxLayout="row">
-      <mat-form-field class="search-bar" appearance="outline">
-        <span matPrefix><mat-icon>search</mat-icon></span>
-        <mat-label>Search</mat-label>
-        <input matInput type="search" />
+  <!-- mat search box -->
+  <div fxHide.lt-sm="true" fxLayoutAlign="start center" fxLayout="row" ngClass.gt-xs="search-toolbar-div-gt-xs">
+    <div fxHide.lt-sm="true" class="search-div" fxLayoutAlign="center center">
+      <mat-form-field class="search-bar" appearance="fill legacy">
+        <span matPrefix><button mat-icon-button><mat-icon >search</mat-icon></button></span>
+        <input matInput type="search" placeholder="Search"/>
       </mat-form-field>
     </div>
-    
-    <!-- mat icons -->
-    <div fxLayout="row" ngClass.lt-sm="mat-icons-lt-sm" ngClass="mat-icons-gt-xs" fxLayoutAlign="space-around center">
-      <div><button mat-mini-fab color="" fxHide.gt-xs="true"><mat-icon>search</mat-icon></button></div>
-      <div><mat-icon>refresh</mat-icon></div>
-      <div fxHide.lt-sm="true"><mat-icon>list</mat-icon></div>
-      <div><mat-icon>settings</mat-icon></div>
-    </div>
-    
-    <!-- account icon -->
-    <div class="account-div" fxLayoutAlign="center center">
-      <button mat-mini-fab color="primary">N</button>
-    </div>
-
   </div>
-  
-  <!-- mat drawer sidenav -->
-  <mat-sidenav-container class="container" >
-      <mat-sidenav #drawer ngClass.gt-xs="sidenav-gt-xs" ngClass.lt-sm="sidenav-lt-sm" mode="side">
-        <div><mat-icon>turned_in_not</mat-icon>Notes</div>
-        <div><mat-icon>notifications_none</mat-icon>Remainders</div>
-          <hr/>
-          <div>
-            <mat-label>labels</mat-label>
-            <div>
-              <mat-icon>edit</mat-icon><button mat-button>EditLables</button>
-            </div>
-          </div>
-          <hr>
-          <div>
-            <div><mat-icon>archive</mat-icon><button mat-button>Archive</button></div>
-            <div><mat-icon>restore_from_trash</mat-icon><button mat-button>Trash</button></div>
-          </div>
-      </mat-sidenav>
-    <mat-sidenav-content>
-
-    </mat-sidenav-content>
-    </mat-sidenav-container>
+    <!-- mat icons -->
+    <div fxLayout="row" class="mat-icon-class" fxLayoutAlign="space-around center">
+      <div fxLayoutAlign="center center"><button mat-icon-button color="" fxHide.gt-xs="true"><mat-icon>search</mat-icon></button></div>
+      <div fxLayoutAlign="center center"><mat-icon>refresh</mat-icon></div>
+      <div fxLayoutAlign="center center" fxHide.lt-sm="true"><mat-icon>list</mat-icon></div>
+      <div fxLayoutAlign="center center"><mat-icon>settings</mat-icon></div>
+    </div>
     
-<!-- </div> -->
+    <!-- account icon --> 
+  
+  <div class="account-div" fxLayoutAlign="end center">
+      <button mat-mini-fab color="primary">N</button>
+  </div>
+
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
+    <mat-nav-list class="mat-nav-list">
+     
+      <!-- notes -->
+     <mat-list-item >
+        <mat-icon>turned_in_not</mat-icon><span style="margin-left:2em">Notes</span>
+     </mat-list-item>
+
+      <!-- remainders -->
+      <mat-list-item >
+          <div><mat-icon>notifications_none</mat-icon></div><div style="margin-left:2em">Remainders</div>
+      </mat-list-item>
+     
+      <!-- divider line -->
+      <mat-divider></mat-divider>
+     
+      <!-- label line -->
+      <mat-list-item>labels</mat-list-item>
+      
+      <!-- editlabel -->
+      <mat-list-item >
+        <mat-icon>edit</mat-icon><div style="margin-left:2em">EditLables</div>
+      </mat-list-item>
+      
+      <mat-divider></mat-divider>
+      
+      <mat-list-item >
+        <mat-icon>archive</mat-icon><div style="margin-left:2em">Archive</div>
+      </mat-list-item>
+
+      <mat-list-item >
+        <mat-icon>restore_from_trash</mat-icon><div style="margin-left:2em" >Trash</div>
+      </mat-list-item>
+
+    </mat-nav-list> 
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+    <!-- Add Content Here -->
+  </mat-sidenav-content>
+</mat-sidenav-container>

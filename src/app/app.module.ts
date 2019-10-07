@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule, MatListModule, MatButtonModule } from '@angular/material'
+import { MatInputModule, MatListModule, MatButtonModule, MatToolbarModule } from '@angular/material'
 import { MatMenuModule, MatOptionModule, MatSelectModule } from '@angular/material'
 import { MatFormFieldModule, MatIconModule, MatSnackBarModule, MatSidenavModule } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,6 +17,7 @@ import { HttpService } from './services/httpServices/http.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -40,11 +41,13 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     MatSelectModule,
     MatSnackBarModule,
     MatSidenavModule,
+    MatToolbarModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    LayoutModule
   ],
   providers: [UserService, HttpService],
   bootstrap: [AppComponent]
