@@ -1,5 +1,7 @@
 @import 'src/app/SCSS/styles';
 
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
+
 .sidenav-container {
   height: 88%;
   
@@ -28,7 +30,7 @@
 //   }
 // }
 .menu-notes-gt-xs{
-  width:40%;
+  width:28%;
   min-width:150px;
 }
 .menu-notes-lt-sm{
@@ -43,7 +45,7 @@
 }
 
 .search-div{
-  width:100%;
+  width:88%;
   height:45px;
   border-radius: 10px;
   border: 1px solid grey;
@@ -58,12 +60,6 @@
     background-color: white;
     color: black;
   }
-}
-.mat-icons-lt-sm{
-  width:30%;
-}
-.mat-icons-gt-xs{
-  width:20%;
 }
 
 .mat-icon-account-gt-xs{

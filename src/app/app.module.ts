@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     ReactiveFormsModule,
     FlexLayoutModule,
     HttpClientModule,
-    LayoutModule
+    LayoutModule,
+    ClickOutsideModule
   ],
   providers: [UserService, HttpService],
   bootstrap: [AppComponent]

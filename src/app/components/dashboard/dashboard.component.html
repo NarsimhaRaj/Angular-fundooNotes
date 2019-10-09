@@ -1,20 +1,11 @@
 <mat-toolbar fxLayoutAlign.gt-xs="start center" fxLayoutAlign.lt-sm="space-between center" class="toolbar-class">
-  <div [fxHide]="search_button" ngClass.gt-xs="menu-notes-gt-xs" ngClass.lt-sm="menu-notes-lt-sm" fxLayoutAlign="start center">
+  <div ngClass.gt-xs="menu-notes-gt-xs" ngClass.lt-sm="menu-notes-lt-sm" fxLayoutAlign="start center">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
           <!-- *ngIf="isHandset$ | async" -->
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <mat-icon fxHide.lt-sm="true">turned_in_not</mat-icon>
         <h3>Notes</h3>
-  </div>
-
-  <div [fxHide]="!search_button">
-    <div class="search-div-lt-sm" fxLayoutAlign="start center">
-      <mat-form-field class="search-bar-lt-sm" appearance="fill legacy">
-        <span matPrefix><button mat-icon-button><mat-icon >search</mat-icon></button></span>
-        <input matInput type="search" placeholder="Search"/>
-      </mat-form-field>
-    </div>
   </div>
 
   <!-- mat search box -->
@@ -29,16 +20,13 @@
   
   <div fxLayout="row" fxLayoutAlign="end center" ngClass.gt-xs="mat-icon-account-gt-xs" ngClass.lt-sm="mat-icon-account-lt-sm">
 
-    <!-- search button -->
-      <div fxLayoutAlign="center center">
-          <button mat-icon-button color="" fxHide.gt-xs="true" (click)="search_button=!search_button">
+    <!-- mat icons -->
+    <div fxLayout="row" class="mat-icon-class" fxLayoutAlign="space-around center">
+        <div fxLayoutAlign="center center">
+          <button mat-icon-button color="" fxHide.gt-xs="true">
             <mat-icon matTooltip="Search">search</mat-icon>
           </button>
         </div>
-
-    <!-- mat icons -->
-    <div fxLayout="row" class="mat-icon-class" fxLayoutAlign="space-around center">
-        
         <div fxLayoutAlign="center center"><mat-icon matTooltip="refresh">refresh</mat-icon></div>
         <div fxLayoutAlign="center center" fxHide.lt-sm="true" matTooltip="List view"><mat-icon>list</mat-icon></div>
         <div fxLayoutAlign="center center"><mat-icon matTooltip="settings">settings</mat-icon></div>
@@ -110,7 +98,7 @@
     </mat-card>
 
     <!-- mat card expanded panel -->
-    <mat-card [fxHide]="!panelOpenState" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm">
+    <mat-card [fxHide]="!panelOpenState" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" (clickOutside)="onClickedOutside($event)" >
        
       <!-- mat card title -->
       <mat-card-title fxLayoutAlign="space-between center" style="margin-top:-0.5em;">
@@ -118,7 +106,8 @@
             <input matInput type="text" placeholder="Title"/>
         </div>
         <div style="width:20%;" fxLayoutAlign="end center" >
-            <button mat-icon-button color="" (click)="pinned()" ><mat-icon>fiber_pin</mat-icon></button>
+          <button mat-button color="" (click)="unpin=!unpin" [fxHide]="!unpin" >unpin</button>
+          <button mat-button color="" (click)="pinned(); unpin=!unpin" [fxHide]="unpin" >pin</button>
         </div>
         
       </mat-card-title>
@@ -141,7 +130,7 @@
         </div>
         
         <div class="footer-close-button-div" fxLayoutAlign="end center">
-            <button mat-button (click)="panelOpenState=!panelOpenState">Close</button>
+            <button mat-button (click)="panelOpenState=!panelOpenState;">Close</button>
         </div>
 
       </mat-card-footer>

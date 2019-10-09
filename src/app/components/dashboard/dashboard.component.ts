@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { Component, NgZone } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -11,8 +11,11 @@ import { map } from 'rxjs/operators';
 export class DashboardComponent {
 
   search_button:Boolean=false;
+  clickOutside:Boolean=false;
+  panelOpenState:Boolean = false;
 
   pin:Boolean=false;
+  unpin:Boolean=false;
   checkbox:Boolean=false;
   
 
@@ -21,12 +24,16 @@ export class DashboardComponent {
       map(result => result.matches)
     );
 
-  panelOpenState:Boolean = false;
+  
   
   constructor(private breakpointObserver: BreakpointObserver) {
     // console.log(this.pin);
   }
   pinned(){
     this.pin=!this.pin;
+  }
+
+  onClickedOutside(e: Event) {
+    this.panelOpenState=!this.panelOpenState;
   }
 }
