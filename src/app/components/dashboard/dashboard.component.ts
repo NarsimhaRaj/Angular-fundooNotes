@@ -10,12 +10,23 @@ import { map } from 'rxjs/operators';
 })
 export class DashboardComponent {
 
+  search_button:Boolean=false;
+
+  pin:Boolean=false;
+  checkbox:Boolean=false;
+  
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
-    
-  constructor(private breakpointObserver: BreakpointObserver) {}
 
+  panelOpenState:Boolean = false;
   
+  constructor(private breakpointObserver: BreakpointObserver) {
+    // console.log(this.pin);
   }
+  pinned(){
+    this.pin=!this.pin;
+  }
+}

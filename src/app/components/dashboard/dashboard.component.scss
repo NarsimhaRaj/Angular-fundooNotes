@@ -28,24 +28,18 @@
 //   }
 // }
 .menu-notes-gt-xs{
-  width:240px;
-  max-width:100%;
-  min-width:240px;
+  width:40%;
+  min-width:150px;
 }
 .menu-notes-lt-sm{
-  width:40%;
-  max-width:100%;
+  width:30%;
   min-width:30%;
 }
 .search-toolbar-div-gt-xs{
-  width:85%;
+  width:100%;
 }
 .sidenav {
   width: 300px;
-}
-
-@media only screen and (max-width: 751px) {
-  
 }
 
 .search-div{
@@ -53,12 +47,17 @@
   height:45px;
   border-radius: 10px;
   border: 1px solid grey;
+
 }
 
 .search-bar{
   margin-top: -2.1em;
   width:100%;
   height: 100%;
+  &:focus{
+    background-color: white;
+    color: black;
+  }
 }
 .mat-icons-lt-sm{
   width:30%;
@@ -67,24 +66,89 @@
   width:20%;
 }
 
-.mat-icon-class{
+.mat-icon-account-gt-xs{
   width:30%;
+}
+.mat-icon-account-lt-sm{
+  width:50%;
+}
+
+.mat-icon-class{
   max-width:150px;
   min-width:150px;
 }
 
 .account-div{
-  width:20%;
+  width:40%;
 }
 
 .mat-nav-list{
   width:100%;
   mat-list-item{
     width:100%;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px; 
+    &:hover{
+      background-color: lightgray;
+    }
+    &:focus{
+      background-color: rgb(228, 184, 103);
+    }
+    &:active{
+      background-color: rgb(228, 184, 103);
+    }
   }
   
 }
 
+mat-sidenav-content{
+  margin-top:2em;
+}
+.mat-card-lt-sm{
+  width:80%;
+  min-width: 310px;
+  // max-width: 80%;
+  border-radius:10px;
+}
+
+.mat-card-gt-xs{
+  // width:60%;
+  max-width: 550px;
+  min-width:550px;
+  border-radius:10px;
+}
+
+.mat-card-footer{
+  margin-top:0.5em;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  .footer-icons-div{
+    width:70%;
+  } 
+  .footer-close-button-div{
+    width:20%;
+  }
+}
+@media screen and (max-width: 520px) {
+  .mat-card-footer{
+    margin-top:0.5em; 
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    width:100%;
+    .footer-icons-div{
+      width:100%;
+      justify-content: start;
+    } 
+    .footer-close-button-div{
+      width:100%;
+      justify-content: end;
+    }
+  }
+
+}
 
 // ::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding: 0.4em 0px !important;}
 // ::ng-deep .mat-form-field-label-wrapper { top: -1.5em; }
@@ -94,5 +158,5 @@
 //     width: 133.33333%;
 // }
 ::ng-deep .mat-form-field-prefix{
-    transform: translateY(1em)
+    transform: translateY(0.8em);
 }
