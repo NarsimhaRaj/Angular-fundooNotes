@@ -19,6 +19,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { NotesComponent } from './components/notes/notes.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ClickOutsideModule } from 'ng-click-outside';
     RegisterComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    DashboardComponent
+    DashboardComponent,
+    NotesComponent
   ],
   imports: [
     BrowserModule,

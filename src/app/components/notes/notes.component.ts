@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { UserService } from 'src/app/services/userServices/user.service';
 
 @Component({
@@ -6,11 +6,15 @@ import { UserService } from 'src/app/services/userServices/user.service';
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss']
 })
-export class NotesComponent implements OnInit {
+export class NotesComponent implements OnInit,OnChanges {
 
   notesList:any;
 
   constructor(private userServices: UserService) { }
+
+  ngOnChanges(){
+    
+  }
 
   ngOnInit() {
     this.userServices.getNotesList().subscribe((response:any)=>{

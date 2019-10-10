@@ -1,4 +1,4 @@
-<div gdGribAlign=" 3 5 " fxLayout.gt-xs="row" fxLayout.lt-sm="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+<div style="display: table-cell;" fxLayout.gt-xs="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start start" fxLayoutGap="10px">
 
   <div *ngFor="let note of notesList.reverse()">
     <mat-card>
@@ -12,9 +12,12 @@
         </div>
         
       </mat-card-title>
-      <mat-card-content>
-          {{note.description}}
-      </mat-card-content>
+      <div *ngFor="let line of note.description.split('\n')">
+          <mat-card-content >
+            {{line}}
+          </mat-card-content>
+      </div>
+      
 
       <mat-card-footer class="mat-card-footer">
              
@@ -28,7 +31,7 @@
           </div>
   
         </mat-card-footer>
-        
+
     </mat-card>
   </div>
 
