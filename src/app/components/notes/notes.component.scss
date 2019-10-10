@@ -1,0 +1,13 @@
+@import 'src/app/SCSS/styles';
+
+.mat-card-lt-sm{
+    width:70%;
+    height:200px;
+}
+.mat-card-gt-xs{
+    height:auto;
+    width:100%;
+    max-width:200px;
+    min-width:500px;
+    border-radius:10px;
+}
