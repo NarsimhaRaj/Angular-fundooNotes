@@ -26,4 +26,16 @@ export class HttpService {
     });
     return this.http.post(environment.baseDomainUrl + "/user/reset-password", passwordData, { headers:headersOptions});
   }
+  addNotes(notes,loginId){
+    let headersOptions = new HttpHeaders({
+      "Authorization": loginId
+    });
+    return this.http.post(environment.baseDomainUrl + "/notes/addNotes", notes,{ headers : headersOptions });
+  }
+  getNotesList(loginId){
+    let headersOptions = new HttpHeaders({
+      "Authorization": loginId
+    });
+    return this.http.get(environment.baseDomainUrl + "/notes/getNotesList", { headers : headersOptions });
+  }
 }
