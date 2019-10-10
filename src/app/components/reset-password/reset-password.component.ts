@@ -37,11 +37,7 @@ export class ResetPasswordComponent implements OnInit {
         newPassword: this.resetPasswordFormGroup.get('password').value,
         confirmPassword: this.resetPasswordFormGroup.get('confirmPassword').value
       }
-      this.userService.resetPassword(passwordData, this.token).subscribe((response: any) => {
-        this.snackBar.open("password has been changed", undefined, { duration: 2000 });
-      }, (error: any) => {
-        this.snackBar.open(error.message, undefined, { duration: 2000 });
-      })
+      this.userService.resetPassword(passwordData, this.token);
     }
     else {
       this.snackBar.open("Entered Details are not right format",undefined,{duration:2000});
