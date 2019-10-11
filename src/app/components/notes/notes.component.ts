@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { UserService } from 'src/app/services/userServices/user.service';
 import { Observable } from 'rxjs';
+import { NoteService } from 'src/app/services/noteServices/note.service';
 
 @Component({
   selector: 'app-notes',
@@ -15,11 +15,11 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   @Input() newNoteEvent: Observable<void>;
 
-  constructor(private userServices: UserService) { }
+  constructor(private noteServices: NoteService) { }
 
   ngOnInit() {
 
-    this.userServices.getNotesList().subscribe((response: any) => {
+    this.noteServices.getNotesList().subscribe((response: any) => {
       console.log(response.data);
       this.notesList = response.data.data;
     }, (error) => {
@@ -30,7 +30,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
     this.getNotesObs = this.newNoteEvent.subscribe(() => {
 
-      this.userServices.getNotesList().subscribe((response: any) => {
+      this.noteServices.getNotesList().subscribe((response: any) => {
         console.log(response.data);
         this.notesList = response.data.data;
       }, (error) => {

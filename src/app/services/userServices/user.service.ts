@@ -44,13 +44,5 @@ export class UserService {
        });
 
   }
-
-  addNotes(notes) {
-    this.httpService.addNotes(notes, this.loginId).subscribe((response)=>{
-    });
-  }
-
-  getNotesList() {
-    return this.httpService.getNotesList(this.loginId);
-  }
+  
 }

@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/userServices/user.service';
+import { NoteService } from 'src/app/services/noteServices/note.service';
 
 @Component({
   selector: 'app-components/dashboard',
@@ -35,22 +36,25 @@ export class DashboardComponent {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private userServices: UserService) {
+  constructor(private breakpointObserver: BreakpointObserver, private noteServices: NoteService) {
 
   }
-  // pinned(){
-  //   this.pin=!this.pin;
-  // }
-
+  
   onClickedOutside(e: Event) {
     this.panelOpenState = !this.panelOpenState;
   }
+
+  // 
   save() {
     if (this.title.valid && this.description.valid) {
       var notes = { title: this.title.value, description: this.description.value }
-      this.userServices.addNotes(notes);
+      this.noteServices.addNotes(notes);
+
+      // resetting title and description to empty
       this.title.setValue("");
       this.description.setValue("");
+
+      // calling child event 
       this.eventsSubject.next();
     }
   }
