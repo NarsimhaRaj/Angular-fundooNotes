@@ -11,21 +11,26 @@
     button{
         display: none;
     }
-    &:hover,&:active{
+    &:hover{
         button{
-            display: block;
-        }   
+            display: inline-block;
+        }
+        
+    }
+    &:focus,:active{
+        button{
+            display: inline-block;
+        }
     }
 }
 
 .mat-card-lt-sm{
-    width:100%;
+    width:320px;
     @include matCard();
     @include matCardHover();
 }
 .mat-card-gt-xs{
-    max-width:200px;
-    min-width:150px;
+    width:240px;
     @include matCard();
     @include matCardHover();
 }

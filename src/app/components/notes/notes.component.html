@@ -1,6 +1,6 @@
-<div fxLayout.gt-xs="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start start" fxLayoutGap="2%">
+<div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start start" fxLayoutGap="2%">
 
-  <div *ngFor="let note of notesList?.reverse()">
+  <div style="display: flex;" *ngFor="let note of notesList?.reverse()">
     <mat-card ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm">
       <mat-card-title fxLayoutAlign="space-between center">
       
@@ -12,10 +12,10 @@
         </div>
         
       </mat-card-title>
-        <mat-card-content style="white-space: pre-line;">
-          <div fxLayout="row wrap">
+        <mat-card-content style="white-space: pre-wrap;overflow-wrap: break-word;">
+          <p>
             {{note.description}}
-          </div> 
+          </p> 
         </mat-card-content>
     
       <mat-card-footer>
@@ -25,8 +25,13 @@
             <button mat-icon-button color=""><mat-icon matTooltip="Collaborator">person_add</mat-icon></button>
             <button mat-icon-button color=""><mat-icon matTooltip="Change color">color_lens</mat-icon></button>
             <button mat-icon-button color=""><mat-icon matTooltip="Add image">crop_original</mat-icon></button>
-            <button mat-icon-button color=""><mat-icon matTooltip="Archive">archive</mat-icon></button>
-            <button mat-icon-button color=""><mat-icon matTooltip="More">more_vert</mat-icon></button>
+            <button mat-icon-button color="" (click)="archive()"><mat-icon matTooltip="Archive">archive</mat-icon></button>
+            <button mat-icon-button color="" [matMenuTriggerFor]="more" ><mat-icon matTooltip="More">more_vert</mat-icon></button>
+            <mat-menu #more>
+              <button (click)="delete(note);" mat-menu-item>
+                Delete
+              </button>
+            </mat-menu>
           </div>
   
         </mat-card-footer>

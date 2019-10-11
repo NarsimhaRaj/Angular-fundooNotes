@@ -46,7 +46,7 @@ export class DashboardComponent {
 
   // 
   save() {
-    if (this.title.valid && this.description.valid) {
+    if (this.title.valid || this.description.valid) {
       var notes = { title: this.title.value, description: this.description.value }
       this.noteServices.addNotes(notes);
 

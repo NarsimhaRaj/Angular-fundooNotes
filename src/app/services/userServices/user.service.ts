@@ -23,6 +23,7 @@ export class UserService {
     this.httpService.login(data).subscribe((response: any) => {
       this.snackBar.open("SuccessFully Logged In", undefined, { duration: 2000 });
       this.loginId = response.id;
+      console.log(response.id);
       this.router.navigateByUrl('/dashboard');
     }, (error: any) => {
       this.snackBar.open(error.message, undefined, { duration: 2000 })

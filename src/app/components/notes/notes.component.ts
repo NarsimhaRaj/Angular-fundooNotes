@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NoteService } from 'src/app/services/noteServices/note.service';
+import { MatSnackBar } from '@angular/material';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-notes',
@@ -15,7 +17,14 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   @Input() newNoteEvent: Observable<void>;
 
-  constructor(private noteServices: NoteService) { }
+  constructor(private noteServices: NoteService,private snackBar:MatSnackBar) { }
+
+
+
+  delete(note){
+    console.log(note.noteId);
+    this.noteServices.deleteNotes(note);
+  }
 
   ngOnInit() {
 
@@ -31,11 +40,10 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.getNotesObs = this.newNoteEvent.subscribe(() => {
 
       this.noteServices.getNotesList().subscribe((response: any) => {
-        console.log(response.data);
         this.notesList = response.data.data;
-      }, (error) => {
-        console.log(error);
-      })
+      }, (error: any) => {
+        this.snackBar.open(error.message, undefined, { duration: 2000 });
+     })
 
     });
 

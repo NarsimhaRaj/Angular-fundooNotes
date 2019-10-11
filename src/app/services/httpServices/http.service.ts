@@ -26,16 +26,22 @@ export class HttpService {
     });
     return this.http.post(environment.baseDomainUrl + "/user/reset-password", passwordData, { headers:headersOptions});
   }
-  addNotes(notes,loginId){
+  addNotes(notes,token){
     let headersOptions = new HttpHeaders({
-      "Authorization": loginId
+      "Authorization": token
     });
     return this.http.post(environment.baseDomainUrl + "/notes/addNotes", notes,{ headers : headersOptions });
   }
-  getNotesList(loginId){
+  getNotesList(token){
     let headersOptions = new HttpHeaders({
-      "Authorization": loginId
+      "Authorization": token
     });
     return this.http.get(environment.baseDomainUrl + "/notes/getNotesList", { headers : headersOptions });
+  }
+  deleteNotes(data,token){
+    let headersOptions = new HttpHeaders({
+      "Authorization": token
+    });
+    return this.http.post(environment.baseDomainUrl + "/notes/trashNotes", data,{ headers : headersOptions });
   }
 }
