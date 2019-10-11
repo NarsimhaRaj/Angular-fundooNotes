@@ -141,7 +141,7 @@
     
     <!-- notes content -->
     <div ngStyle.lt-sm="width:100%" ngStyle.gt-xs="width:80%;" fxLayoutAlign="center center">
-      <app-notes></app-notes>
+      <app-notes [newNoteEvent]="eventsSubject.asObservable()"></app-notes>
     </div>
    
 

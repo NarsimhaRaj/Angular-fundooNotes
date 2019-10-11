@@ -47,7 +47,6 @@ export class UserService {
 
   addNotes(notes) {
     this.httpService.addNotes(notes, this.loginId).subscribe((response)=>{
-      console.log(response);
     });
   }
 
