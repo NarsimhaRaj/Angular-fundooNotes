@@ -1,13 +1,32 @@
 @import 'src/app/SCSS/styles';
 
-.mat-card-lt-sm{
-    width:70%;
-    height:200px;
-}
-.mat-card-gt-xs{
+@mixin matCard(){
     height:auto;
-    width:100%;
-    max-width:200px;
-    min-width:500px;
+    margin-top:1em;
     border-radius:10px;
 }
+
+@mixin matCardHover(){
+
+    button{
+        display: none;
+    }
+    &:hover,&:active{
+        button{
+            display: block;
+        }   
+    }
+}
+
+.mat-card-lt-sm{
+    width:100%;
+    @include matCard();
+    @include matCardHover();
+}
+.mat-card-gt-xs{
+    max-width:200px;
+    min-width:150px;
+    @include matCard();
+    @include matCardHover();
+}
+

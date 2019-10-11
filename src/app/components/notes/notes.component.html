@@ -1,7 +1,7 @@
-<div style="display: table-cell;" fxLayout.gt-xs="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+<div fxLayout.gt-xs="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start start" fxLayoutGap="2%">
 
-  <div *ngFor="let note of notesList.reverse()">
-    <mat-card>
+  <div *ngFor="let note of notesList?.reverse()">
+    <mat-card ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm">
       <mat-card-title fxLayoutAlign="space-between center">
       
         <div style="width:80%;">
@@ -12,16 +12,13 @@
         </div>
         
       </mat-card-title>
-      <div *ngFor="let line of note.description.split('\n')">
-          <mat-card-content >
-            {{line}}
-          </mat-card-content>
-      </div>
-      
-
-      <mat-card-footer class="mat-card-footer">
+        <mat-card-content style="white-space: pre-wrap">
+          {{note.description}}
+        </mat-card-content>
+    
+      <mat-card-footer>
              
-          <div class="footer-icons-div" fxLayoutAlign="space-around center">
+          <div fxLayoutAlign="space-around center">
             <button mat-icon-button color=""><mat-icon matTooltip="Remind me">notifications_none</mat-icon></button>
             <button mat-icon-button color=""><mat-icon matTooltip="Collaborator">person_add</mat-icon></button>
             <button mat-icon-button color=""><mat-icon matTooltip="Change color">color_lens</mat-icon></button>

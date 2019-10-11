@@ -1,6 +1,6 @@
 import { Component, NgZone, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/userServices/user.service';
@@ -28,6 +28,8 @@ export class DashboardComponent {
     Validators.required
   ]);
 
+  private eventsSubject:Subject<any>=new Subject<any>();
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
@@ -49,6 +51,7 @@ export class DashboardComponent {
       this.userServices.addNotes(notes);
       this.title.setValue("");
       this.description.setValue("");
+      this.eventsSubject.next();
     }
   }
 }
