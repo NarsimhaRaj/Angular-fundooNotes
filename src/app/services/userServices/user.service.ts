@@ -17,27 +17,33 @@ export class UserService {
 
   }
   getData() {
-    this.httpService.getData();
+    let url= "/user";
+    this.httpService.get(url);
   }
   login(data) {
-    this.httpService.login(data).subscribe((response: any) => {
+    let url= "/user/login";
+    
+    this.httpService.post(url,data).subscribe((response: any) => {
       this.snackBar.open("SuccessFully Logged In", undefined, { duration: 2000 });
       this.loginId = response.id;
-      console.log(response.id);
       this.router.navigateByUrl('/dashboard');
     }, (error: any) => {
       this.snackBar.open(error.message, undefined, { duration: 2000 })
     });
+
   }
+
   register(data) {
-    return this.httpService.register(data);
+    let url= "/user/userSignUp";
+    return this.httpService.post(url,data);
   }
   forgotPassword(data) {
-    return this.httpService.forgotPassword(data);
+    let url= "/user/reset";
+    return this.httpService.post(url,data);
   }
   resetPassword(passwordData, token) {
-    
-    this.httpService.resetPassword(passwordData, token)
+    let url= "/user/reset-password"
+    this.httpService.postWithToken(url,passwordData, token)
       .subscribe((response: any) => {
            this.snackBar.open("password has been changed", undefined, { duration: 2000 });
         }, (error: any) => {

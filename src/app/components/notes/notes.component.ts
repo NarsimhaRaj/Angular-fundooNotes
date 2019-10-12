@@ -14,8 +14,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   notesList: any;
 
   private getNotesObs: any;
-
-  @Input() newNoteEvent: Observable<void>;
+  private colorChange= false;
 
   constructor(private noteServices: NoteService,private snackBar:MatSnackBar) { }
 
@@ -28,25 +27,19 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.noteServices.getNotesList().subscribe((response: any) => {
-      console.log(response.data);
-      this.notesList = response.data.data;
-    }, (error) => {
-      console.log(error);
-    })
+    this.getNotesList();
 
-    console.log("this is executing ");
-
-    this.getNotesObs = this.newNoteEvent.subscribe(() => {
-
-      this.noteServices.getNotesList().subscribe((response: any) => {
-        this.notesList = response.data.data;
-      }, (error: any) => {
-        this.snackBar.open(error.message, undefined, { duration: 2000 });
-     })
-
+    this.getNotesObs = this.noteServices.emitObservable.subscribe(() => {
+      this.getNotesList();
     });
 
+  }
+  getNotesList(){
+    this.noteServices.getNotesList().subscribe((response: any) => {
+      this.notesList = response.data.data;
+    }, (error) => {
+      this.snackBar.open(error.message, undefined, { duration: 2000 });
+    })
   }
   ngOnDestroy() {
     this.getNotesObs.unsubscribe();

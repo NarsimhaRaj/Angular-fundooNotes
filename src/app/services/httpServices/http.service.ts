@@ -8,40 +8,46 @@ import { environment } from 'src/environments/environment.prod';
 export class HttpService {
 
   constructor(private http: HttpClient) { }
-  getData() {
-    return this.http.get(environment.baseDomainUrl + "/user");
+
+  /**
+   * @description: executes http get request with given url
+   * @param url : restAPI service for getting data from
+   */
+  get(url) {
+    return this.http.get(environment.baseDomainUrl + url);
   }
-  login(data) {
-    return this.http.post(environment.baseDomainUrl + "/user/login", data);
-  }
-  register(data) {
-    return this.http.post(environment.baseDomainUrl + "/user/userSignUp", data);
-  }
-  forgotPassword(data) {
-    return this.http.post(environment.baseDomainUrl + "/user/reset", data);
-  }
-  resetPassword(passwordData, token) {
+
+  /**
+   * @description: executes http get request with header token for validation
+   * @param url : restAPI service for getting data from
+   */
+  getWithToken(url,token){
     let headersOptions = new HttpHeaders({
       "Authorization": token
     });
-    return this.http.post(environment.baseDomainUrl + "/user/reset-password", passwordData, { headers:headersOptions});
+    return this.http.get(environment.baseDomainUrl + url, { headers : headersOptions });
   }
-  addNotes(notes,token){
+
+  /**
+   * @description: executes http post request 
+   * @param url : restAPI post service to post data
+   * @param data : object containing details to post
+   */
+  post(url,data) {
+    return this.http.post(environment.baseDomainUrl + url, data);
+  }
+
+  /**
+   * @description: executes http post request with header token 
+   * @param url : restAPI post service to post data
+   * @param data : object containing details to post
+   * @param token : token for validaiton
+   */
+
+  postWithToken(url, passwordData, token) {
     let headersOptions = new HttpHeaders({
       "Authorization": token
     });
-    return this.http.post(environment.baseDomainUrl + "/notes/addNotes", notes,{ headers : headersOptions });
-  }
-  getNotesList(token){
-    let headersOptions = new HttpHeaders({
-      "Authorization": token
-    });
-    return this.http.get(environment.baseDomainUrl + "/notes/getNotesList", { headers : headersOptions });
-  }
-  deleteNotes(data,token){
-    let headersOptions = new HttpHeaders({
-      "Authorization": token
-    });
-    return this.http.post(environment.baseDomainUrl + "/notes/trashNotes", data,{ headers : headersOptions });
+    return this.http.post(environment.baseDomainUrl + url, passwordData, { headers:headersOptions});
   }
 }

@@ -3,7 +3,6 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/userServices/user.service';
 import { NoteService } from 'src/app/services/noteServices/note.service';
 
 @Component({
@@ -29,7 +28,6 @@ export class DashboardComponent {
     Validators.required
   ]);
 
-  private eventsSubject:Subject<any>=new Subject<any>();
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -55,7 +53,6 @@ export class DashboardComponent {
       this.description.setValue("");
 
       // calling child event 
-      this.eventsSubject.next();
     }
   }
 }

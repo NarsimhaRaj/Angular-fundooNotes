@@ -11,27 +11,47 @@
     button{
         display: none;
     }
+    .empty-mat-card-footer{
+        display: block;
+    }
     &:hover{
         button{
-            display: inline-block;
+            display: block;
         }
-        
-    }
-    &:focus,:active{
-        button{
-            display: inline-block;
+        .empty-mat-card-footer{
+            display: none;
         }
     }
 }
 
 .mat-card-lt-sm{
-    width:320px;
+    width:300px;
     @include matCard();
     @include matCardHover();
 }
 .mat-card-gt-xs{
-    width:240px;
+    width:200px;
     @include matCard();
     @include matCardHover();
 }
 
+// .colors-div{
+//     display: block;
+//     width:140px;
+//     height:100px;
+//     flex-flow: row wrap;
+//     z-index:1;
+// }
+// button.colorChange{
+//     width:35px;
+//     height:35px;
+//     &:hover{
+//         .colors-div{
+//             display: block;
+//             width:30px;
+//             height:30px;
+//             flex-flow: row wrap;
+//             z-index:1;
+//         }       
+//     }
+// }

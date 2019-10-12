@@ -1,10 +1,10 @@
 <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start start" fxLayoutGap="2%">
 
-  <div style="display: flex;" *ngFor="let note of notesList?.reverse()">
-    <mat-card ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm">
+  <div *ngFor="let note of notesList?.reverse()">
+    <mat-card ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" *ngIf="!note.isDeleted">
       <mat-card-title fxLayoutAlign="space-between center">
       
-        <div style="width:80%;">
+        <div style="width:80%;overflow-wrap: break-word;">
             {{note.title}}
         </div>
         <div style="width:20%;" fxLayoutAlign="end center" >
@@ -23,7 +23,17 @@
           <div fxLayoutAlign="space-around center">
             <button mat-icon-button color=""><mat-icon matTooltip="Remind me">notifications_none</mat-icon></button>
             <button mat-icon-button color=""><mat-icon matTooltip="Collaborator">person_add</mat-icon></button>
-            <button mat-icon-button color=""><mat-icon matTooltip="Change color">color_lens</mat-icon></button>
+            <button mat-icon-button color="" class="colorChange"><mat-icon matTooltip="Change color">color_lens</mat-icon></button>
+            <div class="colors-div">
+                <div><button mat-icon-button style="background-color: violet">V</button></div>
+                <div><button mat-icon-button style="background-color: brown"></button></div>
+                <div><button mat-icon-button style="background-color: yellow"></button></div>
+                <div><button mat-icon-button style="background-color: green"></button></div>
+                <div><button mat-icon-button style="background-color: blue"></button></div>
+                <div><button mat-icon-button style="background-color: red"></button></div>
+                <div><button mat-icon-button style="background-color: red"></button></div>
+                <div><button mat-icon-button style="background-color: white"></button></div>
+            </div>
             <button mat-icon-button color=""><mat-icon matTooltip="Add image">crop_original</mat-icon></button>
             <button mat-icon-button color="" (click)="archive()"><mat-icon matTooltip="Archive">archive</mat-icon></button>
             <button mat-icon-button color="" [matMenuTriggerFor]="more" ><mat-icon matTooltip="More">more_vert</mat-icon></button>
@@ -37,6 +47,7 @@
         </mat-card-footer>
 
     </mat-card>
+    
   </div>
 
 </div>
