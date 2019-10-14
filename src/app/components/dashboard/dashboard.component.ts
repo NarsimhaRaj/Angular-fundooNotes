@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
 import { NoteService } from 'src/app/services/noteServices/note.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-components/dashboard',
@@ -13,13 +14,13 @@ import { NoteService } from 'src/app/services/noteServices/note.service';
 export class DashboardComponent {
 
   search_button: Boolean = false;
-  clickOutside: Boolean = false;
+  // clickOutside: Boolean = false;
   panelOpenState: Boolean = false;
   openNotes: Boolean = false;
 
-  pin: Boolean = false;
-  unpin: Boolean = false;
-  checkbox: Boolean = false;
+  // pin: Boolean = false;
+  // unpin: Boolean = false;
+  // checkbox: Boolean = false;
 
   title = new FormControl('', [
     Validators.required
@@ -34,7 +35,7 @@ export class DashboardComponent {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private noteServices: NoteService) {
+  constructor(private breakpointObserver: BreakpointObserver, private noteServices: NoteService,private snackBar:MatSnackBar) {
 
   }
   
@@ -46,7 +47,11 @@ export class DashboardComponent {
   save() {
     if (this.title.valid || this.description.valid) {
       var notes = { title: this.title.value, description: this.description.value }
-      this.noteServices.addNotes(notes);
+      this.noteServices.addNotes(notes).subscribe((response) => {
+        this.noteServices.emitObservable.next();
+      }, (error: any) => {
+        this.snackBar.open(error.message, undefined, { duration: 2000 });
+      });;
 
       // resetting title and description to empty
       this.title.setValue("");

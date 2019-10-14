@@ -25,7 +25,7 @@
 }
 
 .mat-card-lt-sm{
-    width:300px;
+    width:200px;
     @include matCard();
     @include matCardHover();
 }
@@ -35,23 +35,17 @@
     @include matCardHover();
 }
 
-// .colors-div{
-//     display: block;
-//     width:140px;
-//     height:100px;
-//     flex-flow: row wrap;
-//     z-index:1;
-// }
-// button.colorChange{
-//     width:35px;
-//     height:35px;
-//     &:hover{
-//         .colors-div{
-//             display: block;
-//             width:30px;
-//             height:30px;
-//             flex-flow: row wrap;
-//             z-index:1;
-//         }       
-//     }
-// }
+.colors-div {
+    display: block;
+    width: 80px;
+    height: 80px;
+    position: relative;
+    .div {
+        display: inline-block;
+        position: relative;
+        width: 20px;
+        height: 20px;
+        margin: 3px;
+        border: solid 1px white;
+      }
+  }

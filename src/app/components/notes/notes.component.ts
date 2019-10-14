@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+// import { Observable } from 'rxjs';
 import { NoteService } from 'src/app/services/noteServices/note.service';
 import { MatSnackBar } from '@angular/material';
-import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-notes',
@@ -18,11 +17,11 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   constructor(private noteServices: NoteService,private snackBar:MatSnackBar) { }
 
-
-
   delete(note){
-    console.log(note.noteId);
-    this.noteServices.deleteNotes(note);
+    this.noteServices.deleteNotes(note).subscribe((response) => {
+      console.log("deleted notes");
+      this.noteServices.emitObservable.next();
+    });;
   }
 
   ngOnInit() {

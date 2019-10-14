@@ -42,9 +42,9 @@
       
       </mat-toolbar>
 </div>
-<div style="width:100%;height:100%;" >
+<div fxFlexFill >
   
-  <mat-sidenav-container class="sidenav-container">
+  <mat-sidenav-container class="sidenav-container" style="overflow: hidden;">
         <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
           [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
           <mat-nav-list class="mat-nav-list">
@@ -143,7 +143,7 @@
           </div>
           
           <!-- notes content -->
-          <div style="width:80%">
+          <div style="width:80%;height:auto;overflow: hidden;" fxLayoutAlign="center center">
             <app-notes></app-notes>
           </div>
           
