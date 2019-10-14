@@ -21,11 +21,7 @@ export class NoteService {
    */
   addNotes(notes) {
     let url = "/notes/addNotes";
-    this.httpService.postWithToken(url, notes, this.userServices.loginId).subscribe((response) => {
-      this.emitObservable.next();
-    }, (error: any) => {
-      this.snackBar.open(error.message, undefined, { duration: 2000 });
-    });
+    return this.httpService.postWithToken(url, notes, this.userServices.loginId);
   }
 
   /**
@@ -44,10 +40,6 @@ export class NoteService {
 
     let data = { noteIdList: [note.id], isDeleted: true };
     let url = "/notes/trashNotes";
-
-    this.httpService.postWithToken(url, data, this.userServices.loginId).subscribe((response) => {
-      console.log("deleted notes");
-      this.emitObservable.next();
-    });
+    return this.httpService.postWithToken(url, data, this.userServices.loginId);
   }
 }

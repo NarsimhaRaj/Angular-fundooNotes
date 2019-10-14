@@ -23,14 +23,7 @@ export class UserService {
   login(data) {
     let url= "/user/login";
     
-    this.httpService.post(url,data).subscribe((response: any) => {
-      this.snackBar.open("SuccessFully Logged In", undefined, { duration: 2000 });
-      this.loginId = response.id;
-      this.router.navigateByUrl('/dashboard');
-    }, (error: any) => {
-      this.snackBar.open(error.message, undefined, { duration: 2000 })
-    });
-
+    return this.httpService.post(url,data);
   }
 
   register(data) {
@@ -43,13 +36,7 @@ export class UserService {
   }
   resetPassword(passwordData, token) {
     let url= "/user/reset-password"
-    this.httpService.postWithToken(url,passwordData, token)
-      .subscribe((response: any) => {
-           this.snackBar.open("password has been changed", undefined, { duration: 2000 });
-        }, (error: any) => {
-          this.snackBar.open(error.message, undefined, { duration: 2000 });
-       });
-
+    return this.httpService.postWithToken(url,passwordData, token);
   }
   
 }
