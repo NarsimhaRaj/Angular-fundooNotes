@@ -16,6 +16,14 @@ export class RegisterComponent implements OnInit {
   passwordFormGroup: FormGroup;
   hide: Boolean = true;
 
+  /**
+   * @description constructor injects these following dependencies on initialization, and also validates registered details
+   * @param Route : provides routing from one component to other component 
+   * @param userService : provides user services for resetting password 
+   * @param snackBar : snackbar to show resultent details
+   * 
+   */
+
   constructor(private userService: UserService,private snackBar:MatSnackBar,private route:Router) 
   {
     this.registerFormGroup = new FormGroup({
@@ -31,7 +39,10 @@ export class RegisterComponent implements OnInit {
     // "service": new FormControl('',[Validators.required])
     
   }
-
+  /**
+   * @description returns boolean value on validating equality of password and confirmpassword
+   * @param frm formgroup of password and confirm password
+   */
   pwdMatchValidator(frm: FormGroup) {
     return frm.get('password').value === frm.get('confirmPassword').value
       ? null : { 'mismatch': true };
@@ -39,6 +50,7 @@ export class RegisterComponent implements OnInit {
   //register new user to database
   register() {
   
+    // user services will be provided for register after details are validated  
     if (this.registerFormGroup.valid) {
   
       var newUser = {
