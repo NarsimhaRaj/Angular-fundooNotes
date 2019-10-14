@@ -20,6 +20,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { NotesComponent } from './components/notes/notes.component';
+import { NgxPopper } from 'angular-popper';
+import { ArchiveComponent } from './components/archive/archive.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { NotesComponent } from './components/notes/notes.component';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     DashboardComponent,
-    NotesComponent
+    NotesComponent,
+    ArchiveComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { NotesComponent } from './components/notes/notes.component';
     FlexLayoutModule,
     HttpClientModule,
     LayoutModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    NgxPopper
   ],
   providers: [UserService, HttpService],
   bootstrap: [AppComponent]

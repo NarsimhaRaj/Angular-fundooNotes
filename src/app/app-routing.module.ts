@@ -7,6 +7,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NotesComponent } from './components/notes/notes.component';
+import { ArchiveComponent } from './components/archive/archive.component';
 
 const routes: Route[] = [
   { path: '', redirectTo: "/login", pathMatch: 'full' },
@@ -14,7 +15,14 @@ const routes: Route[] = [
   { path: 'register', component: RegisterComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'resetpassword/:token', component: ResetPasswordComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    children: [
+      { path: "archive", component: ArchiveComponent },
+      { path: "", component: NotesComponent }
+    ]
+  },
   { path: 'notes', component: NotesComponent },
   { path: '**', redirectTo: "/login" }
 ];

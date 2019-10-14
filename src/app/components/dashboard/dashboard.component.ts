@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
 import { NoteService } from 'src/app/services/noteServices/note.service';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-components/dashboard',
@@ -35,7 +36,7 @@ export class DashboardComponent {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private noteServices: NoteService,private snackBar:MatSnackBar) {
+  constructor(private breakpointObserver: BreakpointObserver, private noteServices: NoteService,private snackBar:MatSnackBar,private route:Router) {
 
   }
   
@@ -59,5 +60,23 @@ export class DashboardComponent {
 
       // calling child event 
     }
+  }
+
+  archiveNotes(archiveBooleanValue){
+    return archiveBooleanValue;
+  }
+
+  /**
+   * @description route will be changed to archive component  on clicking archive button on sidenav
+   */
+  goToArchiveComponent(){
+    this.route.navigateByUrl("dashboard/archive");
+  }
+
+  /**
+   * @description route will be chnaged to notes component on clicking note button on sidenav
+   */
+  goToNotesComponent(){
+    this.route.navigateByUrl("dashboard");
   }
 }

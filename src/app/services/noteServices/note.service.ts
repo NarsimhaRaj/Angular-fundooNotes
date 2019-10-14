@@ -42,4 +42,14 @@ export class NoteService {
     let url = "/notes/trashNotes";
     return this.httpService.postWithToken(url, data, this.userServices.loginId);
   }
+  addToArchive(note) {
+    let data = { noteIdList: [note.id], isArchived: true };
+    let url = "/notes/archiveNotes";
+    return this.httpService.postWithToken(url, data, this.userServices.loginId);
+  }
+  updateBackgroundColor(color, note) {
+    let data = { noteIdList: [note.id], color: color };
+    let url = "/notes/changesColorNotes";
+    return this.httpService.postWithToken(url, data, this.userServices.loginId)
+  }
 }

@@ -50,7 +50,7 @@
           <mat-nav-list class="mat-nav-list">
             
             <!-- notes -->
-            <mat-list-item >
+            <mat-list-item  (click)="goToNotesComponent();">
               <img src="src/assets/images/outline_emoji_objects_black_18dp.png"><span style="margin-left:3em">Notes</span>
             </mat-list-item>
       
@@ -72,7 +72,7 @@
             
             <mat-divider></mat-divider>
             
-            <mat-list-item >
+            <mat-list-item (click)="goToArchiveComponent();">
               <mat-icon>archive</mat-icon><div style="margin-left:3em">Archive</div>
             </mat-list-item>
       
@@ -84,68 +84,10 @@
         </mat-sidenav>
         <mat-sidenav-content fxLayout="column"  fxLayoutAlign="start center" fxLayoutGap="3%" >
         
-          <!-- mat card expansion panel -->
-          <div style="width:100%;" fxLayoutAlign="center center">
-              <mat-card [fxHide]="panelOpenState" style="height: 10px" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" >
-                  <mat-card-content fxLayout="row">
-                      <div style="width:70%">
-                          <input matInput type="text" (click)="panelOpenState=!panelOpenState" placeholder="Take a note..."/>
-                      </div>
-                      <div style="width:30%; margin-top:-1em" fxLayoutAlign="space-around center">
-                          <button mat-icon-button color="" (click)="panelOpenState=!panelOpenState; ">
-                            <mat-icon matTooltip="New List">check_box</mat-icon>
-                          </button>
-                          <button mat-icon-button color=""><mat-icon matTooltip="New note with image">crop_original</mat-icon></button>
-                      </div>
-                  </mat-card-content>
-                  
-                </mat-card>
-            
-                <!-- mat card expanded panel -->
-                <mat-card [fxHide]="!panelOpenState" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" >
-                    
-                  <!-- mat card title -->
-                  <mat-card-title fxLayoutAlign="space-between center" style="margin-top:-0.5em;">
-                    <div style="width:80%;">
-                        <input matInput type="text" placeholder="Title" [formControl]=title/>
-                    </div>
-                    <div style="width:20%;" fxLayoutAlign="end center" >
-                      <button mat-button color="" (click)="unpin=!unpin" [fxHide]="!unpin" >unpin</button>
-                      <button mat-button color="" (click)="pinned(); unpin=!unpin" [fxHide]="unpin" >pin</button>
-                    </div>
-                    
-                  </mat-card-title>
-                  <mat-card-content>
-                    <textarea matInput matTextareaAutosize placeholder="Take a note..." [formControl]="description">{{description.value}}</textarea>
-                  </mat-card-content>
-            
-                  <!-- mat card footer -->
-                  <mat-card-footer>
-                    
-                    <div class="footer-icons-div" fxLayoutAlign="space-around center">
-                      <button mat-icon-button color=""><mat-icon matTooltip="Remind me">notifications_none</mat-icon></button>
-                      <button mat-icon-button color=""><mat-icon matTooltip="Collaborator">person_add</mat-icon></button>
-                      <button mat-icon-button color=""><mat-icon matTooltip="Change color">color_lens</mat-icon></button>
-                      <button mat-icon-button color=""><mat-icon matTooltip="Add image">crop_original</mat-icon></button>
-                      <button mat-icon-button color=""><mat-icon matTooltip="Archive">archive</mat-icon></button>
-                      <button mat-icon-button color=""><mat-icon matTooltip="More">more_vert</mat-icon></button>
-                      <button mat-icon-button color=""><mat-icon matTooltip="Undo">undo</mat-icon></button>
-                      <button mat-icon-button color=""><mat-icon matTooltip="Redo">redo</mat-icon></button>
-                    </div>
-      
-                    <!-- closing button -->
-                    <div class="footer-close-button-div" fxLayoutAlign="end center">
-                        <button mat-button (click)="save(); panelOpenState=!panelOpenState;">Close</button>
-                    </div>
-            
-                  </mat-card-footer>
-                </mat-card>
-          </div>
+          
           
           <!-- notes content -->
-          <div style="width:80%;height:auto;overflow: hidden;" fxLayoutAlign="center center">
-            <app-notes></app-notes>
-          </div>
+          <router-outlet></router-outlet>
           
       
         </mat-sidenav-content>
