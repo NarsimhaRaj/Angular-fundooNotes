@@ -58,7 +58,7 @@ export class TrashComponent implements OnInit {
    */
   restoreNotes(note){
     
-    let newNote={title:note.title,description:note.description}
+    let newNote={title:note.title,description:note.description, isArchive:note.isArchive }
 
     this.noteServices.addNotes(newNote).subscribe((response) => {
       this.emitObservable.next();

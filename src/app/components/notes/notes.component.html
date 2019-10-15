@@ -5,7 +5,7 @@
         <mat-card [fxHide]="panelOpenState" style="height: 10px" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" >
             <mat-card-content fxLayout="row">
                 <div style="width:70%">
-                    <input matInput type="text" (click)="panelOpenState=!panelOpenState" placeholder="Take a note..."/>
+                    <input matInput type="text" (click)="panelOpenState=!panelOpenState" placeholder="Take a note..." autofocus/>
                 </div>
                 <div style="width:30%; margin-top:-1em" fxLayoutAlign="space-around center">
                     <button mat-icon-button color="" (click)="panelOpenState=!panelOpenState; ">

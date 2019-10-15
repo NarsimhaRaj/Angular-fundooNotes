@@ -85,7 +85,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
     this.noteServices.deleteNotes(data).subscribe((response) => {
       this.emitObservable.next();
-    });;
+    });
   }
 
   /**

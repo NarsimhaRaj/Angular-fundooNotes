@@ -44,12 +44,13 @@ export class ArchiveComponent implements OnInit {
    * @param note: note to be deleted
    */
   delete(note){
-
+    
     let data = { noteIdList: [note.id], isDeleted: true };
 
     this.noteServices.deleteNotes(data).subscribe((response) => {
+      console.log(response);
       this.emitObservable.next();
-    });;
+    });
   }
 
   /**
