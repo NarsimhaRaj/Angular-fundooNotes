@@ -1,7 +1,7 @@
 <!-- mat card expansion panel -->
 <div fxLayoutAlign="center start" fxLayout="column">
 
-    <div style="width:100%;" fxLayoutAlign="center center">
+    <div style="width:100%;margin-bottom:0.7em" fxLayoutAlign="center center">
         <mat-card [fxHide]="panelOpenState" style="height: 10px" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" >
             <mat-card-content fxLayout="row">
                 <div style="width:70%">
@@ -61,7 +61,7 @@
     <!-- notes list -->
     <div style="width:100%;height:auto;overflow: hidden;" fxLayoutAlign="center start">
     
-        <div style="width:70%;" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start center" fxLayoutGap="2%">
+        <div style="width:80%;" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="center start" fxLayoutGap="2%">
       
         <div *ngFor="let note of notesList?.reverse()" >
           <mat-card [ngStyle]="{'background-color':note.color}" ngClass.gt-xs="mat-card-list-gt-xs" ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived">
@@ -98,22 +98,27 @@
                   <button mat-icon-button color="" [matMenuTriggerFor]="colorsMenu" >
                     <mat-icon matTooltip="Change color">color_lens</mat-icon>
                   </button>
-                  <mat-menu #colorsMenu="matMenu" style="width:40px;height:auto;">
-                    <div fxLayout="row wrap" class="mat-menu-div">
+                  <mat-menu #colorsMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
+                    <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
                         <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC',note)" style="background-color: #F5F5EC;"></div>
                         <div mat-menu-item (click)="updateBackgroundColor('#EB716B',note)" style="background-color: #EB716B;"></div>
                         <div mat-menu-item (click)="updateBackgroundColor('#FCE42A',note)" style="background-color: #FCE42A"></div>
                         <div mat-menu-item (click)="updateBackgroundColor('#6DE391',note)" style="background-color: #6DE391;"></div>
+                    </div>
+                    <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
                         <div mat-menu-item (click)="updateBackgroundColor('#1597DB',note)" style="background-color: #1597DB;"></div>
                         <div mat-menu-item (click)="updateBackgroundColor('#08ECF2',note)" style="background-color: #08ECF2;"></div>
                         <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF',note)" style="background-color: #8C7FBF;"></div>
                         <div mat-menu-item (click)="updateBackgroundColor('#D37CE2',note)" style="background-color: #D37CE2;"></div>
+                    </div>
+                    <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
                         <div mat-menu-item (click)="updateBackgroundColor('#FF8632',note)" style="background-color: #FF8632"></div>
                         <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9',note)" style="background-color: #EA7AC9;"></div>
                         <div mat-menu-item (click)="updateBackgroundColor('#A35237',note)" style="background-color: #A35237;"></div>
                         <div mat-menu-item (click)="updateBackgroundColor('#959592',note)" style="background-color: #959592;"></div>
                     </div>
-                    </mat-menu>
+                  </mat-menu>
+                
                 </div> 
                 
                 <div><button mat-icon-button color="">

@@ -56,11 +56,11 @@ export class ArchiveComponent implements OnInit {
    * @description : add notes to archive notes list
    * @param note: note to be added
    */
-  archive(note)
+  unArchive(note)
   {
-    let data = { noteIdList: [note.id], isArchived: true };
+    let data = { noteId: note.id, isArchived: false };
 
-    this.noteServices.addToArchive(data).subscribe((response)=>{
+    this.noteServices.updateNotes(data).subscribe((response)=>{
       this.emitObservable.next();
     })
   }

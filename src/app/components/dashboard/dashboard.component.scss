@@ -25,7 +25,6 @@
 .sidenav {
   width: 300px;
   overflow: hidden;
-  height:100%;
 }
 
 .search-div{
@@ -69,18 +68,25 @@
     border-bottom-right-radius: 25px;
     border-top-right-radius: 25px; 
     &:hover{
-      background-color: lightgray;
+      background-color: rgb(233, 207, 123);
     }
-    &:focus{
-      background-color: rgb(228, 184, 103);
-    }
-    &:active{
-      background-color: rgb(228, 184, 103);
-    }
+  }
+  mat-list-item.active{
+    background-color: rgb(228, 184, 103);
   }
   
 }
 
 ::ng-deep .mat-form-field-prefix{
     transform: translateY(0.8em);
+}
+
+::ng-deep .mat-toolbar{
+  z-index: 998;
+  position: fixed
+}
+::ng-deep .mat-sidenav{
+  margin:0;
+  position: sticky;
+  height: 90vh;
 }
