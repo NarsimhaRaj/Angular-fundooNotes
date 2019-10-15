@@ -14,6 +14,12 @@ export class DashboardComponent implements OnInit,OnDestroy {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
   userDetails:any;
+  onNoteListSelected:Boolean=true;
+  onArchiveListSelected:Boolean=false;
+  onReminderListSelected:Boolean=false;
+  onTrashListSelected:Boolean=false;
+
+
   // search_button: Boolean = false;
   // openNotes: Boolean = false;
 
@@ -23,6 +29,12 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
+  sideNavSelectedList(nl,rl,al,tl){
+    this.onNoteListSelected=nl;
+    this.onReminderListSelected=rl;
+    this.onArchiveListSelected=al;
+    this.onTrashListSelected=tl;
+  }
   ngOnInit(){
     this.userDetails=this.userServices.userDetails;
   }
@@ -35,6 +47,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
    * @description route will be changed to archive component  on clicking archive button on sidenav
    */
   goToArchiveComponent(){
+    this.sideNavSelectedList(false,false,true,false);
     this.route.navigateByUrl("dashboard/archive");
   }
 
@@ -42,12 +55,14 @@ export class DashboardComponent implements OnInit,OnDestroy {
    * @description route will be chnaged to notes component on clicking note button on sidenav
    */
   goToNotesComponent(){
+    this.sideNavSelectedList(true,false,false,false);
     this.route.navigateByUrl("dashboard");
   }
   /**
    * @description route changes to trash component on clicking trash button on sidenav
    */
   goToTrashComponent(){
+    this.sideNavSelectedList(false,false,false,true);
     this.route.navigateByUrl("dashboard/trashNotes");
   }
 

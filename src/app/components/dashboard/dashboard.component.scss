@@ -71,10 +71,9 @@
       background-color: rgb(233, 207, 123);
     }
   }
-  mat-list-item.active{
-    background-color: rgb(228, 184, 103);
-  }
-  
+}
+.mat-list-item-selected{
+  background-color: rgb(228, 184, 103);
 }
 
 ::ng-deep .mat-form-field-prefix{

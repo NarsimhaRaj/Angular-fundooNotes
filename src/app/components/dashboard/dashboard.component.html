@@ -60,12 +60,12 @@
       <mat-nav-list class="mat-nav-list">
 
           <!-- notes -->
-          <mat-list-item  (click)="goToNotesComponent();">
+          <mat-list-item  (click)="goToNotesComponent();" [ngClass]="{'mat-list-item-selected': onNoteListSelected}">
             <img src="src/assets/images/outline_emoji_objects_black_18dp.png"><span style="margin-left:3em">Notes</span>
           </mat-list-item>
     
           <!-- remainders -->
-          <mat-list-item >
+          <mat-list-item [ngClass]="{'mat-list-item-selected': onReminderListSelected}">
               <div><mat-icon>notifications_none</mat-icon></div><div style="margin-left:3em">Remainders</div>
           </mat-list-item>
           
@@ -82,11 +82,11 @@
           
           <mat-divider></mat-divider>
           
-          <mat-list-item (click)="goToArchiveComponent();">
+          <mat-list-item (click)="goToArchiveComponent();" [ngClass]="{'mat-list-item-selected': onArchiveListSelected}">
             <mat-icon>archive</mat-icon><div style="margin-left:3em">Archive</div>
           </mat-list-item>
     
-          <mat-list-item (click)="goToTrashComponent();">
+          <mat-list-item (click)="goToTrashComponent();" [ngClass]="{'mat-list-item-selected': onTrashListSelected}">
             <mat-icon>restore_from_trash</mat-icon><div style="margin-left:3em" >Trash</div>
           </mat-list-item>
     
