@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     var loginData = { email: this.loginFormGroup.get("email").value, password: this.loginFormGroup.get("password").value }
     this.userService.login(loginData).subscribe((response: any) => {
       this.snackBar.open("SuccessFully Logged In", undefined, { duration: 2000 });
-      this.userService.loginId = response.id;
+      this.userService.loginUserDetails.next(response);
       this.router.navigateByUrl('/dashboard');
     }, (error: any) => {
       this.snackBar.open(error.message, undefined, { duration: 2000 })

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../httpServices/http.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +10,17 @@ import { BehaviorSubject } from 'rxjs';
 export class UserService {
 
 
-  private messageSource = new BehaviorSubject('');
-  loginId = this.messageSource.asObservable();
+  loginUserDetails:Subject<Object> = new Subject<Object>();
+  userDetails:any;
 
   constructor(private httpService: HttpService, private router: Router, private snackBar: MatSnackBar) {
-
+    this.loginUserDetails.subscribe((user:any)=>{
+      this.userDetails=user;
+    });
   }
+
+  
+
   getData() {
     let url= "/user";
     this.httpService.get(url);

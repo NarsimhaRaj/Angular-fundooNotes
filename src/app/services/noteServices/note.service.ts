@@ -21,7 +21,7 @@ export class NoteService {
    */
   addNotes(notes) {
     let url = "/notes/addNotes";
-    return this.httpService.postWithToken(url, notes, this.userServices.loginId);
+    return this.httpService.postWithToken(url, notes, this.userServices.userDetails.id);
   }
 
   /**
@@ -29,7 +29,7 @@ export class NoteService {
    */
   getNotesList() {
     let url = "/notes/getNotesList";
-    return this.httpService.getWithToken(url, this.userServices.loginId);
+    return this.httpService.getWithToken(url, this.userServices.userDetails.id);
   }
 
   /**
@@ -38,7 +38,7 @@ export class NoteService {
    */
   deleteNotes(data) {    
     let url = "/notes/trashNotes";
-    return this.httpService.postWithToken(url, data, this.userServices.loginId);
+    return this.httpService.postWithToken(url, data, this.userServices.userDetails.id);
   }
   /**
    * @description to make a note archive here sending an post request to rest api with header token
@@ -46,7 +46,7 @@ export class NoteService {
    */
   addToArchive(data) {
     let url = "/notes/archiveNotes";
-    return this.httpService.postWithToken(url, data, this.userServices.loginId);
+    return this.httpService.postWithToken(url, data, this.userServices.userDetails.id);
   }
 
   /**
@@ -55,7 +55,7 @@ export class NoteService {
    */
   updateBackgroundColor(data) {
     let url = "/notes/changesColorNotes";
-    return this.httpService.postWithToken(url, data, this.userServices.loginId)
+    return this.httpService.postWithToken(url, data, this.userServices.userDetails.id)
   }
 
   /**
@@ -64,7 +64,7 @@ export class NoteService {
    */
   deleteForeverNotes(data){
     let url = "/notes/deleteForeverNotes";
-    return this.httpService.postWithToken(url, data, this.userServices.loginId);
+    return this.httpService.postWithToken(url, data, this.userServices.userDetails.id);
   }
 
   /**
@@ -73,6 +73,6 @@ export class NoteService {
    */
   updateNotes(data){
     let url = "/notes/updateNotes";
-    return this.httpService.postWithToken(url, data, this.userServices.loginId)
+    return this.httpService.postWithToken(url, data, this.userServices.userDetails.id)
   }
 }
