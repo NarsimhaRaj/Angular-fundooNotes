@@ -76,19 +76,16 @@
               <mat-icon>archive</mat-icon><div style="margin-left:3em">Archive</div>
             </mat-list-item>
       
-            <mat-list-item >
+            <mat-list-item (click)="goToTrashComponent();">
               <mat-icon>restore_from_trash</mat-icon><div style="margin-left:3em" >Trash</div>
             </mat-list-item>
       
           </mat-nav-list> 
         </mat-sidenav>
-        <mat-sidenav-content fxLayout="column"  fxLayoutAlign="start center" fxLayoutGap="3%" >
-        
-          
-          
+        <mat-sidenav-content fxLayout="column"  fxLayoutAlign="center center" fxLayoutGap="3%" >
+   
           <!-- notes content -->
           <router-outlet></router-outlet>
-          
       
         </mat-sidenav-content>
       </mat-sidenav-container>

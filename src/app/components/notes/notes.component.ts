@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { NoteService } from 'src/app/services/noteServices/note.service';
 import { MatSnackBar } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     Validators.required
   ]);
 
+  public emitObservable: Subject<void> = new Subject<void>();
 
   constructor(private noteServices: NoteService,private snackBar:MatSnackBar) { }
 
@@ -34,7 +36,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
     this.getNotesList();
 
-    this.getNotesObs = this.noteServices.emitObservable.subscribe(() => {
+    this.getNotesObs = this.emitObservable.subscribe(() => {
       this.getNotesList();
     });
 
@@ -51,7 +53,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     if (this.title.valid || this.description.valid) {
       var notes = { title: this.title.value, description: this.description.value }
       this.noteServices.addNotes(notes).subscribe((response) => {
-        this.noteServices.emitObservable.next();
+        this.emitObservable.next();
       }, (error: any) => {
         this.snackBar.open(error.message, undefined, { duration: 2000 });
       });;
@@ -78,8 +80,11 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @param note: note to be deleted
    */
   delete(note){
-    this.noteServices.deleteNotes(note).subscribe((response) => {
-      this.noteServices.emitObservable.next();
+    
+    let data = { noteIdList: [note.id], isDeleted: true };
+
+    this.noteServices.deleteNotes(data).subscribe((response) => {
+      this.emitObservable.next();
     });;
   }
 
@@ -89,8 +94,10 @@ export class NotesComponent implements OnInit, OnDestroy {
    */
   archive(note)
   {
-    this.noteServices.addToArchive(note).subscribe((response)=>{
-      this.noteServices.emitObservable.next();
+    let data = { noteIdList: [note.id], isArchived: true };
+
+    this.noteServices.addToArchive(data).subscribe((response)=>{
+      this.emitObservable.next();
     })
   }
 
@@ -98,8 +105,11 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @description
    */
   updateBackgroundColor(color,note){
-    this.noteServices.updateBackgroundColor(color,note).subscribe((response)=>{
-      this.noteServices.emitObservable.next();
+
+    let data = { noteIdList: [note.id], color: color };
+    console.log(data);
+    this.noteServices.updateBackgroundColor(data).subscribe((response)=>{
+      this.emitObservable.next();
     });
   }
   // addReminder(){

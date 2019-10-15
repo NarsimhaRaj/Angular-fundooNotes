@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { NoteService } from 'src/app/services/noteServices/note.service';
 import { MatSnackBar } from '@angular/material';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-archive',
@@ -15,6 +16,8 @@ export class ArchiveComponent implements OnInit {
   colorChange: boolean[] = new Array();
   // isReminderEnable:Boolean=false;
 
+  public emitObservable: Subject<void> = new Subject<void>();
+
   constructor(private noteServices: NoteService,private snackBar:MatSnackBar) { }
 
   
@@ -23,7 +26,7 @@ export class ArchiveComponent implements OnInit {
 
     this.getNotesList();
 
-    this.getNotesObs = this.noteServices.emitObservable.subscribe(() => {
+    this.getNotesObs = this.emitObservable.subscribe(() => {
       this.getNotesList();
     });
 
@@ -41,8 +44,11 @@ export class ArchiveComponent implements OnInit {
    * @param note: note to be deleted
    */
   delete(note){
-    this.noteServices.deleteNotes(note).subscribe((response) => {
-      this.noteServices.emitObservable.next();
+
+    let data = { noteIdList: [note.id], isDeleted: true };
+
+    this.noteServices.deleteNotes(data).subscribe((response) => {
+      this.emitObservable.next();
     });;
   }
 
@@ -52,17 +58,22 @@ export class ArchiveComponent implements OnInit {
    */
   archive(note)
   {
-    this.noteServices.addToArchive(note).subscribe((response)=>{
-      this.noteServices.emitObservable.next();
+    let data = { noteIdList: [note.id], isArchived: true };
+
+    this.noteServices.addToArchive(data).subscribe((response)=>{
+      this.emitObservable.next();
     })
   }
 
   /**
    * @description
    */
-  updateBackgroundColor(color,note){
-    this.noteServices.updateBackgroundColor(color,note).subscribe((response)=>{
-      this.noteServices.emitObservable.next();
+   updateBackgroundColor(color,note){
+
+    let data = { noteIdList: [note.id], color: color };
+
+    this.noteServices.updateBackgroundColor(data).subscribe((response)=>{
+      this.emitObservable.next();
     });
   }
   // addReminder(){
