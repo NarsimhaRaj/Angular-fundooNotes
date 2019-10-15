@@ -1,0 +1,43 @@
+<div style="padding-bottom:40px;" fxLayout="row wrap" fxLayout.lt-sm="column"
+  fxLayoutAlign="center start" fxLayoutGap="2%">
+
+  <div *ngFor="let note of notesList?.reverse()">
+    <mat-card [ngStyle]="{'background-color':note.color}" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" *ngIf="note.isDeleted && !note.isArchived">
+      <mat-card-title fxLayoutAlign="space-between center">
+
+        <div style="width:80%;overflow-wrap: break-word;">
+          {{note.title}}
+        </div>
+        <div style="width:20%;" fxLayoutAlign="end center">
+          <button mat-button color="">pin</button>
+        </div>
+
+      </mat-card-title>
+      <mat-card-content style="white-space: pre-wrap;overflow-wrap: break-word;">
+        <div>
+          {{note.description}}
+        </div>
+      </mat-card-content>
+      <mat-card-footer>
+
+        <div fxLayoutAlign="start center">
+
+          <div><button mat-icon-button color="" [matMenuTriggerFor]="more">
+              <mat-icon matTooltip="More">more_vert</mat-icon>
+            </button>
+            <mat-menu #more="matMenu" yPosition="below">
+              <button (click)="deleteForever(note);" mat-menu-item>
+                Delete forever
+              </button>
+              <button (click)="restoreNotes(note);" mat-menu-item>
+                Restore
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+
+      </mat-card-footer>
+
+    </mat-card>
+  </div>
+</div>
