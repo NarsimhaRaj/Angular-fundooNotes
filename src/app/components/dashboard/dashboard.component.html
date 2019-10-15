@@ -1,96 +1,102 @@
-<div fxLayout="column" style="width:100%;height: 100%" fxLayoutAlign="space-between center">
-    <div style="width:100%;height:auto">
-        <mat-toolbar fxLayoutAlign.gt-xs="start center" fxLayoutAlign.lt-sm="space-between center" class="toolbar-class">
-            <div ngClass.gt-xs="menu-notes-gt-xs" ngClass.lt-sm="menu-notes-lt-sm" fxLayoutAlign="start center">
-                <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
-                    <!-- *ngIf="isHandset$ | async" -->
-                    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-                  </button>
-                  <img src="src/assets/images/keep_48dp.png" fxHide.lt-sm="true" />
-                  <h3>Notes</h3>
-            </div>
-          
-            <!-- mat search box -->
-            <div fxHide.lt-sm="true" fxLayoutAlign="start center" fxLayout="row" ngClass.gt-xs="search-toolbar-div-gt-xs">
-              <div fxHide.lt-sm="true" class="search-div" fxLayoutAlign="center center">
-                <mat-form-field class="search-bar" appearance="fill legacy">
-                  <span matPrefix><button mat-icon-button><mat-icon >search</mat-icon></button></span>
-                  <input matInput type="search" placeholder="Search"/>
-                </mat-form-field>
-              </div>
-            </div>
-            
-            <div fxLayout="row" fxLayoutAlign="end center" ngClass.gt-xs="mat-icon-account-gt-xs" ngClass.lt-sm="mat-icon-account-lt-sm">
-          
-              <!-- mat icons -->
-              <div fxLayout="row" class="mat-icon-class" fxLayoutAlign="space-around center">
-                  <div fxLayoutAlign="center center">
-                    <button mat-icon-button color="" fxHide.gt-xs="true">
-                      <mat-icon matTooltip="Search">search</mat-icon>
-                    </button>
-                  </div>
-                  <div fxLayoutAlign="center center"><mat-icon matTooltip="refresh">refresh</mat-icon></div>
-                  <div fxLayoutAlign="center center" fxHide.lt-sm="true" matTooltip="List view"><mat-icon>list</mat-icon></div>
-                  <div fxLayoutAlign="center center"><mat-icon matTooltip="settings">settings</mat-icon></div>
-              </div>
-                
-              <!-- account icon --> 
-              <div class="account-div" fxLayoutAlign="end center">
-                  <button mat-mini-fab color="primary">N</button>
-              </div>
-          
-            </div>
-          
-          </mat-toolbar>
-    </div>
-    <div style="width:100%;height: 90%;" >
+<div class="container" [class.is-mobile]="mobileQuery.matches">
+  <mat-toolbar class="toolbar" fxLayoutAlign.gt-xs="start center" fxLayoutAlign.lt-sm="space-between center">
+      <div ngClass.gt-xs="menu-notes-gt-xs" ngClass.lt-sm="menu-notes-lt-sm" fxLayoutAlign="start center">
+          <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+              <!-- *ngIf="isHandset$ | async" -->
+              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <img src="src/assets/images/keep_48dp.png" fxHide.lt-sm="true" />
+            <h3>Notes</h3>
+      </div>
+    
+      <!-- mat search box -->
+      <div fxHide.lt-sm="true" fxLayoutAlign="start center" fxLayout="row" ngClass.gt-xs="search-toolbar-div-gt-xs">
+        <div fxHide.lt-sm="true" class="search-div" fxLayoutAlign="center center">
+          <mat-form-field class="search-bar" appearance="fill legacy">
+            <span matPrefix><button mat-icon-button><mat-icon >search</mat-icon></button></span>
+            <input matInput type="search" placeholder="Search"/>
+          </mat-form-field>
+        </div>
+      </div>
       
-      <mat-sidenav-container class="sidenav-container" style="overflow: hidden;">
-            <mat-sidenav #drawer class="sidenav" [mode]="(isHandset$ | async) ? 'over' : 'side'" > 
-              <!--[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [opened]="!(isHandset$ | async)"-->
-              
-              <mat-nav-list class="mat-nav-list">
-                
-                <!-- notes -->
-                <mat-list-item  (click)="goToNotesComponent();">
-                  <img src="src/assets/images/outline_emoji_objects_black_18dp.png"><span style="margin-left:3em">Notes</span>
-                </mat-list-item>
+      <div fxLayout="row" fxLayoutAlign="end center" ngClass.gt-xs="mat-icon-account-gt-xs" ngClass.lt-sm="mat-icon-account-lt-sm">
+    
+        <!-- mat icons -->
+        <div fxLayout="row" class="mat-icon-class" fxLayoutAlign="space-around center">
+            <div fxLayoutAlign="center center">
+              <button mat-icon-button color="" fxHide.gt-xs="true">
+                <mat-icon matTooltip="Search">search</mat-icon>
+              </button>
+            </div>
+            <div fxLayoutAlign="center center"><mat-icon matTooltip="refresh">refresh</mat-icon></div>
+            <div fxLayoutAlign="center center" fxHide.lt-sm="true" matTooltip="List view"><mat-icon>list</mat-icon></div>
+            <div fxLayoutAlign="center center"><mat-icon matTooltip="settings">settings</mat-icon></div>
+        </div>
           
-                <!-- remainders -->
-                <mat-list-item >
-                    <div><mat-icon>notifications_none</mat-icon></div><div style="margin-left:3em">Remainders</div>
-                </mat-list-item>
-                
-                <!-- divider line -->
-                <mat-divider></mat-divider>
-                
-                <!-- label line -->
-                <mat-label style="margin-left:1em; margin-top:1em; margin-bottom: 1em" >LABELS</mat-label> 
-                
-                <!-- editlabel -->
-                <mat-list-item >
-                  <mat-icon>edit</mat-icon><div style="margin-left:3em">EditLables</div>
-                </mat-list-item>
-                
-                <mat-divider></mat-divider>
-                
-                <mat-list-item (click)="goToArchiveComponent();">
-                  <mat-icon>archive</mat-icon><div style="margin-left:3em">Archive</div>
-                </mat-list-item>
+        <!-- account icon --> 
+        <div class="account-div" fxLayoutAlign="end center">
+            <mat-icon matTooltip="Apps">apps</mat-icon>
+            <button mat-icon-button color="" [matMenuTriggerFor]="account"><mat-icon>person_outline</mat-icon></button>
+            <mat-menu #account="matMenu">
+              <mat-card>
+                <div style="height:20%; width:30%">
+                  <div><h1>{{userDetails.firstName.charAt(0)}}</h1></div>
+                  <div>{{userDetails.email}}</div>
+                </div>
+              </mat-card>
+              <div mat-menu-item>
+                <button mat-button>Add account</button>
+                <button mat-button>Logout</button>
+              </div>
+            </mat-menu>
+
+        </div>
+    
+      </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav class="sidenav" #drawer [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list class="mat-nav-list">
+
+          <!-- notes -->
+          <mat-list-item  (click)="goToNotesComponent();">
+            <img src="src/assets/images/outline_emoji_objects_black_18dp.png"><span style="margin-left:3em">Notes</span>
+          </mat-list-item>
+    
+          <!-- remainders -->
+          <mat-list-item >
+              <div><mat-icon>notifications_none</mat-icon></div><div style="margin-left:3em">Remainders</div>
+          </mat-list-item>
           
-                <mat-list-item (click)="goToTrashComponent();">
-                  <mat-icon>restore_from_trash</mat-icon><div style="margin-left:3em" >Trash</div>
-                </mat-list-item>
+          <!-- divider line -->
+          <mat-divider></mat-divider>
           
-              </mat-nav-list> 
-            </mat-sidenav>
-            <mat-sidenav-content fxLayout="column"  fxLayoutAlign="center center" fxLayoutGap="3%" >
-       
-              <!-- notes content -->
-              <router-outlet></router-outlet>
+          <!-- label line -->
+          <mat-label style="margin-left:1em; margin-top:1em; margin-bottom: 1em" >LABELS</mat-label> 
           
-            </mat-sidenav-content>
-          </mat-sidenav-container>
+          <!-- editlabel -->
+          <mat-list-item >
+            <mat-icon>edit</mat-icon><div style="margin-left:3em">EditLables</div>
+          </mat-list-item>
           
-    </div>
+          <mat-divider></mat-divider>
+          
+          <mat-list-item (click)="goToArchiveComponent();">
+            <mat-icon>archive</mat-icon><div style="margin-left:3em">Archive</div>
+          </mat-list-item>
+    
+          <mat-list-item (click)="goToTrashComponent();">
+            <mat-icon>restore_from_trash</mat-icon><div style="margin-left:3em" >Trash</div>
+          </mat-list-item>
+    
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content fxLayout="column"  fxLayoutAlign="start center" fxLayoutGap="3%">
+
+        <router-outlet></router-outlet>
+    
+      </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

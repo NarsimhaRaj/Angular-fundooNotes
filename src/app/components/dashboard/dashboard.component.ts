@@ -1,36 +1,30 @@
-import { Component, NgZone, Input } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { FormControl, Validators } from '@angular/forms';
-import { NoteService } from 'src/app/services/noteServices/note.service';
+import {MediaMatcher} from '@angular/cdk/layout';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/userServices/user.service';
 
 @Component({
   selector: 'app-components/dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit,OnDestroy {
 
-  search_button: Boolean = false;
-  // clickOutside: Boolean = false;
-  
-  openNotes: Boolean = false;
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
+  userDetails:any;
+  // search_button: Boolean = false;
+  // openNotes: Boolean = false;
 
-  // pin: Boolean = false;
-  // unpin: Boolean = false;
-  // checkbox: Boolean = false;
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private userServices: UserService,private snackBar:MatSnackBar,private route:Router) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+  }
 
-
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
-
-  constructor(private breakpointObserver: BreakpointObserver, private noteServices: NoteService,private snackBar:MatSnackBar,private route:Router) {
-
+  ngOnInit(){
+    this.userDetails=this.userServices.userDetails;
   }
 
   archiveNotes(archiveBooleanValue){
@@ -56,4 +50,9 @@ export class DashboardComponent {
   goToTrashComponent(){
     this.route.navigateByUrl("dashboard/trashNotes");
   }
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
 }
