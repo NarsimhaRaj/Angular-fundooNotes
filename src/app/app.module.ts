@@ -22,6 +22,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { NotesComponent } from './components/notes/notes.component';
 import { NgxPopper } from 'angular-popper';
 import { ArchiveComponent } from './components/archive/archive.component';
+import { TrashComponent } from './components/trash/trash.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ArchiveComponent } from './components/archive/archive.component';
     ResetPasswordComponent,
     DashboardComponent,
     NotesComponent,
-    ArchiveComponent
+    ArchiveComponent,
+    TrashComponent
   ],
   imports: [
     BrowserModule,
