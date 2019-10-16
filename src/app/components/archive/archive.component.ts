@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { NoteService } from 'src/app/services/noteServices/note.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { Subject } from 'rxjs';
-import { DialogComponent } from '../dialog/dialog.component';
+import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 
 export interface DialogData{
   noteId:String;
@@ -43,7 +43,7 @@ export class ArchiveComponent implements OnInit {
 
   openDialog(note): void {
     
-      const dialogRef = this.dialog.open(DialogComponent, {
+      const dialogRef = this.dialog.open(UpdateDialogComponent, {
         width: '550px',
         data: {noteId:note.id,title: note.title, description: note.description, color:note.color}
       });
