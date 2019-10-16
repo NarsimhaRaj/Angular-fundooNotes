@@ -65,28 +65,28 @@
           </mat-list-item>
     
           <!-- remainders -->
-          <mat-list-item [ngClass]="{'mat-list-item-selected': onReminderListSelected}">
+          <mat-list-item [ngClass]="{'mat-list-item-selected': onReminderListSelected}" [fxHide]="!isAdvancedUser">
               <div><mat-icon>notifications_none</mat-icon></div><div style="margin-left:3em">Remainders</div>
           </mat-list-item>
           
           <!-- divider line -->
-          <mat-divider></mat-divider>
+          <mat-divider [fxHide]="!isAdvancedUser"></mat-divider>
           
           <!-- label line -->
-          <mat-label style="margin-left:1em; margin-top:1em; margin-bottom: 1em" >LABELS</mat-label> 
+          <mat-label style="margin-left:1em; margin-top:1em; margin-bottom: 1em" [fxHide]="!isAdvancedUser">LABELS</mat-label> 
           
           <!-- editlabel -->
-          <mat-list-item >
+          <mat-list-item [fxHide]="!isAdvancedUser">
             <mat-icon>edit</mat-icon><div style="margin-left:3em">EditLables</div>
           </mat-list-item>
           
-          <mat-divider></mat-divider>
+          <mat-divider [fxHide]="!isAdvancedUser"></mat-divider>
           
-          <mat-list-item (click)="goToArchiveComponent();" [ngClass]="{'mat-list-item-selected': onArchiveListSelected}">
+          <mat-list-item [fxHide]="!isAdvancedUser" (click)="goToArchiveComponent();" [ngClass]="{'mat-list-item-selected': onArchiveListSelected}">
             <mat-icon>archive</mat-icon><div style="margin-left:3em">Archive</div>
           </mat-list-item>
     
-          <mat-list-item (click)="goToTrashComponent();" [ngClass]="{'mat-list-item-selected': onTrashListSelected}">
+          <mat-list-item [fxHide]="!isAdvancedUser" (click)="goToTrashComponent();" [ngClass]="{'mat-list-item-selected': onTrashListSelected}">
             <mat-icon>restore_from_trash</mat-icon><div style="margin-left:3em" >Trash</div>
           </mat-list-item>
     

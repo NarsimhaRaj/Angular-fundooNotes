@@ -3,6 +3,7 @@ import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/userServices/user.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-components/dashboard',
@@ -19,9 +20,8 @@ export class DashboardComponent implements OnInit,OnDestroy {
   onReminderListSelected:Boolean=false;
   onTrashListSelected:Boolean=false;
 
+  isAdvancedUser:any=true;
 
-  // search_button: Boolean = false;
-  // openNotes: Boolean = false;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private userServices: UserService,private snackBar:MatSnackBar,private route:Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -29,14 +29,22 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
-  sideNavSelectedList(nl,rl,al,tl){
-    this.onNoteListSelected=nl;
-    this.onReminderListSelected=rl;
-    this.onArchiveListSelected=al;
-    this.onTrashListSelected=tl;
+  sideNavSelectedList(nList,rList,aList,tList){
+    this.onNoteListSelected=nList;
+    this.onReminderListSelected=rList;
+    this.onArchiveListSelected=aList;
+    this.onTrashListSelected=tList;
   }
   ngOnInit(){
     this.userDetails=this.userServices.userDetails;
+    this.getUserService();
+  }
+
+  getUserService(){
+    this.userServices.getUserDetailsById().subscribe((response:any)=>{
+      if(response.service=="basic")
+        this.isAdvancedUser=false;
+    });
   }
 
   archiveNotes(archiveBooleanValue){
