@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatListModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatCheckboxModule, MatCardModule, MatTooltipModule } from '@angular/material'
@@ -23,7 +22,7 @@ import { NotesComponent } from './components/notes/notes.component';
 import { NgxPopper } from 'angular-popper';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
-import { DialogComponent } from './components/dialog/dialog.component';
+import { UpdateDialogComponent } from './components/update-dialog/update-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +35,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     NotesComponent,
     ArchiveComponent,
     TrashComponent,
-    DialogComponent
+    UpdateDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +66,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     ClickOutsideModule,
     NgxPopper
   ],
-  entryComponents: [DialogComponent],
+  entryComponents: [UpdateDialogComponent],
   providers: [UserService, HttpService],
   bootstrap: [AppComponent]
 })
