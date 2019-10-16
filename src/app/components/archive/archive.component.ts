@@ -1,7 +1,15 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { NoteService } from 'src/app/services/noteServices/note.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { Subject } from 'rxjs';
+import { DialogComponent } from '../dialog/dialog.component';
+
+export interface DialogData{
+  noteId:String;
+  title:String;
+  description:String;
+  color:String;
+}
 
 @Component({
   selector: 'app-archive',
@@ -18,7 +26,7 @@ export class ArchiveComponent implements OnInit {
 
   public emitObservable: Subject<void> = new Subject<void>();
 
-  constructor(private noteServices: NoteService,private snackBar:MatSnackBar) { }
+  constructor(private noteServices: NoteService,private snackBar:MatSnackBar,public dialog: MatDialog) { }
 
   
 
@@ -31,6 +39,27 @@ export class ArchiveComponent implements OnInit {
     });
 
   }
+
+
+  openDialog(note): void {
+    
+      const dialogRef = this.dialog.open(DialogComponent, {
+        width: '550px',
+        data: {noteId:note.id,title: note.title, description: note.description, color:note.color}
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.noteServices.updateNotes(result).subscribe((response)=>{
+            // console.log(response);
+          })
+        }
+        this.emitObservable.next();
+      });
+      
+  }
+
+
   getNotesList(){
     this.noteServices.getNotesList().subscribe((response: any) => {
       this.notesList = response.data.data;

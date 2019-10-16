@@ -1,10 +1,18 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 // import { Observable } from 'rxjs';
 import { NoteService } from 'src/app/services/noteServices/note.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { DialogComponent } from '../dialog/dialog.component';
+import { UserService } from 'src/app/services/userServices/user.service';
 
+export interface DialogData{
+  noteId:String;
+  title:String;
+  description:String;
+  color:String;
+}
 
 @Component({
   selector: 'app-notes',
@@ -17,7 +25,6 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   private getNotesObs: any;
   panelOpenState: Boolean = false;
-  // isReminderEnable:Boolean=false;
 
   title = new FormControl('', [
     Validators.required
@@ -26,19 +33,56 @@ export class NotesComponent implements OnInit, OnDestroy {
     Validators.required
   ]);
 
+  isAdvancedUser:boolean=true;//initially value set to advance
+
+  matCardColor:string="";
+
   public emitObservable: Subject<void> = new Subject<void>();
 
-  constructor(private noteServices: NoteService,private snackBar:MatSnackBar) { }
-
+  constructor(private userService:UserService,private noteServices: NoteService,private snackBar:MatSnackBar, public dialog: MatDialog) { }
   
 
   ngOnInit() {
+
+    // to get user registered Service
+    this.getUserService();
 
     this.getNotesList();
 
     this.getNotesObs = this.emitObservable.subscribe(() => {
       this.getNotesList();
     });
+
+  } 
+
+  /**
+   * @description to get logged in user registered service we sent a rest api request
+   */
+  getUserService(){
+    this.userService.getUserDetailsById().subscribe((response:any)=>{
+      if(response.service=="basic")
+        this.isAdvancedUser=false;
+    });
+  }
+
+  openDialog(note): void {
+    
+    if(this.isAdvancedUser){
+     
+      const dialogRef = this.dialog.open(DialogComponent, {
+        width: '550px',
+        data: {noteId:note.id,title: note.title, description: note.description, color:note.color}
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.noteServices.updateNotes(result).subscribe((response)=>{
+            // console.log(response);
+          })
+        }
+        this.emitObservable.next();
+      });
+    }
 
   }
 
@@ -51,7 +95,7 @@ export class NotesComponent implements OnInit, OnDestroy {
    */
   save() {
     if (this.title.valid || this.description.valid) {
-      var notes = { title: this.title.value, description: this.description.value }
+      var notes = { title: this.title.value, description: this.description.value, color:this.matCardColor }
       this.noteServices.addNotes(notes).subscribe((response) => {
         this.emitObservable.next();
       }, (error: any) => {
@@ -104,17 +148,18 @@ export class NotesComponent implements OnInit, OnDestroy {
   /**
    * @description
    */
-  updateBackgroundColor(color,note){
-
-    let data = { noteIdList: [note.id], color: color };
-    console.log(data);
-    this.noteServices.updateBackgroundColor(data).subscribe((response)=>{
+  updateBackgroundColor(color,note?){
+    if(note){
+      let data = { noteIdList: [note.id], color: color };
+      this.noteServices.updateBackgroundColor(data).subscribe((response)=>{
       this.emitObservable.next();
     });
+    }
+    else{
+      this.matCardColor=color;
+    }
   }
-  // addReminder(){
-  //   this.isReminderEnable=!this.isReminderEnable;
-  // }
+  
 
   ngOnDestroy() {
     this.getNotesObs.unsubscribe();

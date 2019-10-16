@@ -18,14 +18,14 @@
           </mat-card>
       
           <!-- mat card expanded panel -->
-          <mat-card [fxHide]="!panelOpenState" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" >
+          <mat-card [fxHide]="!panelOpenState" [ngStyle]="{'background-color': matCardColor}" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" >
               
             <!-- mat card title -->
             <mat-card-title fxLayoutAlign="space-between center" style="margin-top:-0.5em;">
               <div style="width:80%;">
                   <input matInput type="text" placeholder="Title" [formControl]=title/>
               </div>
-              <div style="width:20%;" fxLayoutAlign="end center" >
+              <div style="width:20%;" fxLayoutAlign="end center" [fxHide]="!isAdvancedUser">
                 <button mat-button color="" (click)="unpin=!unpin" [fxHide]="!unpin" >unpin</button>
                 <button mat-button color="" (click)="pinned(); unpin=!unpin" [fxHide]="unpin" >pin</button>
               </div>
@@ -38,13 +38,38 @@
             <!-- mat card footer -->
             <mat-card-footer>
               
-              <div class="footer-icons-div" fxLayoutAlign="space-around center">
+              <div class="footer-icons-div" fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
                 <button mat-icon-button color=""><mat-icon matTooltip="Remind me">notifications_none</mat-icon></button>
                 <button mat-icon-button color=""><mat-icon matTooltip="Collaborator">person_add</mat-icon></button>
-                <button mat-icon-button color=""><mat-icon matTooltip="Change color">color_lens</mat-icon></button>
+                <button mat-icon-button color="" [matMenuTriggerFor]="cardColorMenu"><mat-icon matTooltip="Change color">color_lens</mat-icon></button>
+                <mat-menu #cardColorMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
+                  <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                      <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC')" style="background-color: #F5F5EC;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#EB716B')" style="background-color: #EB716B;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#FCE42A')" style="background-color: #FCE42A"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#6DE391')" style="background-color: #6DE391;"></div>
+                  </div>
+                  <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                      <div mat-menu-item (click)="updateBackgroundColor('#1597DB')" style="background-color: #1597DB;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#08ECF2')" style="background-color: #08ECF2;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF')" style="background-color: #8C7FBF;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#D37CE2')" style="background-color: #D37CE2;"></div>
+                  </div>
+                  <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                      <div mat-menu-item (click)="updateBackgroundColor('#FF8632')" style="background-color: #FF8632"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9')" style="background-color: #EA7AC9;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#A35237')" style="background-color: #A35237;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#959592')" style="background-color: #959592;"></div>
+                  </div>
+                </mat-menu>
                 <button mat-icon-button color=""><mat-icon matTooltip="Add image">crop_original</mat-icon></button>
                 <button mat-icon-button color=""><mat-icon matTooltip="Archive">archive</mat-icon></button>
-                <button mat-icon-button color=""><mat-icon matTooltip="More">more_vert</mat-icon></button>
+                <button mat-icon-button color="" [matMenuTriggerFor]="more_vert"><mat-icon matTooltip="More">more_vert</mat-icon></button>
+                <mat-menu #more_vert="matMenu">
+                  <button (click)="delete(note);" mat-menu-item>
+                    Delete
+                  </button>
+                </mat-menu>
                 <button mat-icon-button color=""><mat-icon matTooltip="Undo">undo</mat-icon></button>
                 <button mat-icon-button color=""><mat-icon matTooltip="Redo">redo</mat-icon></button>
               </div>
@@ -61,11 +86,13 @@
     <!-- notes list -->
     <div style="width:100%;height:auto;overflow: hidden;" fxLayoutAlign="center start">
     
-        <div style="width:80%;" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="center start" fxLayoutGap="2%">
+        <div style="width:70%;" fxLayout="row wrap" fxLayout.lt-sm="column" gdGridAlign>
       
         <div *ngFor="let note of notesList?.reverse()" >
-          <mat-card [ngStyle]="{'background-color':note.color}" ngClass.gt-xs="mat-card-list-gt-xs" ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived">
-            <mat-card-title fxLayoutAlign="space-between center">
+          <mat-card [ngStyle]="{'background-color':note.color}" style="margin-left:7px;" ngClass.gt-xs="mat-card-list-gt-xs" 
+            ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived">
+            
+            <mat-card-title (click)="openDialog(note)" fxLayoutAlign="space-between center">
       
               <div style="width:80%;overflow-wrap: break-word;">
                 {{note.title}}
@@ -75,13 +102,13 @@
               </div>
       
             </mat-card-title>
-            <mat-card-content style="white-space: pre-wrap;overflow-wrap: break-word;">
+            <mat-card-content (click)="openDialog(note)" style="white-space: pre-wrap;overflow-wrap: break-word;">
               <div>
                 {{note.description}}
               </div>
             </mat-card-content>
             <mat-card-footer>
-              <div fxLayoutAlign="space-around center">
+              <div fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
       
                 <div>
                   <button mat-icon-button color="" (click)="addReminder()">
@@ -97,7 +124,8 @@
                 <div>
                   <button mat-icon-button color="" [matMenuTriggerFor]="colorsMenu" >
                     <mat-icon matTooltip="Change color">color_lens</mat-icon>
-                  </button>
+                  </button>        
+                  <!-- menu of color lens -->
                   <mat-menu #colorsMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
                     <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
                         <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC',note)" style="background-color: #F5F5EC;"></div>
@@ -117,8 +145,7 @@
                         <div mat-menu-item (click)="updateBackgroundColor('#A35237',note)" style="background-color: #A35237;"></div>
                         <div mat-menu-item (click)="updateBackgroundColor('#959592',note)" style="background-color: #959592;"></div>
                     </div>
-                  </mat-menu>
-                
+                  </mat-menu>        
                 </div> 
                 
                 <div><button mat-icon-button color="">
@@ -135,11 +162,12 @@
                 <div><button mat-icon-button color="" [matMenuTriggerFor]="more">
                     <mat-icon matTooltip="More">more_vert</mat-icon>
                   </button>
+                  <!-- menu of morevert icon -->
                   <mat-menu #more="matMenu">
-                    <button (click)="delete(note);" mat-menu-item>
-                      Delete
-                    </button>
-                  </mat-menu>
+                      <button (click)="delete(note);" mat-menu-item>
+                        Delete
+                      </button>
+                    </mat-menu>
                 </div>
               </div>
       
@@ -150,6 +178,11 @@
       </div>
     </div>
 </div>
+
+
+
+
+
 
 
 
