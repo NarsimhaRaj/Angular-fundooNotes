@@ -1,0 +1,62 @@
+<div [ngStyle]="{'background-color':data.color}">
+  <div mat-dialog-title fxLayoutAlign="space-between center" style="width:100%;height:100%">
+      <div>
+          <mat-form-field appearance="fill legacy">
+              <input matInput type="text" [value]="data.title" [formControl]="title"/>
+          </mat-form-field>
+      </div>
+      <div>
+        <mat-icon>fiber_pin</mat-icon>
+      </div>
+      </div>
+      <div mat-dialog-content style="white-space: pre-wrap;overflow-wrap: break-word;">
+      <mat-form-field appearance="fill legacy">
+          <textarea matInput matTextareaAutosize [value]="data.description" [formControl]="description"></textarea>
+      </mat-form-field>
+      </div>
+      <div mat-dialog-actions fxLayoutAlign="space-between center">
+        
+        <div class="footer-icons-div" fxLayoutAlign="space-around center">
+            
+          <button mat-icon-button color=""><mat-icon matTooltip="Remind me">notifications_none</mat-icon></button>
+          <button mat-icon-button color=""><mat-icon matTooltip="Collaborator">person_add</mat-icon></button>
+          <button mat-icon-button color="" [matMenuTriggerFor]="colorsMenu" ><mat-icon matTooltip="Change color">color_lens</mat-icon></button>
+          <mat-menu #colorsMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
+            <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC')" style="background-color: #F5F5EC;"></div>
+                <div mat-menu-item (click)="updateBackgroundColor('#EB716B')" style="background-color: #EB716B;"></div>
+                <div mat-menu-item (click)="updateBackgroundColor('#FCE42A')" style="background-color: #FCE42A"></div>
+                <div mat-menu-item (click)="updateBackgroundColor('#6DE391')" style="background-color: #6DE391;"></div>
+            </div>
+            <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                <div mat-menu-item (click)="updateBackgroundColor('#1597DB')" style="background-color: #1597DB;"></div>
+                <div mat-menu-item (click)="updateBackgroundColor('#08ECF2')" style="background-color: #08ECF2;"></div>
+                <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF')" style="background-color: #8C7FBF;"></div>
+                <div mat-menu-item (click)="updateBackgroundColor('#D37CE2')" style="background-color: #D37CE2;"></div>
+            </div>
+            <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                <div mat-menu-item (click)="updateBackgroundColor('#FF8632')" style="background-color: #FF8632"></div>
+                <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9')" style="background-color: #EA7AC9;"></div>
+                <div mat-menu-item (click)="updateBackgroundColor('#A35237')" style="background-color: #A35237;"></div>
+                <div mat-menu-item (click)="updateBackgroundColor('#959592')" style="background-color: #959592;"></div>
+            </div>
+          </mat-menu>
+          <button mat-icon-button color=""><mat-icon matTooltip="Add image">crop_original</mat-icon></button>
+          <button mat-icon-button color=""><mat-icon matTooltip="Archive">archive</mat-icon></button>
+          <button mat-icon-button color="" [matMenuTriggerFor]="more" ><mat-icon matTooltip="More">more_vert</mat-icon></button>
+           <!-- menu of morevert icon -->
+           <mat-menu #more="matMenu">
+              <button (click)="delete(note);" mat-menu-item>
+                  Delete
+              </button>
+          </mat-menu>
+          <button mat-icon-button color=""><mat-icon matTooltip="Undo">undo</mat-icon></button>
+          <button mat-icon-button color=""><mat-icon matTooltip="Redo">redo</mat-icon></button>
+        </div>
+    
+        <!-- closing button -->
+        <div fxLayoutAlign="end center">
+            <button mat-button (click)="onCloseClick()" cdkFocusInitial>Close</button>
+        </div>
+    </div>
+</div>
