@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
@@ -28,6 +28,13 @@ export class HttpService {
     return this.http.get(environment.baseDomainUrl + url, { headers : headersOptions });
   }
 
+  getUserDetailsById(url,token,userId){
+    let headersOptions = new HttpHeaders({
+      "Authorization": token
+    });
+    let idParam=new HttpParams().set('id',userId);
+    return this.http.get(environment.baseDomainUrl + url , { headers : headersOptions,params:idParam });
+  }
   /**
    * @description: executes http post request 
    * @param url : restAPI post service to post data
