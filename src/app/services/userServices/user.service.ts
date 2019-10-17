@@ -21,7 +21,7 @@ export class UserService {
 
   getUserDetailsById(){
     let url= "/user/"+this.userDetails.userId;
-    return this.httpService.getUserDetailsById(url,this.userDetails.id,this.userDetails.userId);
+    return this.httpService.getUserDetailsById(url,this.userDetails.id);
   }
 
   getData() {

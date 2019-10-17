@@ -21,16 +21,16 @@ export class HttpService {
    * @description: executes http get request with header token for validation
    * @param url : restAPI service for getting data from
    */
-  getWithToken(url,token){
+  getWithToken(url){
     let headersOptions = new HttpHeaders({
-      "Authorization": token
+      "Authorization": localStorage.getItem("token")
     });
     return this.http.get(environment.baseDomainUrl + url, { headers : headersOptions });
   }
 
-  getUserDetailsById(url,token,userId){
+  getUserDetailsById(url,userId){
     let headersOptions = new HttpHeaders({
-      "Authorization": token
+      "Authorization": localStorage.getItem("token")
     });
     let idParam=new HttpParams().set('id',userId);
     return this.http.get(environment.baseDomainUrl + url , { headers : headersOptions,params:idParam });
@@ -51,10 +51,20 @@ export class HttpService {
    * @param token : token for validaiton
    */
 
-  postWithToken(url, passwordData, token) {
-    let headersOptions = new HttpHeaders({
-      "Authorization": token
-    });
+  postWithToken(url, passwordData, token?) {
+    let headersOptions:HttpHeaders;
+    if(token){
+      headersOptions = new HttpHeaders({
+        "Authorization": token
+      });  
+    }
+    else
+    {
+      headersOptions = new HttpHeaders({
+        "Authorization": localStorage.getItem("token")
+      });
+    }
+    
     return this.http.post(environment.baseDomainUrl + url, passwordData, { headers:headersOptions});
   }
 }
