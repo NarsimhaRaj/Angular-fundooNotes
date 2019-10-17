@@ -3,6 +3,7 @@ import { NoteService } from 'src/app/services/noteServices/note.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { Subject } from 'rxjs';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 export interface DialogData{
   noteId:String;
@@ -23,10 +24,12 @@ export class ArchiveComponent implements OnInit {
   private getNotesObs: any;
   colorChange: boolean[] = new Array();
   // isReminderEnable:Boolean=false;
+  viewType:string="row wrap";
 
   public emitObservable: Subject<void> = new Subject<void>();
 
-  constructor(private noteServices: NoteService,private snackBar:MatSnackBar,public dialog: MatDialog) { }
+  constructor(private noteServices: NoteService,private snackBar:MatSnackBar,public dialog: MatDialog,
+    private dashBoard:DashboardComponent) { }
 
   
 
@@ -37,6 +40,10 @@ export class ArchiveComponent implements OnInit {
     this.getNotesObs = this.emitObservable.subscribe(() => {
       this.getNotesList();
     });
+
+    this.dashBoard.emitViewType.subscribe((type)=>{
+      this.viewType = type!="list"? "row wrap":"column";
+    })
 
   }
 
@@ -88,11 +95,12 @@ export class ArchiveComponent implements OnInit {
    */
   unArchive(note)
   {
-    let data = { noteId: note.id, isArchived: false };
+    let data = { noteIdList: [note.id], isArchived: false };
 
-    this.noteServices.updateNotes(data).subscribe((response)=>{
+    this.noteServices.addToArchive(data).subscribe((response)=>{
       this.emitObservable.next();
     })
+    
   }
 
   /**

@@ -6,6 +6,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { UserService } from 'src/app/services/userServices/user.service';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 export interface DialogData{
   noteId:String;
@@ -33,25 +34,33 @@ export class NotesComponent implements OnInit, OnDestroy {
     Validators.required
   ]);
 
+  viewType:string="row wrap";
+
   isAdvancedUser:boolean=true;//initially value set to advance
 
   matCardColor:string="";
 
   public emitObservable: Subject<void> = new Subject<void>();
 
-  constructor(private userService:UserService,private noteServices: NoteService,private snackBar:MatSnackBar, public dialog: MatDialog) { }
+  constructor(private userService:UserService,private noteServices: NoteService,private snackBar:MatSnackBar,
+     public dialog: MatDialog, private dashBoard:DashboardComponent) {
+    this.getUserService();
+
+   }
   
 
   ngOnInit() {
-
     // to get user registered Service
-    this.getUserService();
-
+    this.userService.setUser();
     this.getNotesList();
 
     this.getNotesObs = this.emitObservable.subscribe(() => {
       this.getNotesList();
     });
+
+    this.dashBoard.emitViewType.subscribe((type)=>{
+      this.viewType = type!="list"? "row wrap":"column";
+    })
 
   } 
 

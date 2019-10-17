@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NoteService } from 'src/app/services/noteServices/note.service';
 import { MatSnackBar } from '@angular/material';
 import { Subject } from 'rxjs';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-trash',
@@ -15,10 +16,12 @@ export class TrashComponent implements OnInit {
   private getNotesObs: any;
   colorChange: boolean[] = new Array();
   // isReminderEnable:Boolean=false;
+  viewType:string="row wrap";
 
   public emitObservable: Subject<void> = new Subject<void>();
 
-  constructor(private noteServices: NoteService,private snackBar:MatSnackBar) { }
+  constructor(private noteServices: NoteService,private snackBar:MatSnackBar,
+    private dashBoard:DashboardComponent) { }
 
   
 
@@ -30,6 +33,9 @@ export class TrashComponent implements OnInit {
       this.getNotesList();
     });
 
+    this.dashBoard.emitViewType.subscribe((type)=>{
+      this.viewType = type!="list"? "row wrap":"column";
+    })
   }
   getNotesList(){
     this.noteServices.getNotesList().subscribe((response: any) => {
@@ -58,7 +64,7 @@ export class TrashComponent implements OnInit {
    */
   restoreNotes(note){
     
-    let newNote={title:note.title,description:note.description, isArchive:note.isArchive }
+    let newNote={title:note.title,description:note.description, isArchive:note.isArchive, isPined:note.isPined }
 
     this.noteServices.addNotes(newNote).subscribe((response) => {
       this.emitObservable.next();
