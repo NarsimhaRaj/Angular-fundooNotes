@@ -42,10 +42,15 @@ export class LoginComponent implements OnInit {
 
     var loginData = { email: this.loginFormGroup.get("email").value, password: this.loginFormGroup.get("password").value }
     this.userService.login(loginData).subscribe((response: any) => {
+
       this.snackBar.open("SuccessFully Logged In", undefined, { duration: 2000 });
-      this.userService.loginUserDetails.next(response);
+
+      this.userService.setUser();
+      
+      //set userDetails to logged in user details
+      sessionStorage.setItem('user',JSON.stringify(response));
+
       // storing token in localstorage
-      localStorage.setItem('token',response.id);
       this.router.navigateByUrl('/dashboard');
     }, (error: any) => {
       this.snackBar.open(error.message, undefined, { duration: 2000 })
