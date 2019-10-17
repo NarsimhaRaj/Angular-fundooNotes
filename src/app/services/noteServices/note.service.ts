@@ -12,7 +12,7 @@ export class NoteService {
 
   public emitObservable: Subject<void> = new Subject<void>();
 
-  constructor(private httpService: HttpService, private userServices: UserService, private snackBar: MatSnackBar) { }
+  constructor(private httpService: HttpService) { }
 
 
   /**

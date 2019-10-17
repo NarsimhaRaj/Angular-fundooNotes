@@ -23,14 +23,14 @@ export class HttpService {
    */
   getWithToken(url){
     let headersOptions = new HttpHeaders({
-      "Authorization": localStorage.getItem("token")
+      "Authorization": JSON.parse(sessionStorage.getItem("user")).id
     });
     return this.http.get(environment.baseDomainUrl + url, { headers : headersOptions });
   }
 
   getUserDetailsById(url,userId){
     let headersOptions = new HttpHeaders({
-      "Authorization": localStorage.getItem("token")
+      "Authorization": JSON.parse(sessionStorage.getItem("user")).id
     });
     let idParam=new HttpParams().set('id',userId);
     return this.http.get(environment.baseDomainUrl + url , { headers : headersOptions,params:idParam });
@@ -61,7 +61,7 @@ export class HttpService {
     else
     {
       headersOptions = new HttpHeaders({
-        "Authorization": localStorage.getItem("token")
+        "Authorization": JSON.parse(sessionStorage.getItem("user")).id
       });
     }
     

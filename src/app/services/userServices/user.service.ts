@@ -2,26 +2,29 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../httpServices/http.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-
-  loginUserDetails:Subject<Object> = new Subject<Object>();
-  userDetails:any;
+  private userDetails:any;
 
   constructor(private httpService: HttpService, private router: Router, private snackBar: MatSnackBar) {
-    this.loginUserDetails.subscribe((user:any)=>{
-      this.userDetails=user;
-    });
+  }
+
+  setUser(){
+    this.userDetails=JSON.parse(sessionStorage.getItem("user"));
+  }
+
+  getUser(){
+    // console.log(this.userDetails);
+    return sessionStorage.getItem('user');
   }
 
   getUserDetailsById(){
-    let url= "/user/"+this.userDetails.userId;
-    return this.httpService.getUserDetailsById(url,this.userDetails.id);
+    let url= "/user/"+JSON.parse(sessionStorage.getItem('user'))['userId'];
+    return this.httpService.getUserDetailsById(url,JSON.parse(sessionStorage.getItem('user'))['id']);
   }
 
   getData() {
