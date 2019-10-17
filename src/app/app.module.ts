@@ -23,6 +23,7 @@ import { NgxPopper } from 'angular-popper';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { UpdateDialogComponent } from './components/update-dialog/update-dialog.component';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,7 @@ import { UpdateDialogComponent } from './components/update-dialog/update-dialog.
     NgxPopper
   ],
   entryComponents: [UpdateDialogComponent],
-  providers: [UserService, HttpService],
+  providers: [UserService, HttpService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

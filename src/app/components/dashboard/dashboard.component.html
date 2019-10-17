@@ -29,24 +29,25 @@
               </button>
             </div>
             <div fxLayoutAlign="center center"><mat-icon matTooltip="refresh">refresh</mat-icon></div>
-            <div fxLayoutAlign="center center" fxHide.lt-sm="true" matTooltip="List view"><mat-icon>list</mat-icon></div>
+            <div fxLayoutAlign="center center" [fxHide]="!view" (click)="listOrGridview('list')" fxHide.lt-sm="true" matTooltip="List view"><mat-icon>list</mat-icon></div>
+            <div fxLayoutAlign="center center" [fxHide]="view" (click)="listOrGridview('grid')" fxHide.lt-sm="true" matTooltip="Grid view"><mat-icon>view_comfy</mat-icon></div>
             <div fxLayoutAlign="center center"><mat-icon matTooltip="settings">settings</mat-icon></div>
         </div>
           
         <!-- account icon --> 
         <div class="account-div" fxLayoutAlign="end center">
-            <mat-icon matTooltip="Apps">apps</mat-icon>
-            <button mat-icon-button color="" [matMenuTriggerFor]="account"><mat-icon>person_outline</mat-icon></button>
+            <mat-icon fxHide.lt-sm="true" matTooltip="Apps">apps</mat-icon>
+            <button mat-mini-fab color="" [matMenuTriggerFor]="account">{{userDetails.imageUrl}}</button>
             <mat-menu #account="matMenu">
               <mat-card>
                 <div style="height:20%; width:30%">
-                  <div><h1>{{userDetails.firstName.charAt(0)}}</h1></div>
+                  <div><h1>{{userDetails.firstName}}</h1></div>
                   <div>{{userDetails.email}}</div>
                 </div>
               </mat-card>
               <div mat-menu-item>
                 <button mat-button>Add account</button>
-                <button mat-button>Logout</button>
+                <button mat-button (click)="logout()">Logout</button>
               </div>
             </mat-menu>
 
