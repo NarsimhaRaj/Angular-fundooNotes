@@ -76,6 +76,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+    localStorage.clear();
   }
 
 }
