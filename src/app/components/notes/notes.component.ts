@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 // import { Observable } from 'rxjs';
 import { NoteService } from 'src/app/services/noteServices/note.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
@@ -8,11 +8,11 @@ import { UserService } from 'src/app/services/userServices/user.service';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 
-export interface DialogData{
-  noteId:String;
-  title:String;
-  description:String;
-  color:String;
+export interface DialogData {
+  noteId: String;
+  title: String;
+  description: String;
+  color: String;
 }
 
 @Component({
@@ -22,11 +22,14 @@ export interface DialogData{
 })
 export class NotesComponent implements OnInit, OnDestroy {
 
+  // notesList from server
   notesList: any;
 
+  //mat cards expansion panel variables
   private getNotesObs: any;
   panelOpenState: Boolean = false;
 
+  // mat card title and description formcontrol varibales
   title = new FormControl('', [
     Validators.required
   ]);
@@ -34,23 +37,37 @@ export class NotesComponent implements OnInit, OnDestroy {
     Validators.required
   ]);
 
-  viewType:string="row wrap";
-  viewStyling:boolean=true;
+  // data from dashboard component
+  data = {
+    viewLayoutType: "row wrap",
+    viewStyling: true
+  }
 
-  isAdvancedUser:boolean=true;//initially value set to advance
+  // user Service variable
+  isAdvancedUser: boolean = true;//initially value set to advance
 
-  matCardColor:string="";
+  // matcardColor
+  matCardColor: string = "";
 
+  pinCountZero: boolean = false;
+
+  // to emit an event after every modifications
   public emitObservable: Subject<void> = new Subject<void>();
 
-  constructor(private userService:UserService,private noteServices: NoteService,private snackBar:MatSnackBar,
-     public dialog: MatDialog, private dashBoard:DashboardComponent) {
+
+  constructor(private userService: UserService, private noteServices: NoteService, private snackBar: MatSnackBar,
+    public dialog: MatDialog, private dashBoard: DashboardComponent) {
     this.getUserService();
 
-   }
-  
+    this.dashBoard.emitView2.subscribe(()=>{
+      console.log("here1111");
+      this.data = this.dashBoard.getData();
+    })
+  }
+
 
   ngOnInit() {
+    console.log("created");
     // to get user registered Service
     this.userService.setUser();
     this.getNotesList();
@@ -59,35 +76,31 @@ export class NotesComponent implements OnInit, OnDestroy {
       this.getNotesList();
     });
 
-    this.dashBoard.emitViewType.subscribe((type)=>{
-      this.viewType = type!="list"? "row wrap":"column";
-      this.viewStyling=!this.viewStyling;
-    })
-
-  } 
+  }
 
   /**
    * @description to get logged in user registered service we sent a rest api request
    */
-  getUserService(){
-    this.userService.getUserDetailsById().subscribe((response:any)=>{
-      if(response.service=="basic")
-        this.isAdvancedUser=false;
+  getUserService() {
+    this.userService.getUserDetailsById().subscribe((response: any) => {
+      if (response.service == "basic")
+        this.isAdvancedUser = false;
     });
   }
 
   openDialog(note): void {
-    
-    if(this.isAdvancedUser){
-     
+
+    if (this.isAdvancedUser) {
+
       const dialogRef = this.dialog.open(UpdateDialogComponent, {
         width: '550px',
-        data: {noteId:note.id,title: note.title, description: note.description, color:note.color}
+        data: { noteId: note.id, title: note.title, description: note.description, color: note.color },
+        panelClass: "matDialogBox"
       });
-  
+
       dialogRef.afterClosed().subscribe(result => {
-        if(result){
-          this.noteServices.updateNotes(result).subscribe((response)=>{
+        if (result) {
+          this.noteServices.updateNotes(result).subscribe((response) => {
             // console.log(response);
           })
         }
@@ -97,7 +110,31 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   }
 
-  
+  /**
+   * @description to pin or unpin a notes
+   * @param note notes which has to be pinned
+   * @param isPinned if notes is pinned true or false value will be set 
+   */
+  pinUnpin(note, isPinned: boolean) {
+    let data = { noteIdList: [note.id], isPined: isPinned };
+    this.noteServices.pinUnpinNotes(data).subscribe((response) => {
+      this.emitObservable.next();
+    });
+  }
+
+  /**
+   * @description counts number of notes are pinned 
+   */
+  pinned(notesList: any) {
+    let note: any;
+    for (note of notesList) {
+      if (note.isPined) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   onClickedOutside(e: Event) {
     this.panelOpenState = !this.panelOpenState;
   }
@@ -106,7 +143,7 @@ export class NotesComponent implements OnInit, OnDestroy {
    */
   save() {
     if (this.title.valid || this.description.valid) {
-      var notes = { title: this.title.value, description: this.description.value, color:this.matCardColor }
+      var notes = { title: this.title.value, description: this.description.value, color: this.matCardColor }
       this.noteServices.addNotes(notes).subscribe((response) => {
         this.emitObservable.next();
       }, (error: any) => {
@@ -122,9 +159,10 @@ export class NotesComponent implements OnInit, OnDestroy {
   }
 
 
-  getNotesList(){
+  getNotesList() {
     this.noteServices.getNotesList().subscribe((response: any) => {
       this.notesList = response.data.data;
+      this.pinCountZero = this.pinned(this.notesList);
     }, (error) => {
       this.snackBar.open(error.message, undefined, { duration: 2000 });
     })
@@ -134,8 +172,8 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @description : delete note and add to trash notes list
    * @param note: note to be deleted
    */
-  delete(note){
-    
+  delete(note) {
+
     let data = { noteIdList: [note.id], isDeleted: true };
 
     this.noteServices.deleteNotes(data).subscribe((response) => {
@@ -147,11 +185,10 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @description : add notes to archive notes list
    * @param note: note to be added
    */
-  archive(note)
-  {
+  archive(note) {
     let data = { noteIdList: [note.id], isArchived: true };
 
-    this.noteServices.addToArchive(data).subscribe((response)=>{
+    this.noteServices.addToArchive(data).subscribe((response) => {
       this.emitObservable.next();
     })
   }
@@ -159,18 +196,18 @@ export class NotesComponent implements OnInit, OnDestroy {
   /**
    * @description
    */
-  updateBackgroundColor(color,note?){
-    if(note){
+  updateBackgroundColor(color, note?) {
+    if (note) {
       let data = { noteIdList: [note.id], color: color };
-      this.noteServices.updateBackgroundColor(data).subscribe((response)=>{
-      this.emitObservable.next();
-    });
+      this.noteServices.updateBackgroundColor(data).subscribe((response) => {
+        this.emitObservable.next();
+      });
     }
-    else{
-      this.matCardColor=color;
+    else {
+      this.matCardColor = color;
     }
   }
-  
+
 
   ngOnDestroy() {
     this.getNotesObs.unsubscribe();

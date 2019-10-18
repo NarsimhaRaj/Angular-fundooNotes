@@ -5,11 +5,11 @@ import { Subject } from 'rxjs';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 
-export interface DialogData{
-  noteId:String;
-  title:String;
-  description:String;
-  color:String;
+export interface DialogData {
+  noteId: String;
+  title: String;
+  description: String;
+  color: String;
 }
 
 @Component({
@@ -23,17 +23,27 @@ export class ArchiveComponent implements OnInit {
 
   private getNotesObs: any;
   colorChange: boolean[] = new Array();
-  // isReminderEnable:Boolean=false;
-  viewType:string="row wrap";
+
+  // data from dashboard component
+  data = {
+    viewLayoutType: "row wrap",
+    viewStyling: true
+  }
 
   public emitObservable: Subject<void> = new Subject<void>();
 
-  constructor(private noteServices: NoteService,private snackBar:MatSnackBar,public dialog: MatDialog,
-    private dashBoard:DashboardComponent) { }
+  constructor(private noteServices: NoteService, private snackBar: MatSnackBar, public dialog: MatDialog,
+    private dashBoard: DashboardComponent) {
 
-  
+    this.dashBoard.emitView2.subscribe(()=>{
+      console.log("here1111");
+      this.data = this.dashBoard.getData();
+    })
+  }
 
   ngOnInit() {
+
+    console.log("created");
 
     this.getNotesList();
 
@@ -41,33 +51,29 @@ export class ArchiveComponent implements OnInit {
       this.getNotesList();
     });
 
-    this.dashBoard.emitViewType.subscribe((type)=>{
-      this.viewType = type!="list"? "row wrap":"column";
-    })
-
   }
-
 
   openDialog(note): void {
-    
-      const dialogRef = this.dialog.open(UpdateDialogComponent, {
-        width: '550px',
-        data: {noteId:note.id,title: note.title, description: note.description, color:note.color}
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
-          this.noteServices.updateNotes(result).subscribe((response)=>{
-            // console.log(response);
-          })
-        }
-        this.emitObservable.next();
-      });
-      
+
+    const dialogRef = this.dialog.open(UpdateDialogComponent, {
+      width: '550px',
+      data: { noteId: note.id, title: note.title, description: note.description, color: note.color },
+      panelClass: "matDialogBox"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.noteServices.updateNotes(result).subscribe((response) => {
+          // console.log(response);
+        })
+      }
+      this.emitObservable.next();
+    });
+
   }
 
 
-  getNotesList(){
+  getNotesList() {
     this.noteServices.getNotesList().subscribe((response: any) => {
       this.notesList = response.data.data;
     }, (error) => {
@@ -79,8 +85,8 @@ export class ArchiveComponent implements OnInit {
    * @description : delete note and add to trash notes list
    * @param note: note to be deleted
    */
-  delete(note){
-    
+  delete(note) {
+
     let data = { noteIdList: [note.id], isDeleted: true };
 
     this.noteServices.deleteNotes(data).subscribe((response) => {
@@ -93,24 +99,23 @@ export class ArchiveComponent implements OnInit {
    * @description : add notes to archive notes list
    * @param note: note to be added
    */
-  unArchive(note)
-  {
+  unArchive(note) {
     let data = { noteIdList: [note.id], isArchived: false };
 
-    this.noteServices.addToArchive(data).subscribe((response)=>{
+    this.noteServices.addToArchive(data).subscribe((response) => {
       this.emitObservable.next();
     })
-    
+
   }
 
   /**
    * @description
    */
-   updateBackgroundColor(color,note){
+  updateBackgroundColor(color, note) {
 
     let data = { noteIdList: [note.id], color: color };
 
-    this.noteServices.updateBackgroundColor(data).subscribe((response)=>{
+    this.noteServices.updateBackgroundColor(data).subscribe((response) => {
       this.emitObservable.next();
     });
   }

@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/userServices/user.service';
 import { Subject } from 'rxjs';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-components/dashboard',
@@ -23,7 +24,14 @@ export class DashboardComponent implements OnInit,OnDestroy {
   onReminderListSelected:Boolean=false;
   onTrashListSelected:Boolean=false;
 
-  public emitViewType:Subject<string>=new Subject<string>();
+  emitView=new EventEmitter();
+  emitView2=new Subject();
+  // list and gird view variables
+  data={
+    viewLayoutType:"row wrap",
+    viewStyling:true
+  }
+
   private _mobileQueryListener: () => void;
 
   /**
@@ -59,11 +67,22 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.getUserService();
   }
 
+  /**
+   * @description shows list/grid view on clicking view icon
+   * @param type type of list to show 
+   */
   listOrGridview(type){
     this.view=!this.view;
-    this.emitViewType.next(type);
+    this.data.viewStyling=!this.data.viewStyling;
+    this.data.viewLayoutType = ((type=="grid")? "row wrap":"column");
+    this.data={viewLayoutType:this.data.viewLayoutType,viewStyling:this.data.viewStyling};
+    
+    this.emitView2.next();
   }
 
+  getData(){
+    return this.data;
+  }
   /**
    * @description gets user selected service on userId which is set from session storage, depending on the selected service 
    * option are enabled or disabled

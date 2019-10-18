@@ -15,29 +15,35 @@ export class TrashComponent implements OnInit {
 
   private getNotesObs: any;
   colorChange: boolean[] = new Array();
-  // isReminderEnable:Boolean=false;
-  viewType:string="row wrap";
+
+  // data from dashboard component
+  data = {
+    viewLayoutType: "row wrap",
+    viewStyling: true
+  }
 
   public emitObservable: Subject<void> = new Subject<void>();
 
-  constructor(private noteServices: NoteService,private snackBar:MatSnackBar,
-    private dashBoard:DashboardComponent) { }
-
-  
+  constructor(private noteServices: NoteService, private snackBar: MatSnackBar,
+    private dashBoard: DashboardComponent) {
+      
+    this.dashBoard.emitView2.subscribe(()=>{
+      console.log("here1111");
+      this.data = this.dashBoard.getData();
+    })
+  }
 
   ngOnInit() {
 
+    console.log("created");
     this.getNotesList();
 
     this.getNotesObs = this.emitObservable.subscribe(() => {
       this.getNotesList();
     });
 
-    this.dashBoard.emitViewType.subscribe((type)=>{
-      this.viewType = type!="list"? "row wrap":"column";
-    })
   }
-  getNotesList(){
+  getNotesList() {
     this.noteServices.getNotesList().subscribe((response: any) => {
       this.notesList = response.data.data;
     }, (error) => {
@@ -49,7 +55,7 @@ export class TrashComponent implements OnInit {
    * @description : delete note and add to trash notes list
    * @param note: note to be deleted
    */
-  deleteForever(note){
+  deleteForever(note) {
 
     let data = { noteIdList: [note.id], isDeleted: true };
 
@@ -62,9 +68,9 @@ export class TrashComponent implements OnInit {
    * @description : to restore notes updating a key value in notes
    * @param note: note to be restored
    */
-  restoreNotes(note){
-    
-    let newNote={title:note.title,description:note.description, isArchive:note.isArchive, isPined:note.isPined }
+  restoreNotes(note) {
+
+    let newNote = { title: note.title, description: note.description, isArchive: note.isArchive, isPined: note.isPined }
 
     this.noteServices.addNotes(newNote).subscribe((response) => {
       this.emitObservable.next();
