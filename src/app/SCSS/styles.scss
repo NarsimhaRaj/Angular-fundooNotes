@@ -62,8 +62,8 @@ a{
 }
 
 .mat-card-list-lt-sm{
-    min-width:200px;
-    max-width:550px;    
+    width:100%;
+    min-width:200px;    
     @include matCard();
     @include matCardHover();
 }
@@ -73,7 +73,8 @@ a{
     @include matCardHover();
 }
 .mat-card-list-gt-xs{
-    width:100%;
+    width:500px;
+    min-width:400px;
     @include matCard();
     @include matCardHover();
 }
@@ -128,6 +129,14 @@ a{
     width:100%;
     justify-content: end;
     }
+    }
+
 }
 
+.matDialogBox{
+    mat-dialog-container {
+        padding: 0;
+        border-radius: 10px;
+        overflow: hidden;
+    }
 }
