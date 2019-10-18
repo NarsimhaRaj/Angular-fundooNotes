@@ -89,7 +89,7 @@
         <div style="width:70%;" [fxLayout]="viewType" fxLayout.lt-sm="column" gdGridAlign>
       
         <div *ngFor="let note of notesList?.reverse()" >
-          <mat-card [ngStyle]="{'background-color':note.color}" style="margin-left:15px;" ngClass.gt-xs="mat-card-list-gt-xs" 
+          <mat-card [ngStyle]="{'background-color':note.color}" style="margin-left:15px;" [ngClass]="{'mat-card-list-gt-xs':!viewStyling,'mat-card-grid-gt-xs':viewStyling}"
             ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived">
             
             <mat-card-title (click)="openDialog(note)" fxLayoutAlign="space-between center">

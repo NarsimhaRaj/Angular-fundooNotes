@@ -29,8 +29,8 @@
               </button>
             </div>
             <div fxLayoutAlign="center center"><mat-icon matTooltip="refresh">refresh</mat-icon></div>
-            <div fxLayoutAlign="center center" [fxHide]="!view" (click)="listOrGridview('list')" fxHide.lt-sm="true" matTooltip="List view"><mat-icon>list</mat-icon></div>
-            <div fxLayoutAlign="center center" [fxHide]="view" (click)="listOrGridview('grid')" fxHide.lt-sm="true" matTooltip="Grid view"><mat-icon>view_comfy</mat-icon></div>
+            <div fxLayoutAlign="center center" [fxHide]="view" (click)="listOrGridview('list')" fxHide.lt-sm="true" matTooltip="List view"><mat-icon>list</mat-icon></div>
+            <div fxLayoutAlign="center center" [fxHide]="!view" (click)="listOrGridview('grid')" fxHide.lt-sm="true" matTooltip="Grid view"><mat-icon>view_comfy</mat-icon></div>
             <div fxLayoutAlign="center center"><mat-icon matTooltip="settings">settings</mat-icon></div>
         </div>
           

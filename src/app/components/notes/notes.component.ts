@@ -35,6 +35,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   ]);
 
   viewType:string="row wrap";
+  viewStyling:boolean=true;
 
   isAdvancedUser:boolean=true;//initially value set to advance
 
@@ -60,6 +61,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
     this.dashBoard.emitViewType.subscribe((type)=>{
       this.viewType = type!="list"? "row wrap":"column";
+      this.viewStyling=!this.viewStyling;
     })
 
   } 
