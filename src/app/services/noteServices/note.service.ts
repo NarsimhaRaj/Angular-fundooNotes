@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
 export class NoteService {
 
   public emitObservable: Subject<void> = new Subject<void>();
-
+  
   constructor(private httpService: HttpService) { }
 
 
@@ -74,5 +74,10 @@ export class NoteService {
   updateNotes(data){
     let url = "/notes/updateNotes";
     return this.httpService.postWithToken(url, data)
+  }
+
+  pinUnpinNotes(data){
+    let url="/notes/pinUnpinNotes";
+    return this.httpService.postWithToken(url,data);
   }
 }
