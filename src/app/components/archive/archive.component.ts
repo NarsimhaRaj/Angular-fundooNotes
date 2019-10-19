@@ -35,8 +35,9 @@ export class ArchiveComponent implements OnInit {
   constructor(private noteServices: NoteService, private snackBar: MatSnackBar, public dialog: MatDialog,
     private dashBoard: DashboardComponent) {
 
-    this.dashBoard.emitView2.subscribe(()=>{
-      console.log("here1111");
+    this.data = this.dashBoard.getData();
+    
+    this.dashBoard.emitView.subscribe(()=>{
       this.data = this.dashBoard.getData();
     })
   }

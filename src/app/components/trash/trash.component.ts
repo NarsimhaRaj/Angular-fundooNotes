@@ -27,15 +27,16 @@ export class TrashComponent implements OnInit {
   constructor(private noteServices: NoteService, private snackBar: MatSnackBar,
     private dashBoard: DashboardComponent) {
       
-    this.dashBoard.emitView2.subscribe(()=>{
-      console.log("here1111");
+    
+    this.data = this.dashBoard.getData();
+    
+    this.dashBoard.emitView.subscribe(()=>{
       this.data = this.dashBoard.getData();
     })
   }
 
   ngOnInit() {
 
-    console.log("created");
     this.getNotesList();
 
     this.getNotesObs = this.emitObservable.subscribe(() => {

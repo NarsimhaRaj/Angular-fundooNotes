@@ -59,15 +59,15 @@ export class NotesComponent implements OnInit, OnDestroy {
     public dialog: MatDialog, private dashBoard: DashboardComponent) {
     this.getUserService();
 
-    this.dashBoard.emitView2.subscribe(()=>{
-      console.log("here1111");
+    this.data = this.dashBoard.getData();
+    
+    this.dashBoard.emitView.subscribe(()=>{
       this.data = this.dashBoard.getData();
     })
   }
 
 
   ngOnInit() {
-    console.log("created");
     // to get user registered Service
     this.userService.setUser();
     this.getNotesList();

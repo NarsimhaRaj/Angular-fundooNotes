@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   mobileQuery: MediaQueryList;
 
-  view:boolean=false;
+  
   userDetails:any;
   isAdvancedUser:any=true;
 
@@ -24,9 +24,10 @@ export class DashboardComponent implements OnInit,OnDestroy {
   onReminderListSelected:Boolean=false;
   onTrashListSelected:Boolean=false;
 
-  emitView=new EventEmitter();
-  emitView2=new Subject();
+  emitView=new Subject();
+
   // list and gird view variables
+  view:boolean=false;
   data={
     viewLayoutType:"row wrap",
     viewStyling:true
@@ -77,7 +78,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.data.viewLayoutType = ((type=="grid")? "row wrap":"column");
     this.data={viewLayoutType:this.data.viewLayoutType,viewStyling:this.data.viewStyling};
     
-    this.emitView2.next();
+    this.emitView.next();
   }
 
   getData(){
@@ -97,6 +98,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
    * @description route will be changed to archive component  on clicking archive button on sidenav
    */
   goToArchiveComponent(){
+   
     this.sideNavSelectedList(false,false,true,false);
     this.route.navigateByUrl("dashboard/archive");
   }
@@ -105,6 +107,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
    * @description route will be chnaged to notes component on clicking note button on sidenav
    */
   goToNotesComponent(){
+   
     this.sideNavSelectedList(true,false,false,false);
     this.route.navigateByUrl("dashboard");
   }
@@ -112,6 +115,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
    * @description route changes to trash component on clicking trash button on sidenav
    */
   goToTrashComponent(){
+
     this.sideNavSelectedList(false,false,false,true);
     this.route.navigateByUrl("dashboard/trashNotes");
   }
