@@ -26,8 +26,8 @@
                   <input matInput type="text" placeholder="Title" [formControl]=title/>
               </div>
               <div style="width:20%;" fxLayoutAlign="end center" [fxHide]="!isAdvancedUser">
-                <button mat-icon-button color="" [fxHide]="!isPinned" (click)="pinUnpin()" ><img src="src/assets/images/outline_fiber_pin.png"/></button>
-                <button mat-icon-button color="" [fxHide]="isPinned" (click)="pinUnpin()" ><img src="src/assets/images/baseline_fiber_pin.png"/></button>
+                <button mat-icon-button color="" [fxHide]="isPinned" (click)="setPin()" ><img src="src/assets/images/outline_fiber_pin.png"/></button>
+                <button mat-icon-button color="" [fxHide]="!isPinned" (click)="setPin()" ><img src="src/assets/images/baseline_fiber_pin.png"/></button>
               </div>
               
             </mat-card-title>
@@ -92,7 +92,7 @@
         <div *ngIf="pinCountZero" style="width:100%;" fxLayoutAlign="start center"><h5>PINNED</h5></div>
         <div style="width:100%;" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
           <div *ngFor="let note of notesList?.reverse()" >
-            <mat-card [ngStyle]="{'background-color':note.color}" style="margin-left:15px;" [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
+            <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;" [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
               ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived && note.isPined">
               
               <mat-card-title fxLayoutAlign="space-between center">
@@ -184,7 +184,7 @@
         <div *ngIf="pinCountZero" style="width:100%;"><h5>OTHERS</h5></div>
         <div style="width:100%;" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
           <div *ngFor="let note of notesList?.reverse()" >
-            <mat-card [ngStyle]="{'background-color':note.color}" style="margin-left:15px;" [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
+            <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;" [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
               ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived && !note.isPined">
               
               <mat-card-title fxLayoutAlign="space-between center">

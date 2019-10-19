@@ -35,8 +35,10 @@ export class ArchiveComponent implements OnInit {
   constructor(private noteServices: NoteService, private snackBar: MatSnackBar, public dialog: MatDialog,
     private dashBoard: DashboardComponent) {
 
+    // modifies data on list and grid view
     this.data = this.dashBoard.getData();
     
+    // to madify on current route emitting an event
     this.dashBoard.emitView.subscribe(()=>{
       this.data = this.dashBoard.getData();
     })
@@ -90,6 +92,14 @@ export class ArchiveComponent implements OnInit {
       this.snackBar.open(error.message, undefined, { duration: 2000 });
     })
   }
+
+  pinUnpin(note) {
+    let data = { noteIdList: [note.id], isPined: true, isArchived:false };
+    this.noteServices.pinUnpinNotes(data).subscribe((response) => {
+      this.emitObservable.next();
+    });
+  }
+
 
   /**
    * @description : delete note and add to trash notes list

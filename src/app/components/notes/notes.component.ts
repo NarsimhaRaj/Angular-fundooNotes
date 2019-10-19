@@ -24,6 +24,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   // notesList from server
   notesList: any;
+  isPinned:boolean=false;
 
   //mat cards expansion panel variables
   private getNotesObs: any;
@@ -150,12 +151,17 @@ export class NotesComponent implements OnInit, OnDestroy {
   onClickedOutside(e: Event) {
     this.panelOpenState = !this.panelOpenState;
   }
+
+
+  setPin(){
+    this.isPinned=!this.isPinned;
+  }
   /**
    * 
    */
   save() {
     if (this.title.valid || this.description.valid) {
-      var notes = { title: this.title.value, description: this.description.value, color: this.matCardColor }
+      var notes = { title: this.title.value, description: this.description.value, color: this.matCardColor,isPined:this.isPinned }
       this.noteServices.addNotes(notes).subscribe((response) => {
         this.emitObservable.next();
       }, (error: any) => {
@@ -198,11 +204,20 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @param note: note to be added
    */
   archive(note) {
-    let data = { noteIdList: [note.id], isArchived: true };
+    if(note.isPined){
+      let data = { noteIdList: [note.id], isArchived: true, isPined:false };
 
-    this.noteServices.addToArchive(data).subscribe((response) => {
+      this.noteServices.addToArchive(data).subscribe((response) => {
       this.emitObservable.next();
-    })
+    });  
+    }
+    else{
+      let data = { noteIdList: [note.id], isArchived: true };
+
+      this.noteServices.addToArchive(data).subscribe((response) => {
+      this.emitObservable.next();
+    });
+    }
   }
 
   /**
