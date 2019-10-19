@@ -10,7 +10,7 @@
       </div>
     
       <!-- mat search box -->
-      <div fxHide.lt-sm="true" fxLayoutAlign="start center" fxLayout="row" ngClass.gt-xs="search-toolbar-div-gt-xs">
+      <div fxHide.lt-sm="true" fxLayoutAlign="start center" fxLayout="row" class="search-toolbar-div">
         <div fxHide.lt-sm="true" class="search-div" fxLayoutAlign="center center">
           <mat-form-field class="search-bar" appearance="fill legacy">
             <span matPrefix><button mat-icon-button><mat-icon >search</mat-icon></button></span>
@@ -19,7 +19,7 @@
         </div>
       </div>
       
-      <div fxLayout="row" fxLayoutAlign="end center" ngClass.gt-xs="mat-icon-account-gt-xs" ngClass.lt-sm="mat-icon-account-lt-sm">
+      <div fxLayout="row" fxLayoutAlign.lt-sm="end center" fxLayoutAlign="space-between center" ngClass.gt-xs="mat-icon-account-gt-xs" ngClass.lt-sm="mat-icon-account-lt-sm">
     
         <!-- mat icons -->
         <div fxLayout="row" class="mat-icon-class" fxLayoutAlign="space-around center">
@@ -35,7 +35,7 @@
         </div>
           
         <!-- account icon --> 
-        <div class="account-div" fxLayoutAlign="end center">
+        <div ngClass.gt-xs="account-div-gt-xs" ngClass.lt-sm="account-div-lt-sm" fxLayoutAlign="end center">
             <mat-icon fxHide.lt-sm="true" matTooltip="Apps">apps</mat-icon>
             <button mat-mini-fab color="" [matMenuTriggerFor]="account">{{userDetails.imageUrl}}</button>
             <mat-menu #account="matMenu">

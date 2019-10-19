@@ -12,15 +12,18 @@
 }
 
 .menu-notes-gt-xs{
-  width:28%;
+  width:20%;
   min-width:150px;
 }
 .menu-notes-lt-sm{
   width:30%;
   min-width:30%;
 }
-.search-toolbar-div-gt-xs{
-  width:100%;
+.search-toolbar-div{
+  width:700px;
+  min-width:30%;
+  max-width:55%;
+  position: relative;
 }
 .sidenav {
   width: 300px;
@@ -28,7 +31,10 @@
 }
 
 .search-div{
-  width:88%;
+  position: relative;
+  width:100%;
+  min-width:30%;
+  max-width:90%;
   height:45px;
   border-radius: 10px;
   border: 1px solid grey;
@@ -47,18 +53,27 @@
 
 .mat-icon-account-gt-xs{
   width:30%;
+  max-width:40%;
 }
 .mat-icon-account-lt-sm{
-  width:50%;
+  width:60%;
 }
 
 .mat-icon-class{
-  max-width:150px;
-  min-width:150px;
+  width:50%;
+  // max-width:200px;
+  min-width:100px;
 }
 
-.account-div{
-  width:40%;
+.account-div-lt-sm{
+  width:20%;
+  div{
+    width:100%;
+  }
+}
+
+.account-div-gt-xs{
+  width:50%;
 }
 
 .mat-nav-list{
