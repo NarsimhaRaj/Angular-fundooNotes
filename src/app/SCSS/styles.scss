@@ -73,7 +73,7 @@ a{
     @include matCardHover();
 }
 .mat-card-list-gt-xs{
-    width:500px;
+    width:100%;
     min-width:400px;
     @include matCard();
     @include matCardHover();
