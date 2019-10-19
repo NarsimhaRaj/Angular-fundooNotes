@@ -25,22 +25,30 @@ export class UpdateDialogComponent implements OnInit {
       this.description.setValue(data.description);
       this.color.setValue(data.color);   
     }
-
+  /**
+   * @description pass the modified or updated data where dialogRef is being called
+   */
   onCloseClick():void{
     this.dialogRef.close({noteId:this.noteId,title:this.title.value,description:this.description.value,color:this.color.value});
   }
 
+  /**
+   * @description to update color of note on clickign selected color in update dialog box
+   * @param color type of color
+   */
   updateBackgroundColor(color){
+    this.data.color=color;
     this.color.setValue(color);
   }
 
-  delete(note){
+  /**
+   * @description to deletes a note on clicking delete button 
+   * @param note note which has to be deleted
+   */
+  delete(){
     
-    let data = { noteIdList: [note.id], isDeleted: true };
-
-    this.noteServices.deleteNotes(data).subscribe((response) => {
-      this.dialogRef.close();
-    });
+    let data = { noteListId: [this.noteId], isDeleted: true };
+    this.dialogRef.close(data);
   }
 
   ngOnInit(){

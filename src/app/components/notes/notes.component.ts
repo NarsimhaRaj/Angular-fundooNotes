@@ -60,7 +60,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.getUserService();
 
     this.data = this.dashBoard.getData();
-    
+
     this.dashBoard.emitView.subscribe(()=>{
       this.data = this.dashBoard.getData();
     })
@@ -88,6 +88,10 @@ export class NotesComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * @description opens a dialog box for updating selected note
+   * @param note note, which has to be updated
+   */
   openDialog(note): void {
 
     if (this.isAdvancedUser) {
@@ -99,10 +103,18 @@ export class NotesComponent implements OnInit, OnDestroy {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.noteServices.updateNotes(result).subscribe((response) => {
-            // console.log(response);
-          })
+        
+        if(result.color!=note.color){
+          this.updateBackgroundColor(result.color,note);
+        }
+        if(result.isDeleted){
+          this.delete(note);
+        }
+        else{
+          if (result) {
+            this.noteServices.updateNotes(result).subscribe((response) => {
+            })
+          }
         }
         this.emitObservable.next();
       });
@@ -194,18 +206,15 @@ export class NotesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * @description
+   * @description updates mat card color of selected notes
+   * @param color color value
+   * @param note note, which has to be colored
    */
-  updateBackgroundColor(color, note?) {
-    if (note) {
+  updateBackgroundColor(color, note) {
       let data = { noteIdList: [note.id], color: color };
       this.noteServices.updateBackgroundColor(data).subscribe((response) => {
         this.emitObservable.next();
       });
-    }
-    else {
-      this.matCardColor = color;
-    }
   }
 
 

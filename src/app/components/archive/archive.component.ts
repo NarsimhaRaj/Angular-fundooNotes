@@ -63,11 +63,20 @@ export class ArchiveComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.noteServices.updateNotes(result).subscribe((response) => {
-          // console.log(response);
-        })
+
+      if(result.color!=note.color){
+        this.updateBackgroundColor(result.color,note);
       }
+      if(result.isDeleted){
+        this.delete(note);
+      }
+      else{
+        if (result) {
+          this.noteServices.updateNotes(result).subscribe((response) => {
+          })
+        }
+      }
+      
       this.emitObservable.next();
     });
 

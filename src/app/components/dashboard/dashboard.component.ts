@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   onReminderListSelected:Boolean=false;
   onTrashListSelected:Boolean=false;
 
+  // to emit a an event on selecting grid or list view 
   emitView=new Subject();
 
   // list and gird view variables
@@ -33,6 +34,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
     viewStyling:true
   }
 
+  // changes mode of sidenav on max width 600px
   private _mobileQueryListener: () => void;
 
   /**
