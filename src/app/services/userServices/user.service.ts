@@ -22,6 +22,11 @@ export class UserService {
     return sessionStorage.getItem('user');
   }
 
+  getService(){
+    let url= "/user/service";
+    return this.httpService.get(url);
+  }
+
   getUserDetailsById(){
     let url= "/user/"+JSON.parse(sessionStorage.getItem('user'))['userId'];
     return this.httpService.getUserDetailsById(url,JSON.parse(sessionStorage.getItem('user'))['id']);
