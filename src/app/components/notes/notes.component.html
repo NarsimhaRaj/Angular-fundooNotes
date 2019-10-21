@@ -63,7 +63,8 @@
                   </div>
                 </mat-menu>
                 <button mat-icon-button color=""><mat-icon matTooltip="Add image">crop_original</mat-icon></button>
-                <button mat-icon-button color=""><mat-icon matTooltip="Archive">archive</mat-icon></button>
+                <button mat-icon-button (click)="setArchive(true)" [fxHide]="isArchived" color=""><mat-icon matTooltip="Archive">archive</mat-icon></button>
+                <button mat-icon-button (click)="setArchive(false)" [fxHide]="!isArchived" color=""><mat-icon matTooltip="Unarchive">archive</mat-icon></button>
                 <button mat-icon-button color="" [matMenuTriggerFor]="more_vert"><mat-icon matTooltip="More">more_vert</mat-icon></button>
                 <mat-menu #more_vert="matMenu">
                   <button (click)="delete(note);" mat-menu-item>
@@ -177,8 +178,8 @@
                           <div (click)="$event.stopPropagation();">
                             Label note
                           </div>
-                          <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;background: rgb(231, 229, 229);">
-                            <mat-form-field appearance="fill legacy">
+                          <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;">
+                            <mat-form-field appearance="outline">
                               <input matInput type="search" placeholder="search label">
                               <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
                                 <mat-icon>search</mat-icon>

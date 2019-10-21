@@ -77,8 +77,8 @@
           <mat-label style="margin-left:1em; margin-top:1em; margin-bottom: 1em" [fxHide]="!isAdvancedUser">LABELS</mat-label> 
           
           <!-- editlabel -->
-          <mat-list-item [fxHide]="!isAdvancedUser">
-            <mat-icon>edit</mat-icon><div style="margin-left:3em">EditLables</div>
+          <mat-list-item (click)="openDialog()" [fxHide]="!isAdvancedUser">
+            <mat-icon>edit</mat-icon><div style="margin-left:3em">Edit Lables</div>
           </mat-list-item>
           
           <mat-divider [fxHide]="!isAdvancedUser"></mat-divider>

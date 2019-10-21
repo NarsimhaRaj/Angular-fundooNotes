@@ -1,10 +1,15 @@
 import {MediaMatcher} from '@angular/cdk/layout';
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/userServices/user.service';
 import { Subject } from 'rxjs';
-import { EventEmitter } from 'events';
+import { LabelsDialogComponent } from '../labels-dialog/labels-dialog.component';
+
+
+export interface LabelDialogData{
+  labelList:any;
+}
 
 @Component({
   selector: 'app-components/dashboard',
@@ -44,7 +49,8 @@ export class DashboardComponent implements OnInit,OnDestroy {
    * @param userServices to get UserServices 
    * @param route provides route navigation 
    */
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private userServices: UserService, private route:Router) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private userServices: UserService, private route:Router,
+    private dialog:MatDialog) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -96,6 +102,20 @@ export class DashboardComponent implements OnInit,OnDestroy {
         this.isAdvancedUser=false;
     });
   }
+
+  /**
+   * @description opens a dialog box for label creation or edit or delete
+   */
+  openDialog(): void {
+    const dialogRef = this.dialog.open(LabelsDialogComponent, {
+      width: '250px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
   /**
    * @description route will be changed to archive component  on clicking archive button on sidenav
    */

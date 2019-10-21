@@ -25,6 +25,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   // notesList from server
   notesList: any;
   isPinned:boolean=false;
+  isArchived:boolean=false;
 
   //mat cards expansion panel variables
   private getNotesObs: any;
@@ -156,13 +157,18 @@ export class NotesComponent implements OnInit, OnDestroy {
   setPin(){
     this.isPinned=!this.isPinned;
   }
+  setArchive(){
+    this.isArchived=!this.isArchived;
+  }
   /**
-   * 
+   *@description this will add a notes to user notes list 
    */
   save() {
     if (this.title.valid || this.description.valid) {
-      var notes = { title: this.title.value, description: this.description.value, color: this.matCardColor,isPined:this.isPinned }
+      var notes = { title: this.title.value, description: this.description.value, color: this.matCardColor,isPined:this.isPinned, isArchived:this.isArchived }
       this.noteServices.addNotes(notes).subscribe((response) => {
+        this.isPinned=false;
+        this.isArchived=false;
         this.emitObservable.next();
       }, (error: any) => {
         this.snackBar.open(error.message, undefined, { duration: 2000 });
@@ -171,7 +177,6 @@ export class NotesComponent implements OnInit, OnDestroy {
       // resetting title and description to empty
       this.title.setValue("");
       this.description.setValue("");
-
       // calling child event 
     }
   }
