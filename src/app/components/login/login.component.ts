@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
    * @description on clicking create account button provide path to register view component
    */
   registerPage(): void {
-    this.router.navigateByUrl("/cart");
+    this.router.navigateByUrl("/card");
   }
   /**
    * @description provides path to forgotPassword on clicking forgot password button

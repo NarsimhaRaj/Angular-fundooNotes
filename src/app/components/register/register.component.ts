@@ -79,7 +79,7 @@ export class RegisterComponent implements OnInit {
       console.log(newUser);
 
       this.userService.register(newUser).subscribe((response:any) => {
-        this.snackBar.open(response.message,undefined,{duration:2000})
+        sessionStorage.removeItem("serviceId");
         this.route.navigateByUrl('/login');
       },(error)=>{
         this.snackBar.open(error.message,undefined,{duration:2000});
@@ -95,7 +95,7 @@ export class RegisterComponent implements OnInit {
   }
 
   gotoCart(){
-    this.route.navigateByUrl("/cart");
+    this.route.navigateByUrl("/card");
   }
 
 }
