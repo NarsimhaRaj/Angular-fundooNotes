@@ -10,9 +10,11 @@ import { NotesComponent } from './components/notes/notes.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { AuthGuard } from './auth/auth.guard';
+import { CartComponent } from './components/cart/cart.component';
 
 const routes: Route[] = [
-  { path: '', redirectTo: "/login", pathMatch: 'full' },
+  { path: '', redirectTo: "/cart", pathMatch: 'full' },
+  { path: 'cart', component: CartComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
@@ -28,7 +30,7 @@ const routes: Route[] = [
     ]
   },
   { path: 'notes', component: NotesComponent },
-  { path: '**', redirectTo: "/login" }
+  { path: '**', redirectTo: "/cart" }
 ];
 
 @NgModule({
