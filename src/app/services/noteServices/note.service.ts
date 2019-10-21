@@ -3,6 +3,7 @@ import { HttpService } from '../httpServices/http.service';
 import { UserService } from '../userServices/user.service';
 import { MatSnackBar } from '@angular/material';
 import { Subject } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 
 @Injectable({
@@ -76,8 +77,43 @@ export class NoteService {
     return this.httpService.postWithToken(url, data)
   }
 
+  /**
+   * @description pin or unpin note from note list
+   * @param data data contains note Id and is Pinned and is Archived details
+   */
   pinUnpinNotes(data){
     let url="/notes/pinUnpinNotes";
     return this.httpService.postWithToken(url,data);
+  }
+
+
+  /**
+   * @description add lebel to notes 
+   */
+  addLabelToNote(noteId,labelId){
+    
+    let url=`/notes/${noteId}/addLabelToNotes/${labelId}/add`;
+
+    let params=new HttpParams();
+    params.append('noteId',noteId);
+    params.append('labelId',labelId);
+
+    return this.httpService.postWithParams(url,params)
+  }
+
+  /**
+   * @description sending a post request to removes label to note 
+   * @param noteId noteId to which label to be removed
+   * @param labelId labelId of labels
+   */
+  removeLabelToNotes(noteId,labelId){
+
+    let url=`/notes/${noteId}/addLabelToNotes/${labelId}/remove`;
+
+    let params=new HttpParams();
+    params.append('noteId',noteId);
+    params.append('labelId',labelId);
+
+    return this.httpService.postWithParams(url,params)
   }
 }

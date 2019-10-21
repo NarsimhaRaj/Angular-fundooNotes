@@ -67,4 +67,30 @@ export class HttpService {
     
     return this.http.post(environment.baseDomainUrl + url, passwordData, { headers:headersOptions});
   }
+
+  /**
+   * @description delete http service with parameter
+   * @param url url of delete with param
+   * @param param parameter to pass
+   */
+  delete(url,param){
+    let headersOptions = new HttpHeaders({
+      "Authorization": JSON.parse(sessionStorage.getItem("user")).id
+    });
+    let labelParam=new HttpParams().set('id',param);
+    return this.http.delete(environment.baseDomainUrl + url ,{ headers : headersOptions,params:labelParam });
+  }
+
+
+  /**
+   * @description post with parameters in URL 
+   * @param url url for getting notes list
+   * @param params userId and labelId
+   */
+  postWithParams(url,params){
+    let headersOptions = new HttpHeaders({
+      "Authorization": JSON.parse(sessionStorage.getItem("user")).id
+    });
+    return this.http.post(environment.baseDomainUrl + url ,null,{ headers : headersOptions, params:params });
+  }
 }
