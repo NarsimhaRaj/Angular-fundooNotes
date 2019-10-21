@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { CartDialogData } from '../cart/cart.component';
-import { Router } from '@angular/router';
+import { CardDialogData } from '../card/card.component';
 
 @Component({
   selector: 'app-cart-dialog',
@@ -12,7 +11,7 @@ export class CartDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CartDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: CartDialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: CardDialogData) {}
 
   onNoClick(): void {
     this.dialogRef.close();
