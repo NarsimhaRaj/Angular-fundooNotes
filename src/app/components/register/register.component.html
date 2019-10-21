@@ -5,6 +5,7 @@
   
     <div fxLayout="column" fxLayoutAlign="center center" ngClass.lt-sm="no-border-register">
   
+      <div style="margin-right:-66%"><button mat-button color="primary" (click)="gotoCart()">go to cart</button></div>
       <!-- title of form -->
       <div class="fundoo-title-register common-property" fxLayoutAlign="start center">Fundoo</div>
       <div class="account-register common-property" fxLayoutAlign="start center">Create your Fundoo Account
@@ -72,22 +73,12 @@
         symbols</mat-hint>
       <!-- service -->
       
-      <form class="form-width" [formGroup]="registerFormGroup">
-        <div class="inside-form">
-          <mat-form-field ngClass.lt-sm="select-menu-lt-sm" ngClass.gt-xs="select-menu-gt-xs">
-            <mat-label>Service</mat-label>
-            <mat-select formControlName="service">
-              <mat-option value="Basic">
-                Basic
-              </mat-option>
-              <mat-option value="Advance">
-                Advance
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+      <div class="form-width">
+        <div class="inside-form" fxLayout="row">
+          <mat-label>Service : {{serviceDetails?.name}}</mat-label>  
         </div>
-      </form>
-     
+      </div>
+    
       <!-- next or sign in buttons -->
       <div class="register-further-step common-property" fxLayout="row" fxLayoutAlign="space-between center">
         <div><a href="/login">Sign in instead</a></div>

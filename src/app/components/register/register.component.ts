@@ -3,6 +3,8 @@ import { FormControl, Validators, FormGroup } from '@angular/forms'
 import { UserService } from 'src/app/services/userServices/user.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from "@angular/router";
+import { CartService } from 'src/app/services/cartServices/cart.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +17,8 @@ export class RegisterComponent implements OnInit {
   registerFormGroup: FormGroup;
   passwordFormGroup: FormGroup;
   hide: Boolean = true;
-
+  serviceDetails:any;
+  
   /**
    * @description constructor injects these following dependencies on initialization, and also validates registered details
    * @param Route : provides routing from one component to other component 
@@ -24,8 +27,9 @@ export class RegisterComponent implements OnInit {
    * 
    */
 
-  constructor(private userService: UserService,private snackBar:MatSnackBar,private route:Router) 
+  constructor(private userService: UserService,private snackBar:MatSnackBar,private route:Router,private cartServie:CartService) 
   {
+
     this.registerFormGroup = new FormGroup({
       email: new FormControl('', [Validators.email, Validators.required]),
       firstName: new FormControl('', [Validators.required]),
@@ -33,12 +37,11 @@ export class RegisterComponent implements OnInit {
       passwordFormGroup : new FormGroup({
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      }, {validators:this.pwdMatchValidator}),
-      service: new FormControl('',[Validators.required])
+      }, {validators:this.pwdMatchValidator})
     })
     // "service": new FormControl('',[Validators.required])
-    
   }
+  
   /**
    * @description returns boolean value on validating equality of password and confirmpassword
    * @param frm formgroup of password and confirm password
@@ -47,6 +50,18 @@ export class RegisterComponent implements OnInit {
     return frm.get('password').value === frm.get('confirmPassword').value
       ? null : { 'mismatch': true };
   }
+
+  ngOnInit() {
+    // loading selected service
+    this.addToCart();  
+  }
+  addToCart(){
+    let data={productId:sessionStorage.getItem("serviceId")}
+      this.cartServie.addToCart(data).subscribe((response:any)=>{
+        this.serviceDetails=response.data.details.product;
+      });
+  }
+
   //register new user to database
   register() {
   
@@ -57,9 +72,11 @@ export class RegisterComponent implements OnInit {
         firstName: this.registerFormGroup.get("firstName").value,
         lastName: this.registerFormGroup.get("lastName").value,
         email: this.registerFormGroup.get("email").value,
-        password: this.registerFormGroup.get("passwordFormGroup").get("password").value,
-        service: this.registerFormGroup.get("service").value
+        password : this.registerFormGroup.get("passwordFormGroup").get("password").value,
+        service : this.serviceDetails.name,
+        cartId : this.serviceDetails.id
       }
+      console.log(newUser);
 
       this.userService.register(newUser).subscribe((response:any) => {
         this.snackBar.open(response.message,undefined,{duration:2000})
@@ -77,8 +94,8 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-
-  ngOnInit() {
+  gotoCart(){
+    this.route.navigateByUrl("/cart");
   }
 
 }
