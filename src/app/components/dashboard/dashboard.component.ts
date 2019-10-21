@@ -142,6 +142,9 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.route.navigateByUrl("dashboard/trashNotes");
   }
 
+ /**
+  * @description clears session storage and redirects to login page
+  */
   logout(){
     sessionStorage.removeItem('user');
     this.route.navigateByUrl("login");

@@ -31,7 +31,7 @@
             <div fxLayoutAlign="center center"><mat-icon matTooltip="refresh">refresh</mat-icon></div>
             <div fxLayoutAlign="center center" [fxHide]="view" (click)="listOrGridview('list')" fxHide.lt-sm="true" matTooltip="List view"><mat-icon>list</mat-icon></div>
             <div fxLayoutAlign="center center" [fxHide]="!view" (click)="listOrGridview('grid')" fxHide.lt-sm="true" matTooltip="Grid view"><mat-icon>view_comfy</mat-icon></div>
-            <div fxLayoutAlign="center center"><mat-icon matTooltip="settings">settings</mat-icon></div>
+            <div fxLayoutAlign="center center" (click)="goToCartComponent()"><mat-icon matTooltip="Shopping cart">shopping_cart</mat-icon></div>
         </div>
           
         <!-- account icon --> 
@@ -83,7 +83,7 @@
           
           <mat-divider [fxHide]="!isAdvancedUser"></mat-divider>
           
-          <mat-list-item [fxHide]="!isAdvancedUser" (click)="goToArchiveComponent();" [ngClass]="{'mat-list-item-selected': onArchiveListSelected}">
+          <mat-list-item [fxHide]="!isAdvancedUser" [ngClass]="{'mat-list-item-selected': onArchiveListSelected}">
             <mat-icon>archive</mat-icon><div style="margin-left:3em">Archive</div>
           </mat-list-item>
     
@@ -94,7 +94,7 @@
         </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content fxLayout="column"  fxLayoutAlign="start center" fxLayoutGap="3%">
+    <mat-sidenav-content fxLayout="column"  fxLayoutAlign="start center" >
 
         <router-outlet></router-outlet>
     

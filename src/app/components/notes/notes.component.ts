@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { UserService } from 'src/app/services/userServices/user.service';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { LabelService } from 'src/app/services/label/label.service';
 
 export interface DialogData {
   noteId: String;
@@ -53,12 +54,15 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   pinCountZero: boolean = false;
 
+  // contians list of all labels
+  labels:any
+
   // to emit an event after every modifications
   public emitObservable: Subject<void> = new Subject<void>();
 
 
   constructor(private userService: UserService, private noteServices: NoteService, private snackBar: MatSnackBar,
-    public dialog: MatDialog, private dashBoard: DashboardComponent) {
+    public dialog: MatDialog, private dashBoard: DashboardComponent, private labelService:LabelService) {
     this.getUserService();
 
     this.data = this.dashBoard.getData();
@@ -73,6 +77,9 @@ export class NotesComponent implements OnInit, OnDestroy {
     // to get user registered Service
     this.userService.setUser();
     this.getNotesList();
+
+    // to get All labels of user 
+    this.getAllLabels();
 
     this.getNotesObs = this.emitObservable.subscribe(() => {
       this.getNotesList();
@@ -153,7 +160,6 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.panelOpenState = !this.panelOpenState;
   }
 
-
   setPin(){
     this.isPinned=!this.isPinned;
   }
@@ -182,6 +188,9 @@ export class NotesComponent implements OnInit, OnDestroy {
   }
 
 
+  /**
+   * @description to get all the notes list of user 
+   */
   getNotesList() {
     this.noteServices.getNotesList().subscribe((response: any) => {
       this.notesList = response.data.data;
@@ -238,6 +247,62 @@ export class NotesComponent implements OnInit, OnDestroy {
   }
 
 
+  /**
+   * @description get all the labels created by user
+   */
+  getAllLabels(){
+    this.labelService.getNoteLabelList().subscribe((response:any)=>{
+      this.labels=response.data.details;
+    });
+  }
+
+  /**
+   * @description adds a label to notes
+   * @param noteId note id of note to which label will be added 
+   * @param label label details to add
+   */
+  addLable(noteId,labelId,event){
+
+    if(event.target.checked)
+    {
+      this.noteServices.addLabelToNote(noteId,labelId).subscribe((response)=>{
+        // console.log(response);
+        this.emitObservable.next();
+      })
+    }
+    else
+    {
+      this.removeLabel(noteId,labelId);
+    }
+
+  }
+
+  /**
+   * @description removing a label with post request params 
+   * @param noteId noteid to which label attached
+   * @param labelId label id
+   */
+  removeLabel(noteId,labelId){
+    this.noteServices.removeLabelToNotes(noteId,labelId).subscribe((response)=>{
+      // console.log(response);
+      this.emitObservable.next();
+    })
+  }
+
+  isChecked(note,label){
+
+    for(let notelabel of note.noteLabels)
+    {
+      if(notelabel.label==label.label)
+        return true;
+    }
+    return false;
+
+  }
+
+  /**
+   * @description unsubscribe to noteslist if component gets destoried
+   */
   ngOnDestroy() {
     this.getNotesObs.unsubscribe();
   }

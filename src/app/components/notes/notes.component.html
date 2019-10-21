@@ -111,6 +111,14 @@
                   {{note.description}}
                 </div>
               </mat-card-content>
+              <mat-card-actions>
+                  <mat-chip-list>
+                    <mat-chip *ngFor="let label of note.noteLabels" [removable]="true" (removed)="removeLabel(note.id,label.id)">
+                      {{label.label}}
+                      <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                  </mat-chip-list>
+              </mat-card-actions>
               <mat-card-footer>
                 <div fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
         
@@ -186,8 +194,8 @@
                               </button>
                             </mat-form-field>
                           </div>
-                          <div (click)="$event.stopPropagation();">
-                            <!-- <input type="checkbox" value="label1" mat-menu-item> -->
+                          <div (click)="$event.stopPropagation();" *ngFor="let label of labels">
+                            <input type="checkbox" name="{{label.label}}" [value]="label.label" (change)="addLable(note.id,label.id,$event)" [checked]="isChecked(note,label)" mat-menu-item/> {{label.label}}
                           </div>
                         </mat-menu>
                         <div mat-menu-item>
