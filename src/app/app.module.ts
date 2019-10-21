@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule, MatListModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatCheckboxModule, MatCardModule, MatTooltipModule, MatTabsModule } from '@angular/material'
+import { MatInputModule, MatListModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatCheckboxModule, MatCardModule, MatTooltipModule, MatTabsModule, MatProgressBarModule, MatChipsModule } from '@angular/material'
 import { MatMenuModule, MatOptionModule, MatSelectModule } from '@angular/material'
 import { MatFormFieldModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatDialogModule } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,10 +24,11 @@ import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { UpdateDialogComponent } from './components/update-dialog/update-dialog.component';
 import { AuthGuard } from './auth/auth.guard';
-import { CartComponent } from './components/cart/cart.component';
 import { CartDialogComponent } from './components/cart-dialog/cart-dialog.component';
 import { LabelsDialogComponent } from './components/labels-dialog/labels-dialog.component';
 import { CartService } from './services/cartServices/cart.service';
+import { CardComponent } from './components/card/card.component';
+import { LabelService } from './services/label/label.service';
 
 @NgModule({
   declarations: [
@@ -41,9 +42,9 @@ import { CartService } from './services/cartServices/cart.service';
     ArchiveComponent,
     TrashComponent,
     UpdateDialogComponent,
-    CartComponent,
     CartDialogComponent,
-    LabelsDialogComponent
+    LabelsDialogComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +66,8 @@ import { CartService } from './services/cartServices/cart.service';
     MatExpansionModule,
     MatDialogModule,
     MatTabsModule,
+    MatChipsModule,
+    MatProgressBarModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -76,7 +79,7 @@ import { CartService } from './services/cartServices/cart.service';
     NgxPopper
   ],
   entryComponents: [UpdateDialogComponent,CartDialogComponent,LabelsDialogComponent],
-  providers: [UserService, HttpService,AuthGuard,CartService],
+  providers: [UserService, HttpService,AuthGuard,CartService,LabelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
