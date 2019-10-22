@@ -52,6 +52,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   // matcardColor
   matCardColor: string = "";
 
+  // if pin count is zero then it should not show PINNED and OTHERS headings
   pinCountZero: boolean = false;
 
   // contians list of all labels
