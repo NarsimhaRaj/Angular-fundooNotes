@@ -1,13 +1,13 @@
-<div style="background:#eba80c;width:100%;height: 10%;" fxLayoutAlign="center center">
+<div style="background:#e4bb5c;width:100%;height: 10%;" fxLayoutAlign="center center">
   <h2 style="margin-left:-50%">fundooNotes</h2>
 </div>
 <div style="width:100%;height: 80%;" fxLayoutAlign="space-around center" fxLayout="column">
-  <div style="width:60%" fxLayoutAlign="center center">
+  <div fxLayoutAlign="center center">
     <h2>fundooNotes offered. Choose below service to Register.</h2>
   </div>
-  <div style="width:70%" fxLayoutAlign="space-around center">
-    <div *ngFor="let service of services" >
-      <mat-card (click)="openDialog(service)" ngStyle.gt-xs="width:180px;height:auto" ngStyle.lt-sm="width:100px;height:auto">
+  <div style="width:100%; min-width:320px; max-width: 800px;" fxLayoutAlign="space-around center">
+    <div class="mat-cards-list" *ngFor="let service of services" >
+      <mat-card class="front-mat-card" (click)="openDialog(service)">
           <mat-card-title>
             price: ${{service.price}} per month
           </mat-card-title>
@@ -18,9 +18,11 @@
               <li>{{service.description}}</li>
             </ul>
           </mat-card-content>
-          <mat-card-actions fxLayoutAlign="center center">
+        </mat-card>
+        <mat-card class="back-mat-card" >
+          <mat-card-footer fxLayoutAlign="center center">
             ADD TO CART
-          </mat-card-actions>
+          </mat-card-footer>
         </mat-card>
     </div>
   </div>
