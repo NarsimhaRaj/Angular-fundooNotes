@@ -11,6 +11,7 @@ import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { AuthGuard } from './auth/auth.guard';
 import { CardComponent } from './components/card/card.component';
+import { LabelnotesComponent } from './components/labelnotes/labelnotes.component';
 
 const routes: Route[] = [
   { path: '', redirectTo: "/card", pathMatch: 'full' },
@@ -26,7 +27,8 @@ const routes: Route[] = [
     children: [
       { path: "", component: NotesComponent },
       { path: "archive", component: ArchiveComponent },
-      { path: "trashNotes", component: TrashComponent }
+      { path: "trashNotes", component: TrashComponent },
+      { path: "labelNotes/:labelName", component: LabelnotesComponent }
     ]
   },
   { path: 'notes', component: NotesComponent },

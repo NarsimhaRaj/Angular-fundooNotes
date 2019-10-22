@@ -29,6 +29,7 @@ import { LabelsDialogComponent } from './components/labels-dialog/labels-dialog.
 import { CartService } from './services/cartServices/cart.service';
 import { CardComponent } from './components/card/card.component';
 import { LabelService } from './services/label/label.service';
+import { LabelnotesComponent } from './components/labelnotes/labelnotes.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { LabelService } from './services/label/label.service';
     UpdateDialogComponent,
     CartDialogComponent,
     LabelsDialogComponent,
-    CardComponent
+    CardComponent,
+    LabelnotesComponent
   ],
   imports: [
     BrowserModule,
