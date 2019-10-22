@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/userServices/user.service';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { LabelService } from 'src/app/services/label/label.service';
+import { LabelsDialogComponent } from '../labels-dialog/labels-dialog.component';
 
 export interface DialogData {
   noteId: String;

@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { LabelService } from 'src/app/services/label/label.service';
 import { EventEmitter } from 'events';
 import { NoteService } from 'src/app/services/noteServices/note.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-labels-dialog',
@@ -17,7 +18,7 @@ export class LabelsDialogComponent implements OnInit {
   editLabel:boolean=true;
   editableLabel=new FormControl('');
 
-  emitLableEvent=new EventEmitter();
+  emitUpdateLabelEvent=new Subject();
 
   constructor(public dialogRef: MatDialogRef<LabelsDialogComponent>,private labelServices:LabelService, 
     private noteService:NoteService ) {}
@@ -25,6 +26,10 @@ export class LabelsDialogComponent implements OnInit {
 
   ngOnInit() {
     this.getNoteLabelList();
+
+    this.emitUpdateLabelEvent.subscribe(()=>{
+      this.getNoteLabelList();
+    })
   }
 
   /**
@@ -94,6 +99,7 @@ export class LabelsDialogComponent implements OnInit {
 
     this.labelServices.updateLabel(data,labelId).subscribe((response)=>{
       this.getNoteLabelList();
+      this.emitUpdateLabelEvent.next();
     })
   }
 

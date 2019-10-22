@@ -22,17 +22,15 @@
 
         </div>
 
-        <div style="margin-left:10%"> {{label.label}}  </div>
-        <!-- <div [fxHide]="editLabel">
-          <mat-form-field appearance="fill legacy">
+        <div [fxHide]="!editLabel" style="margin-left:10%"> {{label.label}}  </div>
+        <div [fxHide]="editLabel" style="flex:1 1 auto">
             <input matInput [formControl]="editableLabel"/>
-          </mat-form-field>
-        </div> -->
+        </div>
  
-        <div style="margin-right:-10%"><button mat-icon-button><mat-icon>edit</mat-icon></button></div>
-        <!-- <div [fxHide]="editLabel" style="margin-right:20%;z-index: 1">
+        <div [fxHide]="!editLabel" (click)="setEditLabel(label)" style="margin-right:-10%"><button mat-icon-button><mat-icon>edit</mat-icon></button></div>
+        <div [fxHide]="editLabel">
             <button (click)="updateLabel(label.id)" mat-icon-button><mat-icon>done</mat-icon></button>         
-        </div> -->
+        </div>
  
       </mat-list-item>
     </mat-list>   

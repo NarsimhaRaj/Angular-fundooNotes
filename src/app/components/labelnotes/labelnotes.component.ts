@@ -196,7 +196,6 @@ export class LabelnotesComponent implements OnInit {
         isArchived:this.isArchived,
         noteLabels:[{label:this.labelName, isDeleted:false, userId:user.userId}] 
       }
-      console.log(notes);
       this.noteServices.addNotes(notes).subscribe((response) => {
         this.isPinned=false;
         this.isArchived=false;
