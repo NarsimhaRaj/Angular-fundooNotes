@@ -23,7 +23,7 @@ import { NgxPopper } from 'angular-popper';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { UpdateDialogComponent } from './components/update-dialog/update-dialog.component';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard, RegisterGuard } from './auth/auth.guard';
 import { CartDialogComponent } from './components/cart-dialog/cart-dialog.component';
 import { LabelsDialogComponent } from './components/labels-dialog/labels-dialog.component';
 import { CartService } from './services/cartServices/cart.service';
@@ -80,8 +80,8 @@ import { LabelnotesComponent } from './components/labelnotes/labelnotes.componen
     ClickOutsideModule,
     NgxPopper
   ],
-  entryComponents: [UpdateDialogComponent,CartDialogComponent,LabelsDialogComponent],
-  providers: [UserService, HttpService,AuthGuard,CartService,LabelService],
+  entryComponents: [UpdateDialogComponent, CartDialogComponent, LabelsDialogComponent],
+  providers: [UserService, HttpService, AuthGuard, CartService, LabelService, RegisterGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

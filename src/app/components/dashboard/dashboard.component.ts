@@ -160,7 +160,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   */
   logout(){
     sessionStorage.removeItem('user');
-    this.route.navigateByUrl("login");
+    this.route.navigateByUrl("card");
   }
 
   /**

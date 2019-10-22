@@ -9,7 +9,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NotesComponent } from './components/notes/notes.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard, RegisterGuard } from './auth/auth.guard';
 import { CardComponent } from './components/card/card.component';
 import { LabelnotesComponent } from './components/labelnotes/labelnotes.component';
 
@@ -17,7 +17,7 @@ const routes: Route[] = [
   { path: '', redirectTo: "/card", pathMatch: 'full' },
   { path: 'card', component: CardComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [RegisterGuard] },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'resetpassword/:token', component: ResetPasswordComponent },
   {
