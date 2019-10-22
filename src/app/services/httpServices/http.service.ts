@@ -87,10 +87,10 @@ export class HttpService {
    * @param url url for getting notes list
    * @param params userId and labelId
    */
-  postWithParams(url,params){
+  postWithParams(url,params,data?){
     let headersOptions = new HttpHeaders({
       "Authorization": JSON.parse(sessionStorage.getItem("user")).id
     });
-    return this.http.post(environment.baseDomainUrl + url ,null,{ headers : headersOptions, params:params });
+    return this.http.post(environment.baseDomainUrl + url ,data,{ headers : headersOptions, params:params });
   }
 }

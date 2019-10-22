@@ -35,6 +35,13 @@
             <textarea matInput matTextareaAutosize placeholder="Take a note..." [formControl]="description">{{description.value}}</textarea>
           </mat-card-content>
     
+          <mat-card-actions>
+              <mat-chip-list>
+                  <mat-chip>
+                    {{labelName}}
+                  </mat-chip>
+                </mat-chip-list>
+          </mat-card-actions>
           <!-- mat card footer -->
           <mat-card-footer>
             

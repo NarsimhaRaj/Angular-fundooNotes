@@ -89,6 +89,8 @@ export class NotesComponent implements OnInit, OnDestroy {
 
     this.getNotesObs = this.emitObservable.subscribe(() => {
       this.getNotesList();
+      // to get All labels of user 
+      this.getAllLabels();
     });
 
   }

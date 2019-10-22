@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../httpServices/http.service';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,16 @@ export class LabelService {
   deleteLabel(labelId){
     let url=`/noteLabels/${labelId}/deleteNoteLabel`;
     return this.http.delete(url,labelId);
+  }
+
+  /**
+   * @description sending a post request from http services to update label
+   * @param labelId lable id 
+   */
+  updateLabel(data,labelId){
+    let url=`/noteLabels/${labelId}/updateNoteLabel`;
+    let params=new HttpParams().set('labelId',labelId);
+    return this.http.postWithParams(url,params,data);
   }
 
 }

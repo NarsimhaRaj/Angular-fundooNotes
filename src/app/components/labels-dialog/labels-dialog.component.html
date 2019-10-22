@@ -12,15 +12,27 @@
 
       <mat-list-item role="listitem" fxLayoutAlign="space-around center">
 
-        <!-- <div class="mat-icon-label" style="margin-left:0"><button mat-icon-button><mat-icon>label</mat-icon></button></div> -->
+        <div class="edit-delete-mat-icons">
 
-        <div class="mat-icon-delete" style="margin-left:0">
-          <button mat-icon-button (click)="deleteLabel(label.id)"><mat-icon>delete</mat-icon></button>
+          <div class="mat-icon-label" style="margin-left:0"><button mat-icon-button><mat-icon>label</mat-icon></button></div>
+
+          <div class="mat-icon-delete" style="margin-left:0">
+            <button mat-icon-button (click)="deleteLabel(label.id)"><mat-icon>delete</mat-icon></button>
+          </div>
+
         </div>
 
         <div style="margin-left:10%"> {{label.label}}  </div>
+        <!-- <div [fxHide]="editLabel">
+          <mat-form-field appearance="fill legacy">
+            <input matInput [formControl]="editableLabel"/>
+          </mat-form-field>
+        </div> -->
  
         <div style="margin-right:-10%"><button mat-icon-button><mat-icon>edit</mat-icon></button></div>
+        <!-- <div [fxHide]="editLabel" style="margin-right:20%;z-index: 1">
+            <button (click)="updateLabel(label.id)" mat-icon-button><mat-icon>done</mat-icon></button>         
+        </div> -->
  
       </mat-list-item>
     </mat-list>   

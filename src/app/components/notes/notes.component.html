@@ -1,5 +1,5 @@
 <!-- mat card expansion panel -->
-<div fxLayoutAlign="center start" fxLayout="column">
+<div fxLayoutAlign="start center" fxLayout="column">
 
     <div style="width:100%;margin-bottom:0.7em" fxLayoutAlign="center center">
         <mat-card [fxHide]="panelOpenState" style="height: 10px" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" >
@@ -87,11 +87,11 @@
     <!-- notes list -->
     <div style="width:100%;height:auto;" fxLayoutAlign="center start">
 
-      <div style="width:70%;height:auto;" fxLayout="column" fxLayoutAlign="center start">
+      <div style="width:70%;height:auto;" fxLayout="column" fxLayoutAlign="center center">
 
         <!-- pinned notes -->
         <div *ngIf="pinCountZero" style="width:100%;" fxLayoutAlign="start center"><h5>PINNED</h5></div>
-        <div style="width:100%;" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
+        <div style="width:100%;" fxLayoutAlign="center center" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
           <div *ngFor="let note of notesList?.reverse()" >
             <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;" [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
               ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived && note.isPined">
@@ -218,7 +218,7 @@
         </div>
         <!-- unpinned notes list  -->
         <div *ngIf="pinCountZero" style="width:100%;"><h5>OTHERS</h5></div>
-        <div style="width:100%;" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
+        <div style="width:100%;" fxLayoutAlign="center center" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
           <div *ngFor="let note of notesList?.reverse()" >
             <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;" [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
               ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived && !note.isPined">

@@ -187,7 +187,16 @@ export class LabelnotesComponent implements OnInit {
    */
   save() {
     if (this.title.valid || this.description.valid) {
-      var notes = { title: this.title.value, description: this.description.value, color: this.matCardColor,isPined:this.isPinned, isArchived:this.isArchived }
+      let user=JSON.parse(sessionStorage.getItem("user"));
+      var notes = { 
+        title: this.title.value,
+        description: this.description.value, 
+        color: this.matCardColor,
+        isPined:this.isPinned, 
+        isArchived:this.isArchived,
+        noteLabels:[{label:this.labelName, isDeleted:false, userId:user.userId}] 
+      }
+      console.log(notes);
       this.noteServices.addNotes(notes).subscribe((response) => {
         this.isPinned=false;
         this.isArchived=false;

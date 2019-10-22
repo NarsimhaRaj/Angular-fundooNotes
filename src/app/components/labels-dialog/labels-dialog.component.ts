@@ -14,6 +14,8 @@ export class LabelsDialogComponent implements OnInit {
 
   labelName:FormControl=new FormControl('');
   labels:any;
+  editLabel:boolean=true;
+  editableLabel=new FormControl('');
 
   emitLableEvent=new EventEmitter();
 
@@ -70,6 +72,29 @@ export class LabelsDialogComponent implements OnInit {
   }
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  /**
+   * @description set value of editable label  
+   * @param label label details passed to set value 
+   */
+  setEditLabel(label){
+    this.editLabel=!this.editLabel;
+    this.editableLabel.setValue(label.label);
+  }
+
+  /**
+   * @description to update a label sending service request in labelServices
+   * @param labelId labelId of label
+   */
+  updateLabel(labelId){
+    
+    let user=JSON.parse(sessionStorage.getItem('user'));
+    let data={label:this.editableLabel.value,isDeleted:false,userId:user.userId};
+
+    this.labelServices.updateLabel(data,labelId).subscribe((response)=>{
+      this.getNoteLabelList();
+    })
   }
 
 }
