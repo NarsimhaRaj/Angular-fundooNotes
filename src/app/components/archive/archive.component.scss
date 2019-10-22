@@ -1,1 +1,10 @@
 @import 'src/app/SCSS/styles';
+
+
+.archive-mat-card-list-gt-xs{
+    width:60%;
+    min-width:400px;
+    justify-content: center;
+    @include matCard();
+    @include matCardHover();
+}

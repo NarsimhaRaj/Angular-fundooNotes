@@ -1,11 +1,11 @@
 <div style="width:100%;height: auto;" fxLayoutAlign="center start">
   
-  <div style="width:80%;" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
+  <div style="width:70%;" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
   
     <div *ngFor="let note of notesList?.reverse()">
       
       <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;"  ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && note.isArchived" 
-           [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}">
+           [ngClass]="{'archive-mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}">
           
           <mat-card-title fxLayoutAlign="space-between center">
     
