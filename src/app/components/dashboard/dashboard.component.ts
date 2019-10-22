@@ -5,11 +5,8 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/userServices/user.service';
 import { Subject } from 'rxjs';
 import { LabelsDialogComponent } from '../labels-dialog/labels-dialog.component';
+import { LabelService } from 'src/app/services/label/label.service';
 
-
-export interface LabelDialogData{
-  labelList:any;
-}
 
 @Component({
   selector: 'app-components/dashboard',
@@ -22,9 +19,13 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   
   userDetails:any;
-  isAdvancedUser:any=true;
+  isAdvancedUser:boolean=true;
 
-  onNoteListSelected:Boolean=true;
+  // to store a list of labels 
+  labels:any;
+
+  // to change backround color of selected sidenav list 
+  onNoteListSelected:Boolean=false;
   onArchiveListSelected:Boolean=false;
   onReminderListSelected:Boolean=false;
   onTrashListSelected:Boolean=false;
@@ -39,6 +40,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
     viewStyling:true
   }
 
+  emitLablesEvent=new Subject();
   // changes mode of sidenav on max width 600px
   private _mobileQueryListener: () => void;
 
@@ -50,10 +52,11 @@ export class DashboardComponent implements OnInit,OnDestroy {
    * @param route provides route navigation 
    */
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private userServices: UserService, private route:Router,
-    private dialog:MatDialog) {
+    private dialog:MatDialog, private labelServices:LabelService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
   }
 
   /**
@@ -73,7 +76,16 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   ngOnInit(){
     this.userDetails=JSON.parse(this.userServices.getUser());
+    // to get userService using userId on first initialization
     this.getUserService();
+    // to get all labels created by user
+    this.getAllLabels();
+
+    this.emitLablesEvent.subscribe(()=>{
+      // to get all labels created by user
+      this.getAllLabels();
+    });
+
   }
 
   /**
@@ -112,7 +124,8 @@ export class DashboardComponent implements OnInit,OnDestroy {
       data: {}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
+      this.emitLablesEvent.next();
     });
   }
 
@@ -148,6 +161,18 @@ export class DashboardComponent implements OnInit,OnDestroy {
   logout(){
     sessionStorage.removeItem('user');
     this.route.navigateByUrl("login");
+  }
+
+  /**
+   * @description to display all the created labels in sidenav list 
+   */
+  getAllLabels(){
+
+    this.labelServices.getNoteLabelList().subscribe((response:any)=>{
+      this.labels=response.data.details;
+      // console.log(this.labels)
+    });
+
   }
 
   ngOnDestroy(): void {

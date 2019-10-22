@@ -76,6 +76,11 @@
           <!-- label line -->
           <mat-label style="margin-left:1em; margin-top:1em; margin-bottom: 1em" [fxHide]="!isAdvancedUser">LABELS</mat-label> 
           
+        
+          <mat-list-item *ngFor="let label of labels"> 
+              <mat-icon>label</mat-icon><div style="margin-left:3em">{{label.label}}</div>
+          </mat-list-item>
+
           <!-- editlabel -->
           <mat-list-item (click)="openDialog()" [fxHide]="!isAdvancedUser">
             <mat-icon>edit</mat-icon><div style="margin-left:3em">Edit Lables</div>
@@ -83,7 +88,7 @@
           
           <mat-divider [fxHide]="!isAdvancedUser"></mat-divider>
           
-          <mat-list-item [fxHide]="!isAdvancedUser" [ngClass]="{'mat-list-item-selected': onArchiveListSelected}">
+          <mat-list-item [fxHide]="!isAdvancedUser" (click)="goToArchiveComponent()" [ngClass]="{'mat-list-item-selected': onArchiveListSelected}">
             <mat-icon>archive</mat-icon><div style="margin-left:3em">Archive</div>
           </mat-list-item>
     

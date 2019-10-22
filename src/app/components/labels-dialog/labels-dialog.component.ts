@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { LabelDialogData } from '../dashboard/dashboard.component';
 import { FormControl } from '@angular/forms';
 import { LabelService } from 'src/app/services/label/label.service';
+import { EventEmitter } from 'events';
+import { NoteService } from 'src/app/services/noteServices/note.service';
 
 @Component({
   selector: 'app-labels-dialog',
@@ -13,39 +14,62 @@ export class LabelsDialogComponent implements OnInit {
 
   labelName:FormControl=new FormControl('');
   labels:any;
-  constructor(
-    public dialogRef: MatDialogRef<LabelsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: LabelDialogData,private labelServices:LabelService) {}
 
-  onClickCreate(){
-    this.dialogRef.close(this.labelName.value);
+  emitLableEvent=new EventEmitter();
+
+  constructor(public dialogRef: MatDialogRef<LabelsDialogComponent>,private labelServices:LabelService, 
+    private noteService:NoteService ) {}
+
+
+  ngOnInit() {
+    this.getNoteLabelList();
   }
 
+  /**
+   * @description gets all the labels created by user
+   */
   getNoteLabelList(){
     this.labelServices.getNoteLabelList().subscribe((response:any)=>{
       this.labels=response.data.details;
-      console.log(response);
     });
   }
+
   /**
    * @description creates a label 
    */
   createLabel(){
 
-    let data={label:this.labelName.value,isDeleted:false,userId:sessionStorage.getItem("user")["id"]};
+    let user=JSON.parse(sessionStorage.getItem('user'));
+    let data={label:this.labelName.value,isDeleted:false,userId:user.userId};
     this.labelServices.addLabel(data).subscribe((response)=>{
       this.getNoteLabelList();
     });
 
   }
-  deleteLabel(label){
+
+  /**
+   * @description sends delete request to remove label with labelId 
+   * @param label label contains label name, id
+   */
+  deleteLabel(labelId){
+
+    this.labelServices.deleteLabel(labelId).subscribe((response)=>{
+
+      // on deleting label delete label name on the notes
+      this.noteService.getNotesList().subscribe((response:any)=>{
+        let noteList=response.data.data;
+        noteList.forEach(note => {
+          this.noteService.removeLabelToNotes(note.id,labelId).subscribe((response)=>{
+            console.log("deleted");
+          });
+        });
+      })
+      this.getNoteLabelList();
+    });
+
   }
   onNoClick(): void {
     this.dialogRef.close();
-  }
-
-  ngOnInit() {
-    this.getNoteLabelList();
   }
 
 }

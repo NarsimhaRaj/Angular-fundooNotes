@@ -20,7 +20,7 @@ export class LabelService {
    * @param data contains note id to wich labelId 
    */
   addLabel(data){
-    let url="/noteslabels";
+    let url="/noteLabels";
     return this.http.post(url,data);
   }
 

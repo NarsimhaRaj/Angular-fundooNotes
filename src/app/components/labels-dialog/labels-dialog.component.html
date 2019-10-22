@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Edit Labels</h1>
 <div mat-dialog-content fxLayout="row">
-  <button mat-icon-button><mat-icon>clear</mat-icon></button>
-  <mat-form-field appearance="fill legacy" style="width:60%">
+  <button mat-icon-button (click)="labelName.setValue('')"><mat-icon>clear</mat-icon></button>
+  <mat-form-field appearance="fill legacy" style="width:70%">
     <input matInput placeholder="create new label" [formControl]="labelName">
   </mat-form-field>
   <button mat-icon-button (click)="createLabel()"><mat-icon>done</mat-icon></button>
@@ -14,7 +14,9 @@
 
         <!-- <div class="mat-icon-label" style="margin-left:0"><button mat-icon-button><mat-icon>label</mat-icon></button></div> -->
 
-        <div class="mat-icon-delete" style="margin-left:0"><button mat-icon-button><mat-icon>delete</mat-icon></button></div>
+        <div class="mat-icon-delete" style="margin-left:0">
+          <button mat-icon-button (click)="deleteLabel(label.id)"><mat-icon>delete</mat-icon></button>
+        </div>
 
         <div style="margin-left:10%"> {{label.label}}  </div>
  
