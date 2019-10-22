@@ -175,6 +175,14 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   }
 
+  /**
+   * @description redirect to labelnotes with lablename
+   * @param labelName name of the label on notes
+   */
+  getNoteListByLabel(labelName){
+    this.route.navigate(["dashboard/labelNotes",labelName]);
+  }
+
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }

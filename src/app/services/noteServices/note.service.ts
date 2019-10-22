@@ -116,4 +116,17 @@ export class NoteService {
 
     return this.httpService.postWithParams(url,params)
   }
+
+  /**
+   * @description sends post request with labelname as parameter to gets all notes list of that label 
+   * @param labelName name of the label
+   */
+  getLabelNotesList(labelName){
+    let url=`/notes/getNotesListByLabel/${labelName}`;
+
+    let params=new HttpParams();
+    params.append('labelName',labelName);
+
+    return this.httpService.postWithParams(url,params)
+  }
 }
