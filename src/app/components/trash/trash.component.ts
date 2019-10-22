@@ -71,12 +71,11 @@ export class TrashComponent implements OnInit {
    */
   restoreNotes(note) {
 
-    let newNote = { title: note.title, description: note.description, isArchive: note.isArchive, isPined: note.isPined }
+    let newNote={noteIdList:[note.id],isDeleted:false};
 
-    this.noteServices.addNotes(newNote).subscribe((response) => {
+    this.noteServices.deleteNotes(newNote).subscribe((response) => {
       this.emitObservable.next();
     });
-    this.deleteForever(note);
   }
 
   ngOnDestroy() {

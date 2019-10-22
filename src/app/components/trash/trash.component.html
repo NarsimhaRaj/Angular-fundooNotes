@@ -19,6 +19,13 @@
               {{note.description}}
             </div>
           </mat-card-content>
+          <mat-card-actions>
+            <mat-chip-list>
+              <mat-chip *ngFor="let label of note.noteLabels">
+                {{label.label}}
+              </mat-chip>
+            </mat-chip-list>
+        </mat-card-actions>
         <mat-card-footer>
   
           <div fxLayoutAlign="start center">
