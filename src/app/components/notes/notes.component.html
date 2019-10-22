@@ -195,7 +195,9 @@
                             </mat-form-field>
                           </div>
                           <div (click)="$event.stopPropagation();" *ngFor="let label of labels">
-                            <input type="checkbox" name="{{label.label}}" [value]="label.label" (change)="addLable(note.id,label.id,$event)" [checked]="isChecked(note,label)" mat-menu-item/> {{label.label}}
+                            <div mat-menu-item>
+                                <mat-checkbox (change)="addLable(note.id,label.id,$event)" color="primary" [checked]="isChecked(note,label)">{{label.label}}</mat-checkbox>
+                            </div>
                           </div>
                         </mat-menu>
                         <div mat-menu-item>
@@ -236,6 +238,14 @@
                   {{note.description}}
                 </div>
               </mat-card-content>
+              <mat-card-actions>
+                  <mat-chip-list>
+                    <mat-chip *ngFor="let label of note.noteLabels" [removable]="true" (removed)="removeLabel(note.id,label.id)">
+                      {{label.label}}
+                      <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                  </mat-chip-list>
+              </mat-card-actions>
               <mat-card-footer>
                 <div fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
         
@@ -296,6 +306,33 @@
                         <button (click)="delete(note);" mat-menu-item>
                           Delete
                         </button>
+                        <button [matMenuTriggerFor]="label" (click)="addLabel(note);" mat-menu-item>
+                            Add label
+                          </button>
+                          <mat-menu #label="matMenu" style="height:30%;overflow: scroll;">
+                            <div (click)="$event.stopPropagation();">
+                              Label note
+                            </div>
+                            <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;">
+                              <mat-form-field appearance="outline">
+                                <input matInput type="search" placeholder="search label">
+                                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                  <mat-icon>search</mat-icon>
+                                </button>
+                              </mat-form-field>
+                            </div>
+                            <div (click)="$event.stopPropagation();" *ngFor="let label of labels">
+                              <div mat-menu-item>
+                                  <mat-checkbox (change)="addLable(note.id,label.id,$event)" color="primary" [checked]="isChecked(note,label)">{{label.label}}</mat-checkbox>
+                              </div>
+                            </div>
+                          </mat-menu>
+                          <div mat-menu-item>
+                            Show checkboxs
+                          </div>
+                          <div mat-menu-item>
+                            Ask Question
+                          </div>
                       </mat-menu>
                   </div>
                 </div>

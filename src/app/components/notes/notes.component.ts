@@ -70,6 +70,11 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.dashBoard.emitView.subscribe(()=>{
       this.data = this.dashBoard.getData();
     })
+    this.dashBoard.emitLablesEvent.subscribe(()=>{
+      this.getNotesList();
+      // to get All labels of user 
+      this.getAllLabels();  
+    })
   }
 
 
@@ -263,7 +268,7 @@ export class NotesComponent implements OnInit, OnDestroy {
    */
   addLable(noteId,labelId,event){
 
-    if(event.target.checked)
+    if(event.checked)
     {
       this.noteServices.addLabelToNote(noteId,labelId).subscribe((response)=>{
         // console.log(response);
