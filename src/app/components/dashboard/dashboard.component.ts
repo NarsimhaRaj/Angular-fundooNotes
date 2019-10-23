@@ -120,7 +120,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
    */
   openDialog(): void {
     const dialogRef = this.dialog.open(LabelsDialogComponent, {
-      width: '250px',
+      width: '350px',
       data: {}
     });
 

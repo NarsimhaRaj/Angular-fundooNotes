@@ -8,9 +8,9 @@
 </div>
 <div mat-dialog-actions>
 
-  <mat-list role="list" *ngFor="let label of labels">
+  <mat-list role="list" *ngFor="let label of labels" >
 
-      <mat-list-item role="listitem" fxLayoutAlign="space-around center">
+      <mat-list-item [disableRipple]="true" role="listitem" fxLayoutAlign="space-around center">
 
         <div class="edit-delete-mat-icons">
 
@@ -22,13 +22,13 @@
 
         </div>
 
-        <div [fxHide]="!editLabel" style="margin-left:10%"> {{label.label}}  </div>
-        <div [fxHide]="editLabel" style="flex:1 1 auto">
-            <input matInput [formControl]="editableLabel"/>
+        <div [fxHide]=" label.id==defaultLabelId ? true :false " style=" flex:1 0 auto;margin-left:10%"> {{label.label}}  </div>
+        <div [fxHide]=" label.id!=defaultLabelId ? true :false" style="flex:1 0 auto">
+            <input matInput [value]="label.label" [formControl]="editedTextLabel"/>
         </div>
  
-        <div [fxHide]="!editLabel" (click)="setEditLabel(label)" style="margin-right:-10%"><button mat-icon-button><mat-icon>edit</mat-icon></button></div>
-        <div [fxHide]="editLabel">
+        <div [fxHide]=" label.id==defaultLabelId ? true :false" (click)="setEditLabel(label.id)" style="margin-right:-10%"><button mat-icon-button><mat-icon>edit</mat-icon></button></div>
+        <div [fxHide]=" label.id!=defaultLabelId ? true :false">
             <button (click)="updateLabel(label.id)" mat-icon-button><mat-icon>done</mat-icon></button>         
         </div>
  

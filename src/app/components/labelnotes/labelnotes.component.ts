@@ -78,7 +78,7 @@ export class LabelnotesComponent implements OnInit {
         this.labelName=params.get("labelName");
         this.getNoteListByLabel(this.labelName);
       })
-
+      this.getNoteListByLabel(this.labelName);
     });
   }
 
@@ -202,7 +202,7 @@ export class LabelnotesComponent implements OnInit {
         this.emitObservable.next();
       }, (error: any) => {
         this.snackBar.open(error.message, undefined, { duration: 2000 });
-      });;
+      });
 
       // resetting title and description to empty
       this.title.setValue("");
