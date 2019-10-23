@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../httpServices/http.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
