@@ -31,7 +31,8 @@ export class LabelService {
    */
   deleteLabel(labelId){
     let url=`/noteLabels/${labelId}/deleteNoteLabel`;
-    return this.http.delete(url,labelId);
+    let labelParam=new HttpParams().set('id',labelId);
+    return this.http.delete(url,labelParam);
   }
 
   /**
