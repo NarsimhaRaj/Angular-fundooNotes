@@ -62,7 +62,6 @@ export class NotesComponent implements OnInit, OnDestroy {
   // to emit an event after every modifications
   public emitObservable: Subject<void> = new Subject<void>();
 
-
   constructor(private userService: UserService, private noteServices: NoteService, private snackBar: MatSnackBar,
     public dialog: MatDialog, private dashBoard: DashboardComponent, private labelService:LabelService) {
     this.getUserService();
@@ -119,12 +118,12 @@ export class NotesComponent implements OnInit, OnDestroy {
         data: { noteId: note.id, title: note.title, description: note.description, color: note.color },
         panelClass: "matDialogBox"
       });
-
+      // updating color on changing background color in update dialog
+      dialogRef.componentInstance.emitColorEvent.subscribe((color)=>{
+        this.updateBackgroundColor(color,note);
+      });
       dialogRef.afterClosed().subscribe(result => {
-        
-        if(result.color!=note.color){
-          this.updateBackgroundColor(result.color,note);
-        }
+      
         if(result.isDeleted){
           this.delete(note);
         }
