@@ -8,7 +8,7 @@ import { UserService } from 'src/app/services/userServices/user.service';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { LabelService } from 'src/app/services/label/label.service';
-import { LabelsDialogComponent } from '../labels-dialog/labels-dialog.component';
+import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator-dialog.component';
 
 export interface DialogData {
   noteId: String;
@@ -61,6 +61,9 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   // to emit an event after every modifications
   public emitObservable: Subject<void> = new Subject<void>();
+
+  date = new FormControl(new Date());
+  serializedDate = new FormControl((new Date()).toISOString());
 
   constructor(private userService: UserService, private noteServices: NoteService, private snackBar: MatSnackBar,
     public dialog: MatDialog, private dashBoard: DashboardComponent, private labelService:LabelService) {
@@ -297,6 +300,11 @@ export class NotesComponent implements OnInit, OnDestroy {
     })
   }
 
+  /**
+   * @description to show that label is already selected and checkbox is checked
+   * @param note note to which check label is checked or not 
+   * @param label label details 
+   */
   isChecked(note,label){
 
     for(let notelabel of note.noteLabels)
@@ -308,6 +316,20 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * 
+   */
+  addCollaborator(note){
+    const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
+      width: '550px',
+      data: note,
+      panelClass: "matDialogBox"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
   /**
    * @description unsubscribe to noteslist if component gets destoried
    */

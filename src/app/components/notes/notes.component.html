@@ -112,23 +112,42 @@
                 </div>
               </mat-card-content>
               <mat-card-actions>
-                  <mat-chip-list>
-                    <mat-chip *ngFor="let label of note.noteLabels" [removable]="true" (removed)="removeLabel(note.id,label.id)">
-                      {{label.label}}
-                      <mat-icon matChipRemove>cancel</mat-icon>
-                    </mat-chip>
-                  </mat-chip-list>
+                <mat-chip-list>
+                  <mat-chip *ngFor="let person of note.collaborators">
+                      {{person.firstName.charAt(0).toUpperCase()}}
+                  </mat-chip>
+                  <mat-chip *ngFor="let label of note.noteLabels" [removable]="true" (removed)="removeLabel(note.id,label.id)">
+                    {{label.label}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
               </mat-card-actions>
               <mat-card-footer>
                 <div fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
         
                   <div>
-                    <button mat-icon-button color="" (click)="addReminder()">
+                    <button mat-icon-button color="" [matMenuTriggerFor]="reminder" >
                       <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
                     </button>
+                    <mat-menu #reminder="matMenu">
+                     <mat-card>
+                          <div mat-menu-item>
+                            <pre>Later Today  8:00 PM</pre>
+                          </div>
+                          <div mat-menu-item>
+                            <pre>Tomorrow     8:00 PM</pre>                          
+                          </div>
+                          <div mat-menu-item>
+                            <pre>Next week    Mon, 8:00 PM</pre>                         
+                           </div>
+                          <div mat-menu-item>
+                              <div><mat-icon>access_time</mat-icon> Pick date & time</div>
+                          </div>               
+                     </mat-card>
+                    </mat-menu>
                   </div>
         
-                  <div><button mat-icon-button color="" (clcik)="addCollaborator()">
+                  <div><button mat-icon-button color="" (click)="addCollaborator(note)">
                       <mat-icon matTooltip="Collaborator">person_add</mat-icon>
                     </button>
                   </div>
