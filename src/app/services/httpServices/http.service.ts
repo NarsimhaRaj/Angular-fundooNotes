@@ -77,8 +77,7 @@ export class HttpService {
     let headersOptions = new HttpHeaders({
       "Authorization": JSON.parse(sessionStorage.getItem("user")).id
     });
-    let labelParam=new HttpParams().set('id',param);
-    return this.http.delete(environment.baseDomainUrl + url ,{ headers : headersOptions,params:labelParam });
+    return this.http.delete(environment.baseDomainUrl + url ,{ headers : headersOptions,params:param });
   }
 
 

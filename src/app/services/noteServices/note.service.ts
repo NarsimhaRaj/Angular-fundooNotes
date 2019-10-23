@@ -129,4 +129,19 @@ export class NoteService {
 
     return this.httpService.postWithParams(url,params)
   }
+
+  /**
+   * @description to delete a collaborator from notes
+   * @param noteId note id of notes
+   * @param collaboratorUserId added collabarotor userId of notes 
+   */
+  removeCollaborator(noteId,collaboratorUserId){
+
+    let url= `/notes/${noteId}/removeCollaboratorsNotes/${collaboratorUserId}`;
+    let params=new HttpParams();
+    params.append('noteId',noteId);
+    params.append('collaboratorUserId',collaboratorUserId);
+
+    return this.httpService.delete(url,params);
+  }
 }
