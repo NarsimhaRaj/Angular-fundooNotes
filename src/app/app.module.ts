@@ -2,7 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule, MatListModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatCheckboxModule, MatCardModule, MatTooltipModule, MatTabsModule, MatProgressBarModule, MatChipsModule } from '@angular/material'
+import { MatInputModule, MatListModule, MatButtonModule, MatToolbarModule, MatExpansionModule,
+   MatCheckboxModule, MatCardModule, MatTooltipModule, MatTabsModule,
+    MatProgressBarModule, MatChipsModule, MatDatepickerModule } from '@angular/material'
 import { MatMenuModule, MatOptionModule, MatSelectModule } from '@angular/material'
 import { MatFormFieldModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatDialogModule } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,6 +32,7 @@ import { CartService } from './services/cartServices/cart.service';
 import { CardComponent } from './components/card/card.component';
 import { LabelService } from './services/label/label.service';
 import { LabelnotesComponent } from './components/labelnotes/labelnotes.component';
+import { CollaboratorDialogComponent } from './components/collaborator-dialog/collaborator-dialog.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ import { LabelnotesComponent } from './components/labelnotes/labelnotes.componen
     CartDialogComponent,
     LabelsDialogComponent,
     CardComponent,
-    LabelnotesComponent
+    LabelnotesComponent,
+    CollaboratorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +74,7 @@ import { LabelnotesComponent } from './components/labelnotes/labelnotes.componen
     MatTabsModule,
     MatChipsModule,
     MatProgressBarModule,
+    MatDatepickerModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -80,7 +85,7 @@ import { LabelnotesComponent } from './components/labelnotes/labelnotes.componen
     ClickOutsideModule,
     NgxPopper
   ],
-  entryComponents: [UpdateDialogComponent, CartDialogComponent, LabelsDialogComponent],
+  entryComponents: [UpdateDialogComponent, CartDialogComponent, LabelsDialogComponent, CollaboratorDialogComponent],
   providers: [UserService, HttpService, AuthGuard, CartService, LabelService, RegisterGuard],
   bootstrap: [AppComponent]
 })
