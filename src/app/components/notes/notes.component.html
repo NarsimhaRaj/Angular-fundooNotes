@@ -2,13 +2,13 @@
 <div fxLayoutAlign="start center" fxLayout="column">
 
     <div style="width:100%;margin-bottom:0.7em" fxLayoutAlign="center center">
-        <mat-card [fxHide]="panelOpenState" style="height: 10px" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" >
+        <mat-card [fxHide]="panelOpenState || checkListExpansionPanel" style="height: 10px" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" >
             <mat-card-content fxLayout="row">
                 <div style="width:70%">
                     <input matInput type="text" (click)="panelOpenState=!panelOpenState" placeholder="Take a note..." autofocus/>
                 </div>
                 <div style="width:30%; margin-top:-1em" fxLayoutAlign="space-around center">
-                    <button mat-icon-button color="" (click)="panelOpenState=!panelOpenState; ">
+                    <button mat-icon-button color="" (click)="checkListExpansionPanel=!checkListExpansionPanel; ">
                       <mat-icon matTooltip="New List">check_box</mat-icon>
                     </button>
                     <button mat-icon-button color=""><mat-icon matTooltip="New note with image">crop_original</mat-icon></button>
@@ -82,6 +82,84 @@
       
             </mat-card-footer>
           </mat-card>
+
+          <!-- checkList mat card -->
+          <mat-card [fxHide]="!checkListExpansionPanel"[ngStyle]="{'background-color': matCardColor}" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" >
+              
+              <!-- mat card title -->
+              <mat-card-title fxLayoutAlign="space-between center" style="margin-top:-0.5em;">
+                <div style="width:80%;">
+                    <input matInput type="text" placeholder="Title" [formControl]=title/>
+                </div>
+                <div style="width:20%;" fxLayoutAlign="end center" [fxHide]="!isAdvancedUser">
+                  <button mat-icon-button color="" [fxHide]="isPinned" (click)="setPin()" ><img src="src/assets/images/outline_fiber_pin.png"/></button>
+                  <button mat-icon-button color="" [fxHide]="!isPinned" (click)="setPin()" ><img src="src/assets/images/baseline_fiber_pin.png"/></button>
+                </div>
+                
+              </mat-card-title>
+              <!-- mat-card content -->
+              <mat-card-content>
+                <mat-list>
+                  <mat-list-item *ngFor="let item of checkListArray">
+                      <mat-checkbox fxFlex>{{item}}</mat-checkbox>
+                      <button (click)="filterCheckList(item)" mat-icon-button><mat-icon>clear</mat-icon></button>
+                  </mat-list-item>
+                  <mat-list-item>
+                      <mat-icon mat-list-icon>add</mat-icon>
+                      <input matInput (keyup.enter)="EnterCheckList($event)" placeholder="Take a note..." [formControl]="listDescription">
+                      <mat-icon>clear</mat-icon>
+                  </mat-list-item>
+                </mat-list>
+
+              </mat-card-content>
+        
+              <!-- mat card footer -->
+              <mat-card-footer>
+                
+                <div class="footer-icons-div" fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
+                  <button mat-icon-button color=""><mat-icon matTooltip="Remind me">notifications_none</mat-icon></button>
+                  <button mat-icon-button color=""><mat-icon matTooltip="Collaborator">person_add</mat-icon></button>
+                  <button mat-icon-button color="" [matMenuTriggerFor]="cardColorMenu"><mat-icon matTooltip="Change color">color_lens</mat-icon></button>
+                  <mat-menu #cardColorMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
+                    <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                        <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC')" style="background-color: #F5F5EC;"></div>
+                        <div mat-menu-item (click)="updateBackgroundColor('#EB716B')" style="background-color: #EB716B;"></div>
+                        <div mat-menu-item (click)="updateBackgroundColor('#FCE42A')" style="background-color: #FCE42A"></div>
+                        <div mat-menu-item (click)="updateBackgroundColor('#6DE391')" style="background-color: #6DE391;"></div>
+                    </div>
+                    <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                        <div mat-menu-item (click)="updateBackgroundColor('#1597DB')" style="background-color: #1597DB;"></div>
+                        <div mat-menu-item (click)="updateBackgroundColor('#08ECF2')" style="background-color: #08ECF2;"></div>
+                        <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF')" style="background-color: #8C7FBF;"></div>
+                        <div mat-menu-item (click)="updateBackgroundColor('#D37CE2')" style="background-color: #D37CE2;"></div>
+                    </div>
+                    <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                        <div mat-menu-item (click)="updateBackgroundColor('#FF8632')" style="background-color: #FF8632"></div>
+                        <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9')" style="background-color: #EA7AC9;"></div>
+                        <div mat-menu-item (click)="updateBackgroundColor('#A35237')" style="background-color: #A35237;"></div>
+                        <div mat-menu-item (click)="updateBackgroundColor('#959592')" style="background-color: #959592;"></div>
+                    </div>
+                  </mat-menu>
+                  <button mat-icon-button color=""><mat-icon matTooltip="Add image">crop_original</mat-icon></button>
+                  <button mat-icon-button (click)="setArchive(true)" [fxHide]="isArchived" color=""><mat-icon matTooltip="Archive">archive</mat-icon></button>
+                  <button mat-icon-button (click)="setArchive(false)" [fxHide]="!isArchived" color=""><mat-icon matTooltip="Unarchive">archive</mat-icon></button>
+                  <button mat-icon-button color="" [matMenuTriggerFor]="more_vert"><mat-icon matTooltip="More">more_vert</mat-icon></button>
+                  <mat-menu #more_vert="matMenu">
+                    <button (click)="delete(note);" mat-menu-item>
+                      Delete
+                    </button>
+                  </mat-menu>
+                  <button mat-icon-button color=""><mat-icon matTooltip="Undo">undo</mat-icon></button>
+                  <button mat-icon-button color=""><mat-icon matTooltip="Redo">redo</mat-icon></button>
+                </div>
+      
+                <!-- closing button -->
+                <div class="footer-close-button-div" fxLayoutAlign="end center">
+                    <button mat-button (click)="saveCheckList(); checkListExpansionPanel=!checkListExpansionPanel;">Close</button>
+                </div>
+        
+              </mat-card-footer>
+          </mat-card>
     </div>
     
     <!-- notes list -->
@@ -91,7 +169,7 @@
 
         <!-- pinned notes -->
         <div *ngIf="pinCountZero" style="width:90%;" fxLayoutAlign="start center"><h5>PINNED</h5></div>
-        <div style="width:100%;" fxLayoutAlign="center start" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
+        <div style="width:100%;" fxLayoutAlign="start start" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
           <div *ngFor="let note of notesList?.reverse()" >
             <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;" [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
               ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived && note.isPined">
@@ -110,6 +188,12 @@
                 <div>
                   {{note.description}}
                 </div>
+                <!-- if checkList Notes is Present -->
+                <mat-list *ngIf="note.description==''">
+                  <mat-list-item *ngFor="let item of note.noteCheckLists">
+                      <mat-checkbox fxFlex>{{item.itemName}}</mat-checkbox>
+                  </mat-list-item>
+                </mat-list>
               </mat-card-content>
               <mat-card-actions>
                 <mat-chip-list>
@@ -237,8 +321,8 @@
         </div>
         <!-- unpinned notes list  -->
         <div *ngIf="pinCountZero" style="width:90%;"><h5>OTHERS</h5></div>
-        <div style="width:100%;" fxLayoutAlign="center start" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
-          <div *ngFor="let note of notesList?.reverse()" >
+        <div style="width:100%;" fxLayoutAlign="start start" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
+          <div *ngFor="let note of notesList" >
             <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;" [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
               ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived && !note.isPined">
               
@@ -256,6 +340,13 @@
                 <div>
                   {{note.description}}
                 </div>
+                <!-- if checkList Notes is Present -->
+                <mat-list *ngIf="note.description==''">
+                  <mat-list-item *ngFor="let item of note.noteCheckLists">
+                      <mat-checkbox fxFlex>{{item.itemName}}</mat-checkbox>
+                  </mat-list-item>
+                </mat-list>
+
               </mat-card-content>
               <mat-card-actions>
                   <mat-chip-list>

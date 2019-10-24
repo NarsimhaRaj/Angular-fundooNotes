@@ -32,6 +32,11 @@ export class NotesComponent implements OnInit, OnDestroy {
   //mat cards expansion panel variables
   private getNotesObs: any;
   panelOpenState: Boolean = false;
+  
+  //checkList matcard open variable 
+  checkListExpansionPanel: boolean=false;
+  checkListArray=new Array<string>();
+  listDescription=new FormControl('');
 
   // mat card title and description formcontrol varibales
   title = new FormControl('', [
@@ -328,6 +333,52 @@ export class NotesComponent implements OnInit, OnDestroy {
     // dialogRef.afterClosed().subscribe(result => {
 
     // });
+  }
+
+
+  /**
+   * @description on pressing enter value gets added to checklistArray
+   * @param event enter key event trggered
+   */
+  EnterCheckList(event){
+    if(event.keyCode==13 && this.listDescription.value!="")
+    {
+      this.checkListArray.push(this.listDescription.value);
+      this.listDescription.setValue("");
+    }
+  }
+
+  /**
+   * @description delete item from checkList on pressing cancel button
+   * @param item item to be deleted
+   */
+  filterCheckList(item){
+    this.checkListArray=this.checkListArray.filter(listItem=>listItem!=item)
+  }
+  /**
+   * 
+   */
+  saveCheckList(){
+    if (this.title.valid) {
+      var notes = { title: this.title.value, description: "", color: this.matCardColor, isPined: this.isPinned, isArchived: this.isArchived }
+      this.noteServices.addNotes(notes).subscribe((response:any) => {
+        this.isPinned = false;
+        this.isArchived = false;
+        
+        for(let list of this.checkListArray)
+        {
+          let data={itemName:list,status:"open"};
+          this.noteServices.addCheckList(response.status.details.id,data).subscribe(response=>{
+            this.emitObservable.next();
+          });
+        }
+      }, (error: any) => {
+        this.snackBar.open(error.message, undefined, { duration: 2000 });
+      });
+    }
+    // resetting title and description to empty
+    this.title.setValue("");
+    this.description.setValue("");
   }
   /**
    * @description unsubscribe to noteslist if component gets destoried

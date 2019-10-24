@@ -154,4 +154,16 @@ export class NoteService {
 
     return this.httpService.delete(url,{});
   }
+
+  /**
+   * @description to add checklist item to existed
+   * @param noteId note id os notes
+   * @param data checkList data
+   */
+  addCheckList(noteId,data){
+ 
+    let url= `/notes/${noteId}/noteCheckLists`;
+    return this.httpService.postWithToken(url,data);
+
+  }
 }
