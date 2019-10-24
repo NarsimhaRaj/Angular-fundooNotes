@@ -120,6 +120,9 @@
             </mat-card-content>
             <mat-card-actions>
                 <mat-chip-list>
+                  <mat-chip *ngFor="let person of note.collaborators">
+                      {{person.firstName.charAt(0).toUpperCase()}}
+                  </mat-chip>
                   <mat-chip *ngFor="let label of note.noteLabels" [removable]="true" (removed)="removeLabel(note.id,label.id)">
                     {{label.label}}
                     <mat-icon matChipRemove>cancel</mat-icon>
@@ -247,6 +250,9 @@
             </mat-card-content>
             <mat-card-actions>
                 <mat-chip-list>
+                  <mat-chip *ngFor="let person of note.collaborators">
+                      {{person.firstName.charAt(0).toUpperCase()}}
+                  </mat-chip>
                   <mat-chip *ngFor="let label of note.noteLabels" [removable]="true" (removed)="removeLabel(note.id,label.id)">
                     {{label.label}}
                     <mat-icon matChipRemove>cancel</mat-icon>

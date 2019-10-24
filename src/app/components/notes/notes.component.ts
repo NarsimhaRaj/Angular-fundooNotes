@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 // import { Observable } from 'rxjs';
 import { NoteService } from 'src/app/services/noteServices/note.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
@@ -26,8 +26,8 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   // notesList from server
   notesList: any;
-  isPinned:boolean=false;
-  isArchived:boolean=false;
+  isPinned: boolean = false;
+  isArchived: boolean = false;
 
   //mat cards expansion panel variables
   private getNotesObs: any;
@@ -57,7 +57,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   pinCountZero: boolean = false;
 
   // contians list of all labels
-  labels:any
+  labels: any
 
   // to emit an event after every modifications
   public emitObservable: Subject<void> = new Subject<void>();
@@ -66,18 +66,18 @@ export class NotesComponent implements OnInit, OnDestroy {
   serializedDate = new FormControl((new Date()).toISOString());
 
   constructor(private userService: UserService, private noteServices: NoteService, private snackBar: MatSnackBar,
-    public dialog: MatDialog, private dashBoard: DashboardComponent, private labelService:LabelService) {
+    public dialog: MatDialog, private dashBoard: DashboardComponent, private labelService: LabelService) {
     this.getUserService();
 
     this.data = this.dashBoard.getData();
 
-    this.dashBoard.emitView.subscribe(()=>{
+    this.dashBoard.emitView.subscribe(() => {
       this.data = this.dashBoard.getData();
     })
-    this.dashBoard.emitLablesEvent.subscribe(()=>{
+    this.dashBoard.emitLablesEvent.subscribe(() => {
       this.getNotesList();
       // to get All labels of user 
-      this.getAllLabels();  
+      this.getAllLabels();
     })
   }
 
@@ -122,15 +122,15 @@ export class NotesComponent implements OnInit, OnDestroy {
         panelClass: "matDialogBox"
       });
       // updating color on changing background color in update dialog
-      dialogRef.componentInstance.emitColorEvent.subscribe((color)=>{
-        this.updateBackgroundColor(color,note);
+      dialogRef.componentInstance.emitColorEvent.subscribe((color) => {
+        this.updateBackgroundColor(color, note);
       });
       dialogRef.afterClosed().subscribe(result => {
-      
-        if(result.isDeleted){
+
+        if (result.isDeleted) {
           this.delete(note);
         }
-        else{
+        else {
           if (result) {
             this.noteServices.updateNotes(result).subscribe((response) => {
             })
@@ -171,21 +171,21 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.panelOpenState = !this.panelOpenState;
   }
 
-  setPin(){
-    this.isPinned=!this.isPinned;
+  setPin() {
+    this.isPinned = !this.isPinned;
   }
-  setArchive(){
-    this.isArchived=!this.isArchived;
+  setArchive() {
+    this.isArchived = !this.isArchived;
   }
   /**
    *@description this will add a notes to user notes list 
    */
   save() {
     if (this.title.valid || this.description.valid) {
-      var notes = { title: this.title.value, description: this.description.value, color: this.matCardColor,isPined:this.isPinned, isArchived:this.isArchived }
+      var notes = { title: this.title.value, description: this.description.value, color: this.matCardColor, isPined: this.isPinned, isArchived: this.isArchived }
       this.noteServices.addNotes(notes).subscribe((response) => {
-        this.isPinned=false;
-        this.isArchived=false;
+        this.isPinned = false;
+        this.isArchived = false;
         this.emitObservable.next();
       }, (error: any) => {
         this.snackBar.open(error.message, undefined, { duration: 2000 });
@@ -229,19 +229,19 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @param note: note to be added
    */
   archive(note) {
-    if(note.isPined){
-      let data = { noteIdList: [note.id], isArchived: true, isPined:false };
+    if (note.isPined) {
+      let data = { noteIdList: [note.id], isArchived: true, isPined: false };
 
       this.noteServices.addToArchive(data).subscribe((response) => {
-      this.emitObservable.next();
-    });  
+        this.emitObservable.next();
+      });
     }
-    else{
+    else {
       let data = { noteIdList: [note.id], isArchived: true };
 
       this.noteServices.addToArchive(data).subscribe((response) => {
-      this.emitObservable.next();
-    });
+        this.emitObservable.next();
+      });
     }
   }
 
@@ -251,19 +251,19 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @param note note, which has to be colored
    */
   updateBackgroundColor(color, note) {
-      let data = { noteIdList: [note.id], color: color };
-      this.noteServices.updateBackgroundColor(data).subscribe((response) => {
-        this.emitObservable.next();
-      });
+    let data = { noteIdList: [note.id], color: color };
+    this.noteServices.updateBackgroundColor(data).subscribe((response) => {
+      this.emitObservable.next();
+    });
   }
 
 
   /**
    * @description get all the labels created by user
    */
-  getAllLabels(){
-    this.labelService.getNoteLabelList().subscribe((response:any)=>{
-      this.labels=response.data.details;
+  getAllLabels() {
+    this.labelService.getNoteLabelList().subscribe((response: any) => {
+      this.labels = response.data.details;
     });
   }
 
@@ -272,18 +272,16 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @param noteId note id of note to which label will be added 
    * @param label label details to add
    */
-  addLable(noteId,labelId,event){
+  addLable(noteId, labelId, event) {
 
-    if(event.checked)
-    {
-      this.noteServices.addLabelToNote(noteId,labelId).subscribe((response)=>{
+    if (event.checked) {
+      this.noteServices.addLabelToNote(noteId, labelId).subscribe((response) => {
         // console.log(response);
         this.emitObservable.next();
       })
     }
-    else
-    {
-      this.removeLabel(noteId,labelId);
+    else {
+      this.removeLabel(noteId, labelId);
     }
 
   }
@@ -293,8 +291,8 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @param noteId noteid to which label attached
    * @param labelId label id
    */
-  removeLabel(noteId,labelId){
-    this.noteServices.removeLabelToNotes(noteId,labelId).subscribe((response)=>{
+  removeLabel(noteId, labelId) {
+    this.noteServices.removeLabelToNotes(noteId, labelId).subscribe((response) => {
       // console.log(response);
       this.emitObservable.next();
     })
@@ -305,11 +303,10 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @param note note to which check label is checked or not 
    * @param label label details 
    */
-  isChecked(note,label){
+  isChecked(note, label) {
 
-    for(let notelabel of note.noteLabels)
-    {
-      if(notelabel.label==label.label)
+    for (let notelabel of note.noteLabels) {
+      if (notelabel.label == label.label)
         return true;
     }
     return false;
@@ -319,16 +316,18 @@ export class NotesComponent implements OnInit, OnDestroy {
   /**
    * 
    */
-  addCollaborator(note){
+  addCollaborator(note) {
     const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
       width: '550px',
       data: note,
       panelClass: "matDialogBox"
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-
+    dialogRef.componentInstance.emitCollaboratorChanges.subscribe(() => {
+      this.emitObservable.next();
     });
+    // dialogRef.afterClosed().subscribe(result => {
+
+    // });
   }
   /**
    * @description unsubscribe to noteslist if component gets destoried

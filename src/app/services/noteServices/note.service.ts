@@ -130,6 +130,19 @@ export class NoteService {
     return this.httpService.postWithParams(url,params)
   }
 
+
+  /**
+   * @description adding a collaborator to notes with noteId id, sending a post request
+   * @param noteId note id 
+   * @param data data with collaborator details
+   */
+  addCollaborator(noteId,data){
+    
+    let url= `/notes/${noteId}/AddcollaboratorsNotes`;
+
+    return this.httpService.postWithToken(url,data);
+  }
+
   /**
    * @description to delete a collaborator from notes
    * @param noteId note id of notes
@@ -138,10 +151,7 @@ export class NoteService {
   removeCollaborator(noteId,collaboratorUserId){
 
     let url= `/notes/${noteId}/removeCollaboratorsNotes/${collaboratorUserId}`;
-    let params=new HttpParams();
-    params.append('noteId',noteId);
-    params.append('collaboratorUserId',collaboratorUserId);
 
-    return this.httpService.delete(url,params);
+    return this.httpService.delete(url,{});
   }
 }

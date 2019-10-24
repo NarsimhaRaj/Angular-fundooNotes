@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatListModule, MatButtonModule, MatToolbarModule, MatExpansionModule,
    MatCheckboxModule, MatCardModule, MatTooltipModule, MatTabsModule,
-    MatProgressBarModule, MatChipsModule, MatDatepickerModule } from '@angular/material'
+    MatProgressBarModule, MatChipsModule, MatDatepickerModule, MatAutocompleteModule } from '@angular/material'
 import { MatMenuModule, MatOptionModule, MatSelectModule } from '@angular/material'
 import { MatFormFieldModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatDialogModule } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -75,6 +75,7 @@ import { CollaboratorDialogComponent } from './components/collaborator-dialog/co
     MatChipsModule,
     MatProgressBarModule,
     MatDatepickerModule,
+    MatAutocompleteModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
