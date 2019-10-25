@@ -24,6 +24,9 @@ export class TrashComponent implements OnInit {
 
   public emitObservable: Subject<void> = new Subject<void>();
 
+  // filtering notes with searchWord
+  searchWord:string;
+
   constructor(private noteServices: NoteService, private snackBar: MatSnackBar,
     private dashBoard: DashboardComponent) {
       
@@ -42,6 +45,10 @@ export class TrashComponent implements OnInit {
     this.getNotesObs = this.emitObservable.subscribe(() => {
       this.getNotesList();
     });
+
+    this.dashBoard.emitSearchEvent.subscribe((search:string)=>{
+      this.searchWord=search;
+    })
 
   }
   getNotesList() {

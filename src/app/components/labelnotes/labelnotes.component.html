@@ -99,7 +99,7 @@
       <!-- pinned notes -->
       <div *ngIf="pinCountZero" style="width:100%;" fxLayoutAlign="start center"><h5>PINNED</h5></div>
       <div style="width:100%;" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
-        <div *ngFor="let note of labelNotesList?.reverse()" >
+        <div *ngFor="let note of labelNotesList?.reverse() | search:searchWord" >
           <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;" [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
           ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="note.isPined">
             
@@ -235,7 +235,7 @@
       <!-- unpinned notes list  -->
       <div *ngIf="pinCountZero" style="width:100%;"><h5>OTHERS</h5></div>
       <div style="width:100%;" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
-        <div *ngFor="let note of labelNotesList" >
+        <div *ngFor="let note of labelNotesList | search:searchWord" >
           <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;" [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
           ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isPined">
             

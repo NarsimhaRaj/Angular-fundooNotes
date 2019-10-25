@@ -52,7 +52,9 @@ export class LabelnotesComponent implements OnInit {
   }
   // to emit an event after every modifications
   public emitObservable: Subject<void> = new Subject<void>();
-
+  
+  // filtering notes with searchWord
+  searchWord:string;
 
   constructor(private noteServices:NoteService, private activeRoute:ActivatedRoute, private dashBoard:DashboardComponent,
     public dialog: MatDialog, private snackBar: MatSnackBar, private labelServices:LabelService) {
@@ -80,6 +82,10 @@ export class LabelnotesComponent implements OnInit {
       })
       this.getNoteListByLabel(this.labelName);
     });
+
+    this.dashBoard.emitSearchEvent.subscribe((search:string)=>{
+      this.searchWord=search;
+    })
   }
 
   /**

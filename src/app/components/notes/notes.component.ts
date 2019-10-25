@@ -64,6 +64,8 @@ export class NotesComponent implements OnInit, OnDestroy {
   date = new FormControl(new Date());
   serializedDate = new FormControl((new Date()).toISOString());
 
+  searchWord:string;
+
   constructor(private userService: UserService, private noteServices: NoteService, private snackBar: MatSnackBar,
     public dialog: MatDialog, private dashBoard: DashboardComponent, private labelService: LabelService) {
     this.getUserService();
@@ -94,6 +96,10 @@ export class NotesComponent implements OnInit, OnDestroy {
       // to get All labels of user 
       this.getAllLabels();
     });
+
+    this.dashBoard.emitSearchEvent.subscribe((search:string)=>{
+      this.searchWord=search;
+    })
 
   }
 
@@ -375,6 +381,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.title.setValue("");
     this.description.setValue("");
   }
+
   /**
    * @description unsubscribe to noteslist if component gets destoried
    */

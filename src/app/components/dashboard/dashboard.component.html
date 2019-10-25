@@ -14,7 +14,7 @@
         <div fxHide.lt-sm="true" class="search-div" fxLayoutAlign="center center">
           <mat-form-field class="search-bar" appearance="fill legacy">
             <span matPrefix><button mat-icon-button><mat-icon >search</mat-icon></button></span>
-            <input matInput type="search" placeholder="Search"/>
+            <input matInput type="search" placeholder="Search" (keydown)="searchBox($event)"/>
           </mat-form-field>
         </div>
       </div>

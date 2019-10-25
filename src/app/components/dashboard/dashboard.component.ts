@@ -41,6 +41,8 @@ export class DashboardComponent implements OnInit,OnDestroy {
   }
 
   emitLablesEvent=new Subject();
+
+  emitSearchEvent=new Subject();
   // changes mode of sidenav on max width 600px
   private _mobileQueryListener: () => void;
 
@@ -185,6 +187,10 @@ export class DashboardComponent implements OnInit,OnDestroy {
    */
   getNoteListByLabel(labelName){
     this.route.navigate(["dashboard/labelNotes",labelName]);
+  }
+
+  searchBox(event){
+    this.emitSearchEvent.next(event.target.value);
   }
 
   ngOnDestroy(): void {

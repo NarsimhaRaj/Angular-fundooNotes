@@ -30,6 +30,9 @@ export class ArchiveComponent implements OnInit {
     viewStyling: true
   }
 
+  // filtering notes with searchWord
+  searchWord:string;
+  
   public emitObservable: Subject<void> = new Subject<void>();
 
   constructor(private noteServices: NoteService, private snackBar: MatSnackBar, public dialog: MatDialog,
@@ -53,6 +56,10 @@ export class ArchiveComponent implements OnInit {
     this.getNotesObs = this.emitObservable.subscribe(() => {
       this.getNotesList();
     });
+
+    this.dashBoard.emitSearchEvent.subscribe((search:string)=>{
+      this.searchWord=search;
+    })
 
   }
 
