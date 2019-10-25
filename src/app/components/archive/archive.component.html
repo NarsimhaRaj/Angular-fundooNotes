@@ -22,6 +22,12 @@
             <div>
               {{note.description}}
             </div>
+            <!-- if checkList Notes is Present -->
+            <mat-list *ngIf="note.description==''">
+              <mat-list-item *ngFor="let item of note.noteCheckLists">
+                  <mat-checkbox fxFlex>{{item.itemName}}</mat-checkbox>
+              </mat-list-item>
+            </mat-list>
           </mat-card-content>
           <mat-card-actions>
               <mat-chip-list>

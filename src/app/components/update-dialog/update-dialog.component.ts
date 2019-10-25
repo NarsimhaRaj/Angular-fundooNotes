@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { DialogData } from 'src/app/components/notes/notes.component';
 import { FormControl } from '@angular/forms';
 import { NoteService } from 'src/app/services/noteServices/note.service';
 import { Subject } from 'rxjs';
@@ -22,8 +21,8 @@ export class UpdateDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<UpdateDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private noteServices:NoteService) { 
-      this.noteId=data.noteId;
+    @Inject(MAT_DIALOG_DATA) public data: any, private noteServices:NoteService) { 
+      this.noteId=data.id;
       this.title.setValue(data.title);
       this.description.setValue(data.description);
       this.color.setValue(data.color);   
@@ -32,7 +31,7 @@ export class UpdateDialogComponent implements OnInit {
    * @description pass the modified or updated data where dialogRef is being called
    */
   onCloseClick():void{
-    this.dialogRef.close({noteId:this.noteId,title:this.title.value,description:this.description.value});
+    this.dialogRef.close({noteId:this.noteId,title:this.title.value,description:this.description.value, color:this.color.value});
   }
 
   /**
@@ -42,7 +41,6 @@ export class UpdateDialogComponent implements OnInit {
   updateBackgroundColor(color){
     this.data.color=color;
     this.color.setValue(color);
-    this.emitColorEvent.next(color);
   }
 
   /**

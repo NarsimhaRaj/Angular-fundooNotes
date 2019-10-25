@@ -60,15 +60,13 @@ export class ArchiveComponent implements OnInit {
 
     const dialogRef = this.dialog.open(UpdateDialogComponent, {
       width: '550px',
-      data: { noteId: note.id, title: note.title, description: note.description, color: note.color },
+      data: note,
       panelClass: "matDialogBox"
     });
 
     dialogRef.afterClosed().subscribe(result => {
 
-      if(result.color!=note.color){
-        this.updateBackgroundColor(result.color,note);
-      }
+      this.updateBackgroundColor(result.color,note);
       if(result.isDeleted){
         this.delete(note);
       }

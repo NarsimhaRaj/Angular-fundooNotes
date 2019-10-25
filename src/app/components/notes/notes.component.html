@@ -101,7 +101,7 @@
               <mat-card-content>
                 <mat-list>
                   <mat-list-item *ngFor="let item of checkListArray">
-                      <mat-checkbox fxFlex>{{item}}</mat-checkbox>
+                      <mat-checkbox (change)="checkListItemStatus($event)" fxFlex>{{item.itemName}}</mat-checkbox>
                       <button (click)="filterCheckList(item)" mat-icon-button><mat-icon>clear</mat-icon></button>
                   </mat-list-item>
                   <mat-list-item>
@@ -215,18 +215,21 @@
                     </button>
                     <mat-menu #reminder="matMenu">
                      <mat-card>
-                          <div mat-menu-item>
-                            <pre>Later Today  8:00 PM</pre>
-                          </div>
-                          <div mat-menu-item>
-                            <pre>Tomorrow     8:00 PM</pre>                          
-                          </div>
-                          <div mat-menu-item>
-                            <pre>Next week    Mon, 8:00 PM</pre>                         
-                           </div>
-                          <div mat-menu-item>
-                              <div><mat-icon>access_time</mat-icon> Pick date & time</div>
-                          </div>               
+                       <mat-list>
+                          <div mat-list-item>
+                              <pre>Later Today  8:00 PM</pre>
+                            </div>
+                            <div mat-list-item>
+                              <pre>Tomorrow     8:00 PM</pre>                          
+                            </div>
+                            <div mat-list-item>
+                              <pre>Next week    Mon, 8:00 PM</pre>                         
+                             </div>
+                            <div mat-list-item>
+                                <div><mat-icon>access_time</mat-icon> Pick date & time</div>
+                            </div>
+                       </mat-list>
+                                         
                      </mat-card>
                     </mat-menu>
                   </div>

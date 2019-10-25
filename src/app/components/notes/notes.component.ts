@@ -10,12 +10,6 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { LabelService } from 'src/app/services/label/label.service';
 import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator-dialog.component';
 
-export interface DialogData {
-  noteId: String;
-  title: String;
-  description: String;
-  color: String;
-}
 
 @Component({
   selector: 'app-notes',
@@ -35,7 +29,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   
   //checkList matcard open variable 
   checkListExpansionPanel: boolean=false;
-  checkListArray=new Array<string>();
+  checkListArray=new Array();
   listDescription=new FormControl('');
 
   // mat card title and description formcontrol varibales
@@ -123,15 +117,14 @@ export class NotesComponent implements OnInit, OnDestroy {
 
       const dialogRef = this.dialog.open(UpdateDialogComponent, {
         width: '550px',
-        data: { noteId: note.id, title: note.title, description: note.description, color: note.color },
+        data: note,
         panelClass: "matDialogBox"
       });
-      // updating color on changing background color in update dialog
-      dialogRef.componentInstance.emitColorEvent.subscribe((color) => {
-        this.updateBackgroundColor(color, note);
-      });
+      
       dialogRef.afterClosed().subscribe(result => {
 
+        this.updateBackgroundColor(result.color, note);          
+        
         if (result.isDeleted) {
           this.delete(note);
         }
@@ -343,7 +336,8 @@ export class NotesComponent implements OnInit, OnDestroy {
   EnterCheckList(event){
     if(event.keyCode==13 && this.listDescription.value!="")
     {
-      this.checkListArray.push(this.listDescription.value);
+      let data={itemName:this.listDescription.value,status:"open"};
+      this.checkListArray.push(data);
       this.listDescription.setValue("");
     }
   }
@@ -365,18 +359,19 @@ export class NotesComponent implements OnInit, OnDestroy {
         this.isPinned = false;
         this.isArchived = false;
         
-        for(let list of this.checkListArray)
+        while(this.checkListArray.length>0)
         {
-          let data={itemName:list,status:"open"};
-          this.noteServices.addCheckList(response.status.details.id,data).subscribe(response=>{
+          
+          this.noteServices.addCheckList(response.status.details.id,this.checkListArray.shift()).subscribe(response=>{
             this.emitObservable.next();
           });
         }
+        if(this.checkListArray.length==0)
+          this.emitObservable.next();
       }, (error: any) => {
         this.snackBar.open(error.message, undefined, { duration: 2000 });
       });
     }
-    // resetting title and description to empty
     this.title.setValue("");
     this.description.setValue("");
   }
