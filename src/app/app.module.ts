@@ -33,6 +33,7 @@ import { CardComponent } from './components/card/card.component';
 import { LabelService } from './services/label/label.service';
 import { LabelnotesComponent } from './components/labelnotes/labelnotes.component';
 import { CollaboratorDialogComponent } from './components/collaborator-dialog/collaborator-dialog.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { CollaboratorDialogComponent } from './components/collaborator-dialog/co
     LabelsDialogComponent,
     CardComponent,
     LabelnotesComponent,
-    CollaboratorDialogComponent
+    CollaboratorDialogComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

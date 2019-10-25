@@ -36,20 +36,24 @@
           
         <!-- account icon --> 
         <div ngClass.gt-xs="account-div-gt-xs" ngClass.lt-sm="account-div-lt-sm" fxLayoutAlign="end center">
-            <mat-icon fxHide.lt-sm="true" matTooltip="Apps">apps</mat-icon>
-            <button mat-mini-fab color="" [matMenuTriggerFor]="account">{{userDetails.imageUrl}}</button>
-            <mat-menu #account="matMenu">
-              <mat-card>
-                <div style="height:20%; width:30%">
-                  <div><h1>{{userDetails.firstName}}</h1></div>
-                  <div>{{userDetails.email}}</div>
-                </div>
-              </mat-card>
-              <div mat-menu-item>
-                <button mat-button>Add account</button>
-                <button mat-button (click)="logout()">Logout</button>
-              </div>
-            </mat-menu>
+            <div>
+              <mat-icon fxHide.lt-sm="true" matTooltip="Apps">apps</mat-icon>
+            </div>
+            <div>
+              <button mat-mini-fab color="" [matMenuTriggerFor]="account">{{userDetails.imageUrl}}</button>
+                <mat-menu #account="matMenu">
+                  <mat-card>
+                    <div style="height:20%; width:30%">
+                      <div><h1>{{userDetails.firstName}}</h1></div>
+                      <div>{{userDetails.email}}</div>
+                    </div>
+                  </mat-card>
+                  <div mat-menu-item>
+                    <button mat-button>Add account</button>
+                    <button mat-button (click)="logout()">Logout</button>
+                  </div>
+                </mat-menu>
+            </div>
 
         </div>
     

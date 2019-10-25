@@ -155,6 +155,10 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.route.navigateByUrl("dashboard/trashNotes");
   }
 
+  goToCartComponent(){
+    this.route.navigateByUrl("dashboard/cart");
+  }
+
  /**
   * @description clears session storage and redirects to login page
   */

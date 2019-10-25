@@ -75,7 +75,6 @@ a{
 .mat-card-list-gt-xs{
     width:100%;
     min-width:400px;
-    justify-content: start;
     @include matCard();
     @include matCardHover();
 }

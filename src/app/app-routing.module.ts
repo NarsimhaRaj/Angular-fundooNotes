@@ -12,6 +12,7 @@ import { TrashComponent } from './components/trash/trash.component';
 import { AuthGuard, RegisterGuard } from './auth/auth.guard';
 import { CardComponent } from './components/card/card.component';
 import { LabelnotesComponent } from './components/labelnotes/labelnotes.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 const routes: Route[] = [
   { path: '', redirectTo: "/card", pathMatch: 'full' },
@@ -28,7 +29,8 @@ const routes: Route[] = [
       { path: "", component: NotesComponent },
       { path: "archive", component: ArchiveComponent },
       { path: "trashNotes", component: TrashComponent },
-      { path: "labelNotes/:labelName", component: LabelnotesComponent }
+      { path: "labelNotes/:labelName", component: LabelnotesComponent },
+      { path: "cart", component: ShoppingCartComponent}
     ]
   },
   { path: 'notes', component: NotesComponent },
