@@ -99,9 +99,38 @@
             <mat-icon matTooltip="More">more_vert</mat-icon>
           </button>
           <mat-menu #more_vert="matMenu">
-            <button (click)="delete(note);" mat-menu-item>
+            <button (click)="delete();" mat-menu-item>
               Delete
             </button>
+            <button [matMenuTriggerFor]="label" mat-menu-item>
+              Add label
+            </button>
+            <mat-menu #label="matMenu" style="height:30%;overflow: scroll;">
+              <div (click)="$event.stopPropagation();">
+                Label note
+              </div>
+              <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;">
+                <mat-form-field appearance="outline">
+                  <input matInput type="search" placeholder="search label">
+                  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="value=''">
+                    <mat-icon>search</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+              <div (click)="$event.stopPropagation();" *ngFor="let label of labels">
+                <div mat-menu-item>
+                  <mat-checkbox (change)="addLable(label,$event)" color="primary"
+                    [checked]="isChecked(label)">{{label.label}}</mat-checkbox>
+                </div>
+              </div>
+            </mat-menu>
+            <div mat-menu-item>
+              Show checkboxs
+            </div>
+            <div mat-menu-item>
+              Ask Question
+            </div>
           </mat-menu>
           <button mat-icon-button color="">
             <mat-icon matTooltip="Undo">undo</mat-icon>
@@ -215,9 +244,38 @@
             <mat-icon matTooltip="More">more_vert</mat-icon>
           </button>
           <mat-menu #more_vert="matMenu">
-            <button (click)="delete(note);" mat-menu-item>
+            <button (click)="delete();" mat-menu-item>
               Delete
             </button>
+            <button [matMenuTriggerFor]="label" mat-menu-item>
+              Add label
+            </button>
+            <mat-menu #label="matMenu" style="height:30%;overflow: scroll;">
+              <div (click)="$event.stopPropagation();">
+                Label note
+              </div>
+              <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;">
+                <mat-form-field appearance="outline">
+                  <input matInput type="search" placeholder="search label">
+                  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="value=''">
+                    <mat-icon>search</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+              <div (click)="$event.stopPropagation();" *ngFor="let label of labels">
+                <div mat-menu-item>
+                  <mat-checkbox (change)="addLable(label,$event)" color="primary"
+                    [checked]="isChecked(label)">{{label.label}}</mat-checkbox>
+                </div>
+              </div>
+            </mat-menu>
+            <div mat-menu-item>
+              Show checkboxs
+            </div>
+            <div mat-menu-item>
+              Ask Question
+            </div>
           </mat-menu>
           <button mat-icon-button color="">
             <mat-icon matTooltip="Undo">undo</mat-icon>

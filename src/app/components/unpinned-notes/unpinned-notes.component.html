@@ -21,7 +21,7 @@
             {{note.description}}
           </div>
           <!-- if checkList Notes is Present -->
-          <mat-list *ngIf="note.description==''">
+          <mat-list *ngIf="note.description==''" style="white-space: pre-wrap;overflow-wrap: break-word;">
             <mat-list-item *ngFor="let item of note.noteCheckLists">
               <mat-checkbox [ngClass]="{'checkList-text-decoration': item.status=='close' ? true :false }"
                 (click)="$event.stopPropagation()" (change)="changecheckListStatus(note.id,item,$event)"

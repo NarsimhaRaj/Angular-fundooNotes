@@ -9,6 +9,7 @@ import { UpdateDialogComponent } from '../update-dialog/update-dialog.component'
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { LabelService } from 'src/app/services/label/label.service';
 import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator-dialog.component';
+import { ResourceLoader } from '@angular/compiler';
 
 
 @Component({
@@ -166,23 +167,18 @@ export class NotesComponent implements OnInit, OnDestroy {
         title: this.title.value, 
         description: this.description.value, 
         color: this.matCardColor, 
-        isPined: this.isPinned, 
-        isArchived: this.isArchived
+        isPined: this.isPinned, isArchived: this.isArchived
        }
   
         this.noteServices.addNotes(notes).subscribe((response:any) => {
         this.isPinned = false;
         this.isArchived = false;
+        let noteId=response.status.details.id;
         
-        while(this.collaboratorsArray.length>0){
-          this.noteServices.addCollaborator(response.status.details.id,this.collaboratorsArray.shift()).subscribe((responce)=>{
-            this.emitObservable.next();  
-          });
-        }
-        if(this.collaboratorsArray.length<=0)
-        {
-          this.emitObservable.next();
-        }
+        this.saveCollaboratorArray(noteId);
+        this.saveLabelsArray(noteId);
+
+        this.reloadAfterNoteCreation();
 
       }, (error: any) => {
         this.snackBar.open(error.message, undefined, { duration: 2000 });
@@ -193,6 +189,34 @@ export class NotesComponent implements OnInit, OnDestroy {
       this.description.setValue("");
       // calling child event 
     }
+  }
+
+  saveCollaboratorArray(noteId){
+    while(this.collaboratorsArray.length>0){
+      this.noteServices.addCollaborator(noteId,this.collaboratorsArray.shift()).subscribe((responce)=>{
+        this.emitObservable.next();  
+      });
+    }
+  }
+
+  saveLabelsArray(noteId){
+    while(this.newNotesLabelsArray.length>0){
+      this.noteServices.addLabelToNote(noteId,this.newNotesLabelsArray.shift().id).subscribe((response)=>{
+        this.emitObservable.next();
+      });
+    }
+  }
+
+  reloadAfterNoteCreation(){
+    if(this.newNotesLabelsArray.length<=0)
+        {
+          this.emitObservable.next();
+        }
+
+        if(this.collaboratorsArray.length<=0)
+        {
+          this.emitObservable.next();
+        }
   }
 
 
@@ -217,6 +241,62 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.labelService.getNoteLabelList().subscribe((response: any) => {
       this.labels = response.data.details;
     });
+  }
+
+  /**
+   * @description : delete note and add to trash notes list
+   * @param note: note to be deleted
+   */
+  delete() {
+
+    this.title.setValue("");
+    this.description.setValue("");
+    this.collaboratorsArray=[];
+    this.checkListArray=[];
+    this.newNotesLabelsArray=[];
+    this.matCardColor="";
+    this.isArchived=false;
+    this.isPinned=false;
+    this.panelOpenState=!this.panelOpenState;
+  }
+
+  /**
+   * @description adds a label to notes
+   * @param noteId note id of note to which label will be added 
+   * @param label label details to add
+   */
+  addLable(label, event) {
+
+    if (event.checked) {
+      this.newNotesLabelsArray.push(label);
+    }
+    else {
+      this.removeLabel(label);
+    }
+
+  }
+  /**
+   * @description removing a label with post request params 
+   * @param noteId noteid to which label attached
+   * @param labelId label id
+   */
+  removeLabel(label) {
+    this.newNotesLabelsArray=this.newNotesLabelsArray.filter(note_label => note_label!=label);
+  }
+
+  /**
+   * @description to show that label is already selected and checkbox is checked
+   * @param note note to which check label is checked or not 
+   * @param label label details 
+   */
+  isChecked(label) {
+
+    for (let notelabel of this.newNotesLabelsArray) {
+      if (notelabel.label == label.label)
+        return true;
+    }
+    return false;
+
   }
 
   /**
