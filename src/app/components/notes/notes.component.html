@@ -42,10 +42,14 @@
           [formControl]="description">{{description.value}}</textarea>
       </mat-card-content>
 
+      <!-- mat card actions to show reminders collaborators, labels -->
       <mat-card-actions>
         <mat-chip-list>
           <mat-chip *ngFor="let collaborator of collaboratorsArray">
             {{collaborator.firstName.charAt(0).toUpperCase()}}
+          </mat-chip>
+          <mat-chip *ngFor="let label of newNotesLabelsArray">
+            {{label.label}}
           </mat-chip>
         </mat-chip-list>
       </mat-card-actions>
@@ -150,6 +154,20 @@
         </mat-list>
 
       </mat-card-content>
+
+      <!-- mat card actions to add reminders, collaborators, labels -->
+      <mat-card-actions>
+        <mat-card-actions>
+          <mat-chip-list>
+            <mat-chip *ngFor="let collaborator of collaboratorsArray">
+              {{collaborator.firstName.charAt(0).toUpperCase()}}
+            </mat-chip>
+            <mat-chip *ngFor="let label of newNotesLabelsArray">
+              {{label.label}}
+            </mat-chip>
+          </mat-chip-list>
+        </mat-card-actions>
+      </mat-card-actions>
 
       <!-- mat card footer -->
       <mat-card-footer>

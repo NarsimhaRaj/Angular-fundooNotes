@@ -58,8 +58,10 @@ export class NotesComponent implements OnInit, OnDestroy {
   // contians list of all labels
   labels: any
 
-  // to store collaborators Array
+  // to store collaboartos to new notes which will be created
   collaboratorsArray=new Array();
+  //  to store labels to new notes which will be created
+  newNotesLabelsArray=new Array();
 
   // to emit an event after every modifications
   public emitObservable: Subject<void> = new Subject<void>();
