@@ -1,20 +1,25 @@
 <div class="container" [class.is-mobile]="mobileQuery.matches">
   <mat-toolbar class="toolbar" fxLayoutAlign.gt-xs="start center" fxLayoutAlign.lt-sm="space-between center">
       <div ngClass.gt-xs="menu-notes-gt-xs" ngClass.lt-sm="menu-notes-lt-sm" fxLayoutAlign="start center">
-          <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
               <!-- *ngIf="isHandset$ | async" -->
               <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
             <img src="src/assets/images/keep_48dp.png" fxHide.lt-sm="true" />
-            <h3>Notes</h3>
+            <h4>Notes</h4>
+          </div>
+          <div [fxHide.gt-xs]="true" [fxHide]="!openSearhBar" class="mini-search-bar" fxFlexFill>
+            <input matInput type="search" placeholder="Search" (keyup)="searchBox($event)"/>
+          </div>
       </div>
-    
+      
       <!-- mat search box -->
       <div fxHide.lt-sm="true" fxLayoutAlign="start center" fxLayout="row" class="search-toolbar-div">
         <div fxHide.lt-sm="true" class="search-div" fxLayoutAlign="center center">
           <mat-form-field class="search-bar" appearance="fill legacy">
             <span matPrefix><button mat-icon-button><mat-icon >search</mat-icon></button></span>
-            <input matInput type="search" placeholder="Search" (keydown)="searchBox($event)"/>
+            <input matInput type="search" placeholder="Search" (keyup)="searchBox($event)"/>
           </mat-form-field>
         </div>
       </div>
@@ -23,12 +28,12 @@
     
         <!-- mat icons -->
         <div fxLayout="row" class="mat-icon-class" fxLayoutAlign="space-around center">
-            <div fxLayoutAlign="center center">
-              <button mat-icon-button color="" fxHide.gt-xs="true">
+            <div fxLayoutAlign="center center" style="z-index: 1;">
+              <button mat-icon-button color="" fxHide.gt-xs="true" (click)="openSearhBar=!openSearhBar">
                 <mat-icon matTooltip="Search">search</mat-icon>
               </button>
             </div>
-            <div fxLayoutAlign="center center"><mat-icon matTooltip="refresh">refresh</mat-icon></div>
+            <div fxLayoutAlign="center center" ><mat-icon matTooltip="refresh">refresh</mat-icon></div>
             <div fxLayoutAlign="center center" [fxHide]="view" (click)="listOrGridview('list')" fxHide.lt-sm="true" matTooltip="List view"><mat-icon>list</mat-icon></div>
             <div fxLayoutAlign="center center" [fxHide]="!view" (click)="listOrGridview('grid')" fxHide.lt-sm="true" matTooltip="Grid view"><mat-icon>view_comfy</mat-icon></div>
             <div fxLayoutAlign="center center" (click)="goToCartComponent()"><mat-icon matTooltip="Shopping cart">shopping_cart</mat-icon></div>

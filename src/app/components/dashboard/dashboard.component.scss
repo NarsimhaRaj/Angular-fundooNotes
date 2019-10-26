@@ -126,3 +126,12 @@
      `<body>` to be our scrolling element for mobile layouts. */
   flex: 1 0 auto;
 }
+
+.mini-search-bar{
+  width:100%;
+  min-width: 10px;
+  z-index: 1;
+  border:1px solid black;
+  background: white;
+  border-radius: 7px;
+}

@@ -43,6 +43,8 @@ export class DashboardComponent implements OnInit,OnDestroy {
   emitLablesEvent=new Subject();
 
   emitSearchEvent=new Subject();
+
+  openSearhBar:boolean=false;
   // changes mode of sidenav on max width 600px
   private _mobileQueryListener: () => void;
 
