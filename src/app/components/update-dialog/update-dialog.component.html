@@ -105,8 +105,8 @@
             </button>
 
 
-            <button mat-icon-button color="">
-                <mat-icon matTooltip="Archive">archive</mat-icon>
+            <button (click)="archive();" mat-icon-button color="">
+                <mat-icon [matTooltip]=" data.isArchive ? Unarchive : Archive">archive</mat-icon>
             </button>
 
 

@@ -129,9 +129,14 @@ export class NotesComponent implements OnInit, OnDestroy {
       
       dialogRef.afterClosed().subscribe(result => {
 
-        this.updateBackgroundColor(result.color, note);          
-        
-        if (result.isDeleted) {
+        if(result.isArchived){
+          console.log(result);
+          this.archive(result.note);
+        }
+        if(result.color){
+          this.updateBackgroundColor(result.color, note);
+        }
+        else if (result.isDeleted) {
           this.delete(note);
         }
         else {

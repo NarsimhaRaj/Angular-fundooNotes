@@ -45,6 +45,9 @@ export class UpdateDialogComponent implements OnInit {
     this.dialogRef.close({noteId:this.noteId,title:this.title.value,description:this.description.value, color:this.color.value});
   }
 
+  archive(){
+    this.dialogRef.close({isArchived:true, note:this.data});
+  }
   /**
    * @description to update color of note on clickign selected color in update dialog box
    * @param color type of color
