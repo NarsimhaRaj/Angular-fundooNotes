@@ -64,17 +64,17 @@ a{
 .mat-card-list-lt-sm{
     width:100%;
     min-width:200px;    
+    max-width:100%;
     @include matCard();
     @include matCardHover();
 }
 .mat-card-grid-gt-xs{
-    width:200px;
+    width:150px;
     @include matCard();
     @include matCardHover();
 }
 .mat-card-list-gt-xs{
-    width:100%;
-    min-width:400px;
+    width:600px;
     @include matCard();
     @include matCardHover();
 }

@@ -35,6 +35,8 @@ import { LabelnotesComponent } from './components/labelnotes/labelnotes.componen
 import { CollaboratorDialogComponent } from './components/collaborator-dialog/collaborator-dialog.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { SearchPipe } from './pipe/search.pipe';
+import { PinnedNotesComponent } from './components/pinned-notes/pinned-notes.component';
+import { UnpinnedNotesComponent } from './components/unpinned-notes/unpinned-notes.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { SearchPipe } from './pipe/search.pipe';
     LabelnotesComponent,
     CollaboratorDialogComponent,
     ShoppingCartComponent,
-    SearchPipe
+    SearchPipe,
+    PinnedNotesComponent,
+    UnpinnedNotesComponent
   ],
   imports: [
     BrowserModule,

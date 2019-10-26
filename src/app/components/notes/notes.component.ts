@@ -71,6 +71,8 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   searchWord:string;
 
+  component:NotesComponent;
+
   constructor(private userService: UserService, private noteServices: NoteService, private snackBar: MatSnackBar,
     public dialog: MatDialog, private dashBoard: DashboardComponent, private labelService: LabelService) {
     this.getUserService();
@@ -118,43 +120,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * @description opens a dialog box for updating selected note
-   * @param note note, which has to be updated
-   */
-  openDialog(note): void {
-
-    if (this.isAdvancedUser) {
-
-      const dialogRef = this.dialog.open(UpdateDialogComponent, {
-        width: '550px',
-        data: note,
-        panelClass: "matDialogBox"
-      });
-      
-      dialogRef.afterClosed().subscribe(result => {
-
-        if(result.isArchived){
-          console.log(result);
-          this.archive(result.note);
-        }
-        if(result.color){
-          this.updateBackgroundColor(result.color, note);
-        }
-        else if (result.isDeleted) {
-          this.delete(note);
-        }
-        else {
-          if (result) {
-            this.noteServices.updateNotes(result).subscribe((response) => {
-            })
-          }
-        }
-        this.emitObservable.next();
-      });
-    }
-
-  }
+  
 
   /**
    * @description to pin or unpin a notes
@@ -242,52 +208,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     })
   }
 
-  /**
-   * @description : delete note and add to trash notes list
-   * @param note: note to be deleted
-   */
-  delete(note) {
-
-    let data = { noteIdList: [note.id], isDeleted: true };
-
-    this.noteServices.deleteNotes(data).subscribe((response) => {
-      this.emitObservable.next();
-    });
-  }
-
-  /**
-   * @description : add notes to archive notes list
-   * @param note: note to be added
-   */
-  archive(note) {
-    if (note.isPined) {
-      let data = { noteIdList: [note.id], isArchived: true, isPined: false };
-
-      this.noteServices.addToArchive(data).subscribe((response) => {
-        this.emitObservable.next();
-      });
-    }
-    else {
-      let data = { noteIdList: [note.id], isArchived: true };
-
-      this.noteServices.addToArchive(data).subscribe((response) => {
-        this.emitObservable.next();
-      });
-    }
-  }
-
-  /**
-   * @description updates mat card color of selected notes
-   * @param color color value
-   * @param note note, which has to be colored
-   */
-  updateBackgroundColor(color, note) {
-    let data = { noteIdList: [note.id], color: color };
-    this.noteServices.updateBackgroundColor(data).subscribe((response) => {
-      this.emitObservable.next();
-    });
-  }
-
+  
 
   /**
    * @description get all the labels created by user
@@ -299,67 +220,10 @@ export class NotesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * @description adds a label to notes
-   * @param noteId note id of note to which label will be added 
-   * @param label label details to add
-   */
-  addLable(noteId, labelId, event) {
-
-    if (event.checked) {
-      this.noteServices.addLabelToNote(noteId, labelId).subscribe((response) => {
-        // console.log(response);
-        this.emitObservable.next();
-      })
-    }
-    else {
-      this.removeLabel(noteId, labelId);
-    }
-
-  }
-
-  /**
-   * @description removing a label with post request params 
-   * @param noteId noteid to which label attached
-   * @param labelId label id
-   */
-  removeLabel(noteId, labelId) {
-    this.noteServices.removeLabelToNotes(noteId, labelId).subscribe((response) => {
-      // console.log(response);
-      this.emitObservable.next();
-    })
-  }
-
-  /**
-   * @description to show that label is already selected and checkbox is checked
-   * @param note note to which check label is checked or not 
-   * @param label label details 
-   */
-  isChecked(note, label) {
-
-    for (let notelabel of note.noteLabels) {
-      if (notelabel.label == label.label)
-        return true;
-    }
-    return false;
-
-  }
-
-  /**
    * @description opens a dialog box for adding collaborator to notes 
    * @param note note details  
    */
-  addCollaborator(note?) {
-    if(note){
-      const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
-        width: '550px',
-        data: note,
-        panelClass: "matDialogBox"
-      });
-      dialogRef.componentInstance.emitCollaboratorChanges.subscribe(() => {
-        this.emitObservable.next();
-      });
-    }
-    else{
+  addCollaborator() {
       let user=JSON.parse(sessionStorage.getItem('user'));
       const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
         width: '550px',
@@ -375,8 +239,7 @@ export class NotesComponent implements OnInit, OnDestroy {
           this.collaboratorsArray=result;
         }
       });
-    }
-    
+  
   }
 
 
@@ -425,26 +288,6 @@ export class NotesComponent implements OnInit, OnDestroy {
     }
     this.title.setValue("");
     this.description.setValue("");
-  }
-
-  /**
-   * @description to update checkbox status with close on checked or open on unchecked
-   * @param event event is an event emitter of mat checkbox 
-   * @param noteId note id of checkList
-   * @param item checkList item details
-   */
-  changecheckListStatus(noteId,item,event){
-    if(event.checked){
-      let data={itemName:item.itemName,status:"close"};
-      this.noteServices.updateCheckList(noteId,item.id,data).subscribe((response)=>{
-      });
-    }
-    else{
-      let data={itemName:item.itemName,status:"open"};
-      this.noteServices.updateCheckList(noteId,item.id,data).subscribe((response)=>{
-      });
-    }
-    this.emitObservable.next();
   }
 
   /**
