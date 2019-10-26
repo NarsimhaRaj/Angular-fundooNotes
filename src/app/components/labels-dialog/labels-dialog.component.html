@@ -22,7 +22,7 @@
 
         </div>
 
-        <div [fxHide]=" label.id==defaultLabelId ? true :false " style=" flex:1 0 auto;margin-left:10%"> {{label.label}}  </div>
+        <div [fxHide]=" label.id==defaultLabelId ? true :false " style=" flex:1 0 auto;margin-left:10%" fxFlex> {{label.label}}  </div>
         <div [fxHide]=" label.id!=defaultLabelId ? true :false" style="flex:1 0 auto">
             <input matInput [value]="label.label" [formControl]="editedTextLabel"/>
         </div>

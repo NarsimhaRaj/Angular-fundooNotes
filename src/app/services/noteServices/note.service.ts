@@ -166,4 +166,8 @@ export class NoteService {
     return this.httpService.postWithToken(url,data);
 
   }
+  updateCheckList(noteId,checkListId,data){
+    let url=`/notes/${noteId}/checklist/${checkListId}/update`;
+    return this.httpService.postWithToken(url,data);
+  }
 }

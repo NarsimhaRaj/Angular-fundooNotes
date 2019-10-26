@@ -144,9 +144,26 @@ export class ArchiveComponent implements OnInit {
       this.emitObservable.next();
     });
   }
-  // addReminder(){
-  //   this.isReminderEnable=!this.isReminderEnable;
-  // }
+  
+  /**
+   * @description to update checkbox status with close on checked or open on unchecked
+   * @param event event is an event emitter of mat checkbox 
+   * @param noteId note id of checkList
+   * @param item checkList item details
+   */
+  changecheckListStatus(noteId,item,event){
+    if(event.checked){
+      let data={itemName:item.itemName,status:"close"};
+      this.noteServices.updateCheckList(noteId,item.id,data).subscribe((response)=>{
+      });
+    }
+    else{
+      let data={itemName:item.itemName,status:"open"};
+      this.noteServices.updateCheckList(noteId,item.id,data).subscribe((response)=>{
+      });
+    }
+    this.emitObservable.next();
+  }
 
   ngOnDestroy() {
     this.getNotesObs.unsubscribe();

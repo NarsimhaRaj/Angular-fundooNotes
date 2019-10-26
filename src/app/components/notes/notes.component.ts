@@ -318,7 +318,8 @@ export class NotesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 
+   * @description opens a dialog box for adding collaborator to notes 
+   * @param note note details  
    */
   addCollaborator(note) {
     const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
@@ -380,6 +381,26 @@ export class NotesComponent implements OnInit, OnDestroy {
     }
     this.title.setValue("");
     this.description.setValue("");
+  }
+
+  /**
+   * @description to update checkbox status with close on checked or open on unchecked
+   * @param event event is an event emitter of mat checkbox 
+   * @param noteId note id of checkList
+   * @param item checkList item details
+   */
+  changecheckListStatus(noteId,item,event){
+    if(event.checked){
+      let data={itemName:item.itemName,status:"close"};
+      this.noteServices.updateCheckList(noteId,item.id,data).subscribe((response)=>{
+      });
+    }
+    else{
+      let data={itemName:item.itemName,status:"open"};
+      this.noteServices.updateCheckList(noteId,item.id,data).subscribe((response)=>{
+      });
+    }
+    this.emitObservable.next();
   }
 
   /**

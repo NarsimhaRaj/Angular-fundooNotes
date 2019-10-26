@@ -1,464 +1,560 @@
 <!-- mat card expansion panel -->
 <div fxLayoutAlign="start center" fxLayout="column">
 
-    <div style="width:100%;margin-bottom:0.7em" fxLayoutAlign="center center">
-        <mat-card [fxHide]="panelOpenState || checkListExpansionPanel" style="height: 10px" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" >
-            <mat-card-content fxLayout="row">
-                <div style="width:70%">
-                    <input matInput type="text" (click)="panelOpenState=!panelOpenState" placeholder="Take a note..." autofocus/>
-                </div>
-                <div style="width:30%; margin-top:-1em" fxLayoutAlign="space-around center">
-                    <button mat-icon-button color="" (click)="checkListExpansionPanel=!checkListExpansionPanel; ">
-                      <mat-icon matTooltip="New List">check_box</mat-icon>
-                    </button>
-                    <button mat-icon-button color=""><mat-icon matTooltip="New note with image">crop_original</mat-icon></button>
-                </div>
-            </mat-card-content>
-            
-          </mat-card>
-      
-          <!-- mat card expanded panel -->
-          <mat-card [fxHide]="!panelOpenState" [ngStyle]="{'background-color': matCardColor}" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" >
-              
-            <!-- mat card title -->
-            <mat-card-title fxLayoutAlign="space-between center" style="margin-top:-0.5em;">
-              <div style="width:80%;">
-                  <input matInput type="text" placeholder="Title" [formControl]=title/>
+  <div style="width:100%;margin-bottom:0.7em" fxLayoutAlign="center center">
+    <mat-card [fxHide]="panelOpenState || checkListExpansionPanel" style="height: 10px" ngClass.gt-xs="mat-card-gt-xs"
+      ngClass.lt-sm="mat-card-lt-sm">
+      <mat-card-content fxLayout="row">
+        <div style="width:70%">
+          <input matInput type="text" (click)="panelOpenState=!panelOpenState" placeholder="Take a note..." autofocus />
+        </div>
+        <div style="width:30%; margin-top:-1em" fxLayoutAlign="space-around center">
+          <button mat-icon-button color="" (click)="checkListExpansionPanel=!checkListExpansionPanel; ">
+            <mat-icon matTooltip="New List">check_box</mat-icon>
+          </button>
+          <button mat-icon-button color="">
+            <mat-icon matTooltip="New note with image">crop_original</mat-icon>
+          </button>
+        </div>
+      </mat-card-content>
+
+    </mat-card>
+
+    <!-- mat card expanded panel -->
+    <mat-card [fxHide]="!panelOpenState" [ngStyle]="{'background-color': matCardColor}" ngClass.gt-xs="mat-card-gt-xs"
+      ngClass.lt-sm="mat-card-lt-sm">
+
+      <!-- mat card title -->
+      <mat-card-title fxLayoutAlign="space-between center" style="margin-top:-0.5em;">
+        <div style="width:80%;">
+          <input matInput type="text" placeholder="Title" [formControl]=title />
+        </div>
+        <div style="width:20%;" fxLayoutAlign="end center" [fxHide]="!isAdvancedUser">
+          <button mat-icon-button color="" [fxHide]="isPinned" (click)="setPin()"><img
+              src="src/assets/images/outline_fiber_pin.png" /></button>
+          <button mat-icon-button color="" [fxHide]="!isPinned" (click)="setPin()"><img
+              src="src/assets/images/baseline_fiber_pin.png" /></button>
+        </div>
+
+      </mat-card-title>
+      <mat-card-content>
+        <textarea matInput matTextareaAutosize placeholder="Take a note..."
+          [formControl]="description">{{description.value}}</textarea>
+      </mat-card-content>
+
+      <!-- mat card footer -->
+      <mat-card-footer>
+
+        <div class="footer-icons-div" fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
+          <button mat-icon-button color="">
+            <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
+          </button>
+          <button mat-icon-button color="">
+            <mat-icon matTooltip="Collaborator">person_add</mat-icon>
+          </button>
+          <button mat-icon-button color="" [matMenuTriggerFor]="cardColorMenu">
+            <mat-icon matTooltip="Change color">color_lens</mat-icon>
+          </button>
+          <mat-menu #cardColorMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
+            <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+              <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC')" style="background-color: #F5F5EC;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#EB716B')" style="background-color: #EB716B;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#FCE42A')" style="background-color: #FCE42A"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#6DE391')" style="background-color: #6DE391;"></div>
+            </div>
+            <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+              <div mat-menu-item (click)="updateBackgroundColor('#1597DB')" style="background-color: #1597DB;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#08ECF2')" style="background-color: #08ECF2;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF')" style="background-color: #8C7FBF;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#D37CE2')" style="background-color: #D37CE2;"></div>
+            </div>
+            <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+              <div mat-menu-item (click)="updateBackgroundColor('#FF8632')" style="background-color: #FF8632"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9')" style="background-color: #EA7AC9;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#A35237')" style="background-color: #A35237;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#959592')" style="background-color: #959592;"></div>
+            </div>
+          </mat-menu>
+          <button mat-icon-button color="">
+            <mat-icon matTooltip="Add image">crop_original</mat-icon>
+          </button>
+          <button mat-icon-button (click)="setArchive(true)" [fxHide]="isArchived" color="">
+            <mat-icon matTooltip="Archive">archive</mat-icon>
+          </button>
+          <button mat-icon-button (click)="setArchive(false)" [fxHide]="!isArchived" color="">
+            <mat-icon matTooltip="Unarchive">archive</mat-icon>
+          </button>
+          <button mat-icon-button color="" [matMenuTriggerFor]="more_vert">
+            <mat-icon matTooltip="More">more_vert</mat-icon>
+          </button>
+          <mat-menu #more_vert="matMenu">
+            <button (click)="delete(note);" mat-menu-item>
+              Delete
+            </button>
+          </mat-menu>
+          <button mat-icon-button color="">
+            <mat-icon matTooltip="Undo">undo</mat-icon>
+          </button>
+          <button mat-icon-button color="">
+            <mat-icon matTooltip="Redo">redo</mat-icon>
+          </button>
+        </div>
+
+        <!-- closing button -->
+        <div class="footer-close-button-div" fxLayoutAlign="end center">
+          <button mat-button (click)="save(); panelOpenState=!panelOpenState;">Close</button>
+        </div>
+
+      </mat-card-footer>
+    </mat-card>
+
+    <!-- checkList mat card -->
+    <mat-card [fxHide]="!checkListExpansionPanel" [ngStyle]="{'background-color': matCardColor}"
+      ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm">
+
+      <!-- mat card title -->
+      <mat-card-title fxLayoutAlign="space-between center" style="margin-top:-0.5em;">
+        <div style="width:80%;">
+          <input matInput type="text" placeholder="Title" [formControl]=title />
+        </div>
+        <div style="width:20%;" fxLayoutAlign="end center" [fxHide]="!isAdvancedUser">
+          <button mat-icon-button color="" [fxHide]="isPinned" (click)="setPin()"><img
+              src="src/assets/images/outline_fiber_pin.png" /></button>
+          <button mat-icon-button color="" [fxHide]="!isPinned" (click)="setPin()"><img
+              src="src/assets/images/baseline_fiber_pin.png" /></button>
+        </div>
+
+      </mat-card-title>
+      <!-- mat-card content -->
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let item of checkListArray">
+            <mat-checkbox (change)="checkListItemStatus($event)" fxFlex>{{item.itemName}}</mat-checkbox>
+            <button (click)="filterCheckList(item)" mat-icon-button>
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon>add</mat-icon>
+            <input matInput (keyup.enter)="EnterCheckList($event)" placeholder="Take a note..."
+              [formControl]="listDescription">
+            <mat-icon>clear</mat-icon>
+          </mat-list-item>
+        </mat-list>
+
+      </mat-card-content>
+
+      <!-- mat card footer -->
+      <mat-card-footer>
+
+        <div class="footer-icons-div" fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
+          <button mat-icon-button color="">
+            <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
+          </button>
+          <button mat-icon-button color="">
+            <mat-icon matTooltip="Collaborator">person_add</mat-icon>
+          </button>
+          <button mat-icon-button color="" [matMenuTriggerFor]="cardColorMenu">
+            <mat-icon matTooltip="Change color">color_lens</mat-icon>
+          </button>
+          <mat-menu #cardColorMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
+            <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+              <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC')" style="background-color: #F5F5EC;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#EB716B')" style="background-color: #EB716B;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#FCE42A')" style="background-color: #FCE42A"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#6DE391')" style="background-color: #6DE391;"></div>
+            </div>
+            <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+              <div mat-menu-item (click)="updateBackgroundColor('#1597DB')" style="background-color: #1597DB;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#08ECF2')" style="background-color: #08ECF2;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF')" style="background-color: #8C7FBF;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#D37CE2')" style="background-color: #D37CE2;"></div>
+            </div>
+            <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+              <div mat-menu-item (click)="updateBackgroundColor('#FF8632')" style="background-color: #FF8632"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9')" style="background-color: #EA7AC9;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#A35237')" style="background-color: #A35237;"></div>
+              <div mat-menu-item (click)="updateBackgroundColor('#959592')" style="background-color: #959592;"></div>
+            </div>
+          </mat-menu>
+          <button mat-icon-button color="">
+            <mat-icon matTooltip="Add image">crop_original</mat-icon>
+          </button>
+          <button mat-icon-button (click)="setArchive(true)" [fxHide]="isArchived" color="">
+            <mat-icon matTooltip="Archive">archive</mat-icon>
+          </button>
+          <button mat-icon-button (click)="setArchive(false)" [fxHide]="!isArchived" color="">
+            <mat-icon matTooltip="Unarchive">archive</mat-icon>
+          </button>
+          <button mat-icon-button color="" [matMenuTriggerFor]="more_vert">
+            <mat-icon matTooltip="More">more_vert</mat-icon>
+          </button>
+          <mat-menu #more_vert="matMenu">
+            <button (click)="delete(note);" mat-menu-item>
+              Delete
+            </button>
+          </mat-menu>
+          <button mat-icon-button color="">
+            <mat-icon matTooltip="Undo">undo</mat-icon>
+          </button>
+          <button mat-icon-button color="">
+            <mat-icon matTooltip="Redo">redo</mat-icon>
+          </button>
+        </div>
+
+        <!-- closing button -->
+        <div class="footer-close-button-div" fxLayoutAlign="end center">
+          <button mat-button (click)="saveCheckList(); checkListExpansionPanel=!checkListExpansionPanel;">Close</button>
+        </div>
+
+      </mat-card-footer>
+    </mat-card>
+  </div>
+
+  <!-- notes list -->
+  <div style="width:100%;height:auto;" fxLayoutAlign="center start">
+
+    <div style="width:70%;height:auto;" fxLayout="column" fxLayoutAlign="center center">
+
+      <!-- pinned notes -->
+      <div *ngIf="pinCountZero" style="width:90%;" fxLayoutAlign="start center">
+        <h5>PINNED</h5>
+      </div>
+      <div style="width:100%;" fxLayoutAlign="start start" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column"
+        gdGridAlign>
+        <div *ngFor="let note of notesList?.reverse() | search:searchWord">
+          <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;"
+            [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
+            ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived && note.isPined">
+
+            <mat-card-title fxLayoutAlign="space-between center">
+
+              <div (click)="openDialog(note)" style="width:80%;overflow-wrap: break-word;">
+                {{note.title}}
               </div>
-              <div style="width:20%;" fxLayoutAlign="end center" [fxHide]="!isAdvancedUser">
-                <button mat-icon-button color="" [fxHide]="isPinned" (click)="setPin()" ><img src="src/assets/images/outline_fiber_pin.png"/></button>
-                <button mat-icon-button color="" [fxHide]="!isPinned" (click)="setPin()" ><img src="src/assets/images/baseline_fiber_pin.png"/></button>
+              <div style="width:20%;" fxLayoutAlign="end center">
+                <button mat-icon-button color="" (click)="pinUnpin(note,false)"><img
+                    src="src/assets/images/baseline_fiber_pin.png" /></button>
               </div>
-              
+
             </mat-card-title>
-            <mat-card-content>
-              <textarea matInput matTextareaAutosize placeholder="Take a note..." [formControl]="description">{{description.value}}</textarea>
+            <mat-card-content (click)="openDialog(note)" style="white-space: pre-wrap;overflow-wrap: break-word;">
+              <div>
+                {{note.description}}
+              </div>
+              <!-- if checkList Notes is Present -->
+              <mat-list *ngIf="note.description==''">
+                <mat-list-item *ngFor="let item of note.noteCheckLists">
+                  <mat-checkbox [ngClass]="{'checkList-text-decoration': item?.status=='close' ? true :false }"
+                  (click)="$event.stopPropagation()" (change)="changecheckListStatus(note.id,item,$event)" color="primary"
+                    [checked]=" item.status=='close' ? true : false " fxFlex>{{item.itemName}}</mat-checkbox>
+                </mat-list-item>
+              </mat-list>
             </mat-card-content>
-      
-            <!-- mat card footer -->
+            <mat-card-actions>
+              <mat-chip-list>
+                <mat-chip *ngFor="let person of note.collaborators">
+                  {{person.firstName.charAt(0).toUpperCase()}}
+                </mat-chip>
+                <mat-chip *ngFor="let label of note.noteLabels" [removable]="true"
+                  (removed)="removeLabel(note.id,label.id)">
+                  {{label.label}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-card-actions>
             <mat-card-footer>
-              
-              <div class="footer-icons-div" fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
-                <button mat-icon-button color=""><mat-icon matTooltip="Remind me">notifications_none</mat-icon></button>
-                <button mat-icon-button color=""><mat-icon matTooltip="Collaborator">person_add</mat-icon></button>
-                <button mat-icon-button color="" [matMenuTriggerFor]="cardColorMenu"><mat-icon matTooltip="Change color">color_lens</mat-icon></button>
-                <mat-menu #cardColorMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
-                  <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                      <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC')" style="background-color: #F5F5EC;"></div>
-                      <div mat-menu-item (click)="updateBackgroundColor('#EB716B')" style="background-color: #EB716B;"></div>
-                      <div mat-menu-item (click)="updateBackgroundColor('#FCE42A')" style="background-color: #FCE42A"></div>
-                      <div mat-menu-item (click)="updateBackgroundColor('#6DE391')" style="background-color: #6DE391;"></div>
-                  </div>
-                  <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                      <div mat-menu-item (click)="updateBackgroundColor('#1597DB')" style="background-color: #1597DB;"></div>
-                      <div mat-menu-item (click)="updateBackgroundColor('#08ECF2')" style="background-color: #08ECF2;"></div>
-                      <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF')" style="background-color: #8C7FBF;"></div>
-                      <div mat-menu-item (click)="updateBackgroundColor('#D37CE2')" style="background-color: #D37CE2;"></div>
-                  </div>
-                  <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                      <div mat-menu-item (click)="updateBackgroundColor('#FF8632')" style="background-color: #FF8632"></div>
-                      <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9')" style="background-color: #EA7AC9;"></div>
-                      <div mat-menu-item (click)="updateBackgroundColor('#A35237')" style="background-color: #A35237;"></div>
-                      <div mat-menu-item (click)="updateBackgroundColor('#959592')" style="background-color: #959592;"></div>
-                  </div>
-                </mat-menu>
-                <button mat-icon-button color=""><mat-icon matTooltip="Add image">crop_original</mat-icon></button>
-                <button mat-icon-button (click)="setArchive(true)" [fxHide]="isArchived" color=""><mat-icon matTooltip="Archive">archive</mat-icon></button>
-                <button mat-icon-button (click)="setArchive(false)" [fxHide]="!isArchived" color=""><mat-icon matTooltip="Unarchive">archive</mat-icon></button>
-                <button mat-icon-button color="" [matMenuTriggerFor]="more_vert"><mat-icon matTooltip="More">more_vert</mat-icon></button>
-                <mat-menu #more_vert="matMenu">
-                  <button (click)="delete(note);" mat-menu-item>
-                    Delete
+              <div fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
+
+                <div>
+                  <button mat-icon-button color="" [matMenuTriggerFor]="reminder">
+                    <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
                   </button>
-                </mat-menu>
-                <button mat-icon-button color=""><mat-icon matTooltip="Undo">undo</mat-icon></button>
-                <button mat-icon-button color=""><mat-icon matTooltip="Redo">redo</mat-icon></button>
-              </div>
-    
-              <!-- closing button -->
-              <div class="footer-close-button-div" fxLayoutAlign="end center">
-                  <button mat-button (click)="save(); panelOpenState=!panelOpenState;">Close</button>
-              </div>
-      
-            </mat-card-footer>
-          </mat-card>
+                  <mat-menu #reminder="matMenu">
+                    <mat-card>
+                      <mat-list>
+                        <div mat-list-item>
+                          <pre>Later Today  8:00 PM</pre>
+                        </div>
+                        <div mat-list-item>
+                          <pre>Tomorrow     8:00 PM</pre>
+                        </div>
+                        <div mat-list-item>
+                          <pre>Next week    Mon, 8:00 PM</pre>
+                        </div>
+                        <div mat-list-item>
+                          <div>
+                            <mat-icon>access_time</mat-icon> Pick date & time
+                          </div>
+                        </div>
+                      </mat-list>
 
-          <!-- checkList mat card -->
-          <mat-card [fxHide]="!checkListExpansionPanel"[ngStyle]="{'background-color': matCardColor}" ngClass.gt-xs="mat-card-gt-xs" ngClass.lt-sm="mat-card-lt-sm" >
-              
-              <!-- mat card title -->
-              <mat-card-title fxLayoutAlign="space-between center" style="margin-top:-0.5em;">
-                <div style="width:80%;">
-                    <input matInput type="text" placeholder="Title" [formControl]=title/>
+                    </mat-card>
+                  </mat-menu>
                 </div>
-                <div style="width:20%;" fxLayoutAlign="end center" [fxHide]="!isAdvancedUser">
-                  <button mat-icon-button color="" [fxHide]="isPinned" (click)="setPin()" ><img src="src/assets/images/outline_fiber_pin.png"/></button>
-                  <button mat-icon-button color="" [fxHide]="!isPinned" (click)="setPin()" ><img src="src/assets/images/baseline_fiber_pin.png"/></button>
-                </div>
-                
-              </mat-card-title>
-              <!-- mat-card content -->
-              <mat-card-content>
-                <mat-list>
-                  <mat-list-item *ngFor="let item of checkListArray">
-                      <mat-checkbox (change)="checkListItemStatus($event)" fxFlex>{{item.itemName}}</mat-checkbox>
-                      <button (click)="filterCheckList(item)" mat-icon-button><mat-icon>clear</mat-icon></button>
-                  </mat-list-item>
-                  <mat-list-item>
-                      <mat-icon mat-list-icon>add</mat-icon>
-                      <input matInput (keyup.enter)="EnterCheckList($event)" placeholder="Take a note..." [formControl]="listDescription">
-                      <mat-icon>clear</mat-icon>
-                  </mat-list-item>
-                </mat-list>
 
-              </mat-card-content>
-        
-              <!-- mat card footer -->
-              <mat-card-footer>
-                
-                <div class="footer-icons-div" fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
-                  <button mat-icon-button color=""><mat-icon matTooltip="Remind me">notifications_none</mat-icon></button>
-                  <button mat-icon-button color=""><mat-icon matTooltip="Collaborator">person_add</mat-icon></button>
-                  <button mat-icon-button color="" [matMenuTriggerFor]="cardColorMenu"><mat-icon matTooltip="Change color">color_lens</mat-icon></button>
-                  <mat-menu #cardColorMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
+                <div><button mat-icon-button color="" (click)="addCollaborator(note)">
+                    <mat-icon matTooltip="Collaborator">person_add</mat-icon>
+                  </button>
+                </div>
+
+                <div>
+                  <button mat-icon-button color="" [matMenuTriggerFor]="colorsMenu">
+                    <mat-icon matTooltip="Change color">color_lens</mat-icon>
+                  </button>
+                  <!-- menu of color lens -->
+                  <mat-menu #colorsMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
                     <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                        <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC')" style="background-color: #F5F5EC;"></div>
-                        <div mat-menu-item (click)="updateBackgroundColor('#EB716B')" style="background-color: #EB716B;"></div>
-                        <div mat-menu-item (click)="updateBackgroundColor('#FCE42A')" style="background-color: #FCE42A"></div>
-                        <div mat-menu-item (click)="updateBackgroundColor('#6DE391')" style="background-color: #6DE391;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC',note)"
+                        style="background-color: #F5F5EC;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#EB716B',note)"
+                        style="background-color: #EB716B;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#FCE42A',note)"
+                        style="background-color: #FCE42A"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#6DE391',note)"
+                        style="background-color: #6DE391;"></div>
                     </div>
                     <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                        <div mat-menu-item (click)="updateBackgroundColor('#1597DB')" style="background-color: #1597DB;"></div>
-                        <div mat-menu-item (click)="updateBackgroundColor('#08ECF2')" style="background-color: #08ECF2;"></div>
-                        <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF')" style="background-color: #8C7FBF;"></div>
-                        <div mat-menu-item (click)="updateBackgroundColor('#D37CE2')" style="background-color: #D37CE2;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#1597DB',note)"
+                        style="background-color: #1597DB;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#08ECF2',note)"
+                        style="background-color: #08ECF2;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF',note)"
+                        style="background-color: #8C7FBF;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#D37CE2',note)"
+                        style="background-color: #D37CE2;"></div>
                     </div>
                     <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                        <div mat-menu-item (click)="updateBackgroundColor('#FF8632')" style="background-color: #FF8632"></div>
-                        <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9')" style="background-color: #EA7AC9;"></div>
-                        <div mat-menu-item (click)="updateBackgroundColor('#A35237')" style="background-color: #A35237;"></div>
-                        <div mat-menu-item (click)="updateBackgroundColor('#959592')" style="background-color: #959592;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#FF8632',note)"
+                        style="background-color: #FF8632"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9',note)"
+                        style="background-color: #EA7AC9;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#A35237',note)"
+                        style="background-color: #A35237;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#959592',note)"
+                        style="background-color: #959592;"></div>
                     </div>
                   </mat-menu>
-                  <button mat-icon-button color=""><mat-icon matTooltip="Add image">crop_original</mat-icon></button>
-                  <button mat-icon-button (click)="setArchive(true)" [fxHide]="isArchived" color=""><mat-icon matTooltip="Archive">archive</mat-icon></button>
-                  <button mat-icon-button (click)="setArchive(false)" [fxHide]="!isArchived" color=""><mat-icon matTooltip="Unarchive">archive</mat-icon></button>
-                  <button mat-icon-button color="" [matMenuTriggerFor]="more_vert"><mat-icon matTooltip="More">more_vert</mat-icon></button>
-                  <mat-menu #more_vert="matMenu">
+                </div>
+
+                <div><button mat-icon-button color="">
+                    <mat-icon matTooltip="Add image">crop_original</mat-icon>
+                  </button>
+                </div>
+
+                <div>
+                  <button mat-icon-button color="" (click)="archive(note)">
+                    <mat-icon matTooltip="Archive">archive</mat-icon>
+                  </button>
+                </div>
+
+                <div><button mat-icon-button color="" [matMenuTriggerFor]="more">
+                    <mat-icon matTooltip="More">more_vert</mat-icon>
+                  </button>
+                  <!-- menu of morevert icon -->
+                  <mat-menu #more="matMenu">
                     <button (click)="delete(note);" mat-menu-item>
                       Delete
                     </button>
-                  </mat-menu>
-                  <button mat-icon-button color=""><mat-icon matTooltip="Undo">undo</mat-icon></button>
-                  <button mat-icon-button color=""><mat-icon matTooltip="Redo">redo</mat-icon></button>
-                </div>
-      
-                <!-- closing button -->
-                <div class="footer-close-button-div" fxLayoutAlign="end center">
-                    <button mat-button (click)="saveCheckList(); checkListExpansionPanel=!checkListExpansionPanel;">Close</button>
-                </div>
-        
-              </mat-card-footer>
-          </mat-card>
-    </div>
-    
-    <!-- notes list -->
-    <div style="width:100%;height:auto;" fxLayoutAlign="center start">
-
-      <div style="width:70%;height:auto;" fxLayout="column" fxLayoutAlign="center center">
-
-        <!-- pinned notes -->
-        <div *ngIf="pinCountZero" style="width:90%;" fxLayoutAlign="start center"><h5>PINNED</h5></div>
-        <div style="width:100%;" fxLayoutAlign="start start" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
-          <div *ngFor="let note of notesList?.reverse() | search:searchWord" >
-            <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;" [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
-              ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived && note.isPined">
-              
-              <mat-card-title fxLayoutAlign="space-between center">
-        
-                <div (click)="openDialog(note)" style="width:80%;overflow-wrap: break-word;">
-                  {{note.title}}
-                </div>
-                <div style="width:20%;" fxLayoutAlign="end center">
-                  <button mat-icon-button color="" (click)="pinUnpin(note,false)" ><img src="src/assets/images/baseline_fiber_pin.png"/></button>
-                </div>
-        
-              </mat-card-title>
-              <mat-card-content (click)="openDialog(note)" style="white-space: pre-wrap;overflow-wrap: break-word;">
-                <div>
-                  {{note.description}}
-                </div>
-                <!-- if checkList Notes is Present -->
-                <mat-list *ngIf="note.description==''">
-                  <mat-list-item *ngFor="let item of note.noteCheckLists">
-                      <mat-checkbox fxFlex>{{item.itemName}}</mat-checkbox>
-                  </mat-list-item>
-                </mat-list>
-              </mat-card-content>
-              <mat-card-actions>
-                <mat-chip-list>
-                  <mat-chip *ngFor="let person of note.collaborators">
-                      {{person.firstName.charAt(0).toUpperCase()}}
-                  </mat-chip>
-                  <mat-chip *ngFor="let label of note.noteLabels" [removable]="true" (removed)="removeLabel(note.id,label.id)">
-                    {{label.label}}
-                    <mat-icon matChipRemove>cancel</mat-icon>
-                  </mat-chip>
-                </mat-chip-list>
-              </mat-card-actions>
-              <mat-card-footer>
-                <div fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
-        
-                  <div>
-                    <button mat-icon-button color="" [matMenuTriggerFor]="reminder" >
-                      <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
+                    <button [matMenuTriggerFor]="label" (click)="addLabel(note);" mat-menu-item>
+                      Add label
                     </button>
-                    <mat-menu #reminder="matMenu">
-                     <mat-card>
-                       <mat-list>
-                          <div mat-list-item>
-                              <pre>Later Today  8:00 PM</pre>
-                            </div>
-                            <div mat-list-item>
-                              <pre>Tomorrow     8:00 PM</pre>                          
-                            </div>
-                            <div mat-list-item>
-                              <pre>Next week    Mon, 8:00 PM</pre>                         
-                             </div>
-                            <div mat-list-item>
-                                <div><mat-icon>access_time</mat-icon> Pick date & time</div>
-                            </div>
-                       </mat-list>
-                                         
-                     </mat-card>
-                    </mat-menu>
-                  </div>
-        
-                  <div><button mat-icon-button color="" (click)="addCollaborator(note)">
-                      <mat-icon matTooltip="Collaborator">person_add</mat-icon>
-                    </button>
-                  </div>
-        
-                  <div>
-                    <button mat-icon-button color="" [matMenuTriggerFor]="colorsMenu" >
-                      <mat-icon matTooltip="Change color">color_lens</mat-icon>
-                    </button>        
-                    <!-- menu of color lens -->
-                    <mat-menu #colorsMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
-                      <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                          <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC',note)" style="background-color: #F5F5EC;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#EB716B',note)" style="background-color: #EB716B;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#FCE42A',note)" style="background-color: #FCE42A"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#6DE391',note)" style="background-color: #6DE391;"></div>
+                    <mat-menu #label="matMenu" style="height:30%;overflow: scroll;">
+                      <div (click)="$event.stopPropagation();">
+                        Label note
                       </div>
-                      <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                          <div mat-menu-item (click)="updateBackgroundColor('#1597DB',note)" style="background-color: #1597DB;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#08ECF2',note)" style="background-color: #08ECF2;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF',note)" style="background-color: #8C7FBF;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#D37CE2',note)" style="background-color: #D37CE2;"></div>
-                      </div>
-                      <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                          <div mat-menu-item (click)="updateBackgroundColor('#FF8632',note)" style="background-color: #FF8632"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9',note)" style="background-color: #EA7AC9;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#A35237',note)" style="background-color: #A35237;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#959592',note)" style="background-color: #959592;"></div>
-                      </div>
-                    </mat-menu>        
-                  </div> 
-                  
-                  <div><button mat-icon-button color="">
-                      <mat-icon matTooltip="Add image">crop_original</mat-icon>
-                    </button>
-                  </div>
-        
-                  <div>
-                    <button mat-icon-button color="" (click)="archive(note)">
-                      <mat-icon matTooltip="Archive">archive</mat-icon>
-                    </button>
-                  </div>
-        
-                  <div><button mat-icon-button color="" [matMenuTriggerFor]="more">
-                      <mat-icon matTooltip="More">more_vert</mat-icon>
-                    </button>
-                    <!-- menu of morevert icon -->
-                    <mat-menu #more="matMenu">
-                        <button (click)="delete(note);" mat-menu-item>
-                          Delete
-                        </button>
-                        <button [matMenuTriggerFor]="label" (click)="addLabel(note);" mat-menu-item>
-                          Add label
-                        </button>
-                        <mat-menu #label="matMenu" style="height:30%;overflow: scroll;">
-                          <div (click)="$event.stopPropagation();">
-                            Label note
-                          </div>
-                          <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;">
-                            <mat-form-field appearance="outline">
-                              <input matInput type="search" placeholder="search label">
-                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                <mat-icon>search</mat-icon>
-                              </button>
-                            </mat-form-field>
-                          </div>
-                          <div (click)="$event.stopPropagation();" *ngFor="let label of labels">
-                            <div mat-menu-item>
-                                <mat-checkbox (change)="addLable(note.id,label.id,$event)" color="primary" [checked]="isChecked(note,label)">{{label.label}}</mat-checkbox>
-                            </div>
-                          </div>
-                        </mat-menu>
-                        <div mat-menu-item>
-                          Show checkboxs
-                        </div>
-                        <div mat-menu-item>
-                          Ask Question
-                        </div>
-                      </mat-menu>
-                  </div>
-                </div>
-        
-              </mat-card-footer>
-        
-            </mat-card>
-          </div>
-        
-        </div>
-        <!-- unpinned notes list  -->
-        <div *ngIf="pinCountZero" style="width:90%;"><h5>OTHERS</h5></div>
-        <div style="width:100%;" fxLayoutAlign="start start" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
-          <div *ngFor="let note of notesList | search:searchWord" >
-            <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;" [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
-              ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived && !note.isPined">
-              
-              <mat-card-title fxLayoutAlign="space-between center">
-        
-                <div (click)="openDialog(note)" style="width:80%;overflow-wrap: break-word;">
-                  {{note.title}}
-                </div>
-                <div style="width:20%;" fxLayoutAlign="end center">
-                  <button mat-icon-button color="" (click)="pinUnpin(note,true)" ><img src="src/assets/images/outline_fiber_pin.png"/></button>
-                </div>
-        
-              </mat-card-title>
-              <mat-card-content (click)="openDialog(note)" style="white-space: pre-wrap;overflow-wrap: break-word;">
-                <div>
-                  {{note.description}}
-                </div>
-                <!-- if checkList Notes is Present -->
-                <mat-list *ngIf="note.description==''">
-                  <mat-list-item *ngFor="let item of note.noteCheckLists">
-                      <mat-checkbox fxFlex>{{item.itemName}}</mat-checkbox>
-                  </mat-list-item>
-                </mat-list>
-
-              </mat-card-content>
-              <mat-card-actions>
-                  <mat-chip-list>
-                    <mat-chip *ngFor="let person of note.collaborators">
-                        {{person.firstName.charAt(0).toUpperCase()}}
-                    </mat-chip>
-                    <mat-chip *ngFor="let label of note.noteLabels" [removable]="true" (removed)="removeLabel(note.id,label.id)">
-                      {{label.label}}
-                      <mat-icon matChipRemove>cancel</mat-icon>
-                    </mat-chip>
-                  </mat-chip-list>
-              </mat-card-actions>
-              <mat-card-footer>
-                <div fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
-        
-                  <div>
-                    <button mat-icon-button color="" (click)="addReminder()">
-                      <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
-                    </button>
-                  </div>
-        
-                  <div><button mat-icon-button color="" (clcik)="addCollaborator()">
-                      <mat-icon matTooltip="Collaborator">person_add</mat-icon>
-                    </button>
-                  </div>
-        
-                  <div>
-                    <button mat-icon-button color="" [matMenuTriggerFor]="colorsMenu" >
-                      <mat-icon matTooltip="Change color">color_lens</mat-icon>
-                    </button>        
-                    <!-- menu of color lens -->
-                    <mat-menu #colorsMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
-                      <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                          <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC',note)" style="background-color: #F5F5EC;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#EB716B',note)" style="background-color: #EB716B;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#FCE42A',note)" style="background-color: #FCE42A"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#6DE391',note)" style="background-color: #6DE391;"></div>
-                      </div>
-                      <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                          <div mat-menu-item (click)="updateBackgroundColor('#1597DB',note)" style="background-color: #1597DB;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#08ECF2',note)" style="background-color: #08ECF2;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF',note)" style="background-color: #8C7FBF;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#D37CE2',note)" style="background-color: #D37CE2;"></div>
-                      </div>
-                      <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                          <div mat-menu-item (click)="updateBackgroundColor('#FF8632',note)" style="background-color: #FF8632"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9',note)" style="background-color: #EA7AC9;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#A35237',note)" style="background-color: #A35237;"></div>
-                          <div mat-menu-item (click)="updateBackgroundColor('#959592',note)" style="background-color: #959592;"></div>
-                      </div>
-                    </mat-menu>        
-                  </div> 
-                  
-                  <div><button mat-icon-button color="">
-                      <mat-icon matTooltip="Add image">crop_original</mat-icon>
-                    </button>
-                  </div>
-        
-                  <div>
-                    <button mat-icon-button color="" (click)="archive(note)">
-                      <mat-icon matTooltip="Archive">archive</mat-icon>
-                    </button>
-                  </div>
-        
-                  <div><button mat-icon-button color="" [matMenuTriggerFor]="more">
-                      <mat-icon matTooltip="More">more_vert</mat-icon>
-                    </button>
-                    <!-- menu of morevert icon -->
-                    <mat-menu #more="matMenu">
-                        <button (click)="delete(note);" mat-menu-item>
-                          Delete
-                        </button>
-                        <button [matMenuTriggerFor]="label" (click)="addLabel(note);" mat-menu-item>
-                            Add label
+                      <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;">
+                        <mat-form-field appearance="outline">
+                          <input matInput type="search" placeholder="search label">
+                          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
+                            (click)="value=''">
+                            <mat-icon>search</mat-icon>
                           </button>
-                          <mat-menu #label="matMenu" style="height:30%;overflow: scroll;">
-                            <div (click)="$event.stopPropagation();">
-                              Label note
-                            </div>
-                            <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;">
-                              <mat-form-field appearance="outline">
-                                <input matInput type="search" placeholder="search label">
-                                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                  <mat-icon>search</mat-icon>
-                                </button>
-                              </mat-form-field>
-                            </div>
-                            <div (click)="$event.stopPropagation();" *ngFor="let label of labels">
-                              <div mat-menu-item>
-                                  <mat-checkbox (change)="addLable(note.id,label.id,$event)" color="primary" [checked]="isChecked(note,label)">{{label.label}}</mat-checkbox>
-                              </div>
-                            </div>
-                          </mat-menu>
-                          <div mat-menu-item>
-                            Show checkboxs
-                          </div>
-                          <div mat-menu-item>
-                            Ask Question
-                          </div>
-                      </mat-menu>
-                  </div>
+                        </mat-form-field>
+                      </div>
+                      <div (click)="$event.stopPropagation();" *ngFor="let label of labels">
+                        <div mat-menu-item>
+                          <mat-checkbox (change)="addLable(note.id,label.id,$event)" color="primary"
+                            [checked]="isChecked(note,label)">{{label.label}}</mat-checkbox>
+                        </div>
+                      </div>
+                    </mat-menu>
+                    <div mat-menu-item>
+                      Show checkboxs
+                    </div>
+                    <div mat-menu-item>
+                      Ask Question
+                    </div>
+                  </mat-menu>
                 </div>
-        
-              </mat-card-footer>
-        
-            </mat-card>
-          </div>
+              </div>
+
+            </mat-card-footer>
+
+          </mat-card>
+        </div>
+
+      </div>
+      <!-- unpinned notes list  -->
+      <div *ngIf="pinCountZero" style="width:90%;">
+        <h5>OTHERS</h5>
+      </div>
+      <div style="width:100%;" fxLayoutAlign="start start" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column"
+        gdGridAlign>
+        <div *ngFor="let note of notesList | search:searchWord">
+          <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;"
+            [ngClass]="{'mat-card-list-gt-xs':!data.viewStyling,'mat-card-grid-gt-xs':data.viewStyling}"
+            ngClass.lt-sm="mat-card-list-lt-sm" *ngIf="!note.isDeleted && !note.isArchived && !note.isPined">
+
+            <mat-card-title fxLayoutAlign="space-between center">
+
+              <div (click)="openDialog(note)" style="width:80%;overflow-wrap: break-word;">
+                {{note.title}}
+              </div>
+              <div style="width:20%;" fxLayoutAlign="end center">
+                <button mat-icon-button color="" (click)="pinUnpin(note,true)"><img
+                    src="src/assets/images/outline_fiber_pin.png" /></button>
+              </div>
+
+            </mat-card-title>
+            <mat-card-content (click)="openDialog(note)" style="white-space: pre-wrap;overflow-wrap: break-word;">
+              <div>
+                {{note.description}}
+              </div>
+              <!-- if checkList Notes is Present -->
+              <mat-list *ngIf="note.description==''">
+                <mat-list-item *ngFor="let item of note.noteCheckLists">
+                  <mat-checkbox [ngClass]="{'checkList-text-decoration': item.status=='close' ? true :false }"
+                    (click)="$event.stopPropagation()" (change)="changecheckListStatus(note.id,item,$event)"
+                    color="primary" [checked]=" item.status=='close' ? true : false " fxFlex>{{item.itemName}}
+                  </mat-checkbox>
+                </mat-list-item>
+              </mat-list>
+
+            </mat-card-content>
+            <mat-card-actions>
+              <mat-chip-list>
+                <mat-chip *ngFor="let person of note.collaborators">
+                  {{person.firstName.charAt(0).toUpperCase()}}
+                </mat-chip>
+                <mat-chip *ngFor="let label of note.noteLabels" [removable]="true"
+                  (removed)="removeLabel(note.id,label.id)">
+                  {{label.label}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-card-actions>
+            <mat-card-footer>
+              <div fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
+
+                <div>
+                  <button mat-icon-button color="" (click)="addReminder()">
+                    <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
+                  </button>
+                </div>
+
+                <div><button mat-icon-button color="" (clcik)="addCollaborator()">
+                    <mat-icon matTooltip="Collaborator">person_add</mat-icon>
+                  </button>
+                </div>
+
+                <div>
+                  <button mat-icon-button color="" [matMenuTriggerFor]="colorsMenu">
+                    <mat-icon matTooltip="Change color">color_lens</mat-icon>
+                  </button>
+                  <!-- menu of color lens -->
+                  <mat-menu #colorsMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
+                    <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                      <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC',note)"
+                        style="background-color: #F5F5EC;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#EB716B',note)"
+                        style="background-color: #EB716B;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#FCE42A',note)"
+                        style="background-color: #FCE42A"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#6DE391',note)"
+                        style="background-color: #6DE391;"></div>
+                    </div>
+                    <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                      <div mat-menu-item (click)="updateBackgroundColor('#1597DB',note)"
+                        style="background-color: #1597DB;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#08ECF2',note)"
+                        style="background-color: #08ECF2;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF',note)"
+                        style="background-color: #8C7FBF;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#D37CE2',note)"
+                        style="background-color: #D37CE2;"></div>
+                    </div>
+                    <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                      <div mat-menu-item (click)="updateBackgroundColor('#FF8632',note)"
+                        style="background-color: #FF8632"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9',note)"
+                        style="background-color: #EA7AC9;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#A35237',note)"
+                        style="background-color: #A35237;"></div>
+                      <div mat-menu-item (click)="updateBackgroundColor('#959592',note)"
+                        style="background-color: #959592;"></div>
+                    </div>
+                  </mat-menu>
+                </div>
+
+                <div><button mat-icon-button color="">
+                    <mat-icon matTooltip="Add image">crop_original</mat-icon>
+                  </button>
+                </div>
+
+                <div>
+                  <button mat-icon-button color="" (click)="archive(note)">
+                    <mat-icon matTooltip="Archive">archive</mat-icon>
+                  </button>
+                </div>
+
+                <div><button mat-icon-button color="" [matMenuTriggerFor]="more">
+                    <mat-icon matTooltip="More">more_vert</mat-icon>
+                  </button>
+                  <!-- menu of morevert icon -->
+                  <mat-menu #more="matMenu">
+                    <button (click)="delete(note);" mat-menu-item>
+                      Delete
+                    </button>
+                    <button [matMenuTriggerFor]="label" (click)="addLabel(note);" mat-menu-item>
+                      Add label
+                    </button>
+                    <mat-menu #label="matMenu" style="height:30%;overflow: scroll;">
+                      <div (click)="$event.stopPropagation();">
+                        Label note
+                      </div>
+                      <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;">
+                        <mat-form-field appearance="outline">
+                          <input matInput type="search" placeholder="search label">
+                          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
+                            (click)="value=''">
+                            <mat-icon>search</mat-icon>
+                          </button>
+                        </mat-form-field>
+                      </div>
+                      <div (click)="$event.stopPropagation();" *ngFor="let label of labels">
+                        <div mat-menu-item>
+                          <mat-checkbox (change)="addLable(note.id,label.id,$event)" color="primary"
+                            [checked]="isChecked(note,label)">{{label.label}}</mat-checkbox>
+                        </div>
+                      </div>
+                    </mat-menu>
+                    <div mat-menu-item>
+                      Show checkboxs
+                    </div>
+                    <div mat-menu-item>
+                      Ask Question
+                    </div>
+                  </mat-menu>
+                </div>
+              </div>
+
+            </mat-card-footer>
+
+          </mat-card>
         </div>
       </div>
     </div>
-    
+  </div>
+
 </div>
