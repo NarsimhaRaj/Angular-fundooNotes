@@ -29,14 +29,23 @@ export class CollaboratorDialogComponent implements OnInit {
    * @param noteId noteId of note 
    * @param collaboratorUsedId collaboratorUserId
    */
-  remove(noteId,collaboratorUsedId){
-    this.noteServices.removeCollaborator(noteId,collaboratorUsedId).subscribe((response)=>{
+  remove(collaboratorUsedId){
+    if(this.data.id){
+      this.noteServices.removeCollaborator(this.data.id,collaboratorUsedId).subscribe((response)=>{
       
+        this.data.collaborators=this.data.collaborators.filter((user)=>{
+          return user.userId!=collaboratorUsedId;    
+        })
+        this.emitCollaboratorChanges.next();
+      });
+    }
+    else{
       this.data.collaborators=this.data.collaborators.filter((user)=>{
         return user.userId!=collaboratorUsedId;    
       })
-      this.emitCollaboratorChanges.next();
-    });
+      this.emitCollaboratorChanges.next(this.data.collaborators);
+    }
+    
   }
 
   /**
@@ -65,10 +74,17 @@ export class CollaboratorDialogComponent implements OnInit {
    * @param user user details -id, firstName, lastName, email
    */
   onSelect(user){
-    this.noteServices.addCollaborator(this.data.id,user).subscribe(()=>{
-      this.data.collaborators.push(user);
-      this.emitCollaboratorChanges.next();
-    })
+    if(this.data.id){
+        
+        this.noteServices.addCollaborator(this.data.id,user).subscribe(()=>{
+        this.data.collaborators.push(user);
+        this.emitCollaboratorChanges.next();
+
+      })
+    }
+    else{
+      this.emitCollaboratorChanges.next({user:user,newCollaborator:true});
+    }
   }
   ngOnInit() {
   }

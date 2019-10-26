@@ -58,6 +58,9 @@ export class NotesComponent implements OnInit, OnDestroy {
   // contians list of all labels
   labels: any
 
+  // to store collaborators Array
+  collaboratorsArray=new Array();
+
   // to emit an event after every modifications
   public emitObservable: Subject<void> = new Subject<void>();
 
@@ -191,11 +194,28 @@ export class NotesComponent implements OnInit, OnDestroy {
    */
   save() {
     if (this.title.valid || this.description.valid) {
-      var notes = { title: this.title.value, description: this.description.value, color: this.matCardColor, isPined: this.isPinned, isArchived: this.isArchived }
-      this.noteServices.addNotes(notes).subscribe((response) => {
+      var notes = { 
+        title: this.title.value, 
+        description: this.description.value, 
+        color: this.matCardColor, 
+        isPined: this.isPinned, 
+        isArchived: this.isArchived
+       }
+  
+        this.noteServices.addNotes(notes).subscribe((response:any) => {
         this.isPinned = false;
         this.isArchived = false;
-        this.emitObservable.next();
+        
+        while(this.collaboratorsArray.length>0){
+          this.noteServices.addCollaborator(response.status.details.id,this.collaboratorsArray.shift()).subscribe((responce)=>{
+            this.emitObservable.next();  
+          });
+        }
+        if(this.collaboratorsArray.length<=0)
+        {
+          this.emitObservable.next();
+        }
+
       }, (error: any) => {
         this.snackBar.open(error.message, undefined, { duration: 2000 });
       });;
@@ -326,18 +346,35 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @description opens a dialog box for adding collaborator to notes 
    * @param note note details  
    */
-  addCollaborator(note) {
-    const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
-      width: '550px',
-      data: note,
-      panelClass: "matDialogBox"
-    });
-    dialogRef.componentInstance.emitCollaboratorChanges.subscribe(() => {
-      this.emitObservable.next();
-    });
-    // dialogRef.afterClosed().subscribe(result => {
-
-    // });
+  addCollaborator(note?) {
+    if(note){
+      const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
+        width: '550px',
+        data: note,
+        panelClass: "matDialogBox"
+      });
+      dialogRef.componentInstance.emitCollaboratorChanges.subscribe(() => {
+        this.emitObservable.next();
+      });
+    }
+    else{
+      let user=JSON.parse(sessionStorage.getItem('user'));
+      const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
+        width: '550px',
+        data: {user:user,collaborators:this.collaboratorsArray},
+        panelClass: "matDialogBox"
+      });
+      dialogRef.componentInstance.emitCollaboratorChanges.subscribe((result:any) => {
+        if(result.newCollaborator)
+        {
+          this.collaboratorsArray.push(result.user)
+        }
+        else{
+          this.collaboratorsArray=result;
+        }
+      });
+    }
+    
   }
 
 

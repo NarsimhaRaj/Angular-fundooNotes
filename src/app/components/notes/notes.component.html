@@ -42,6 +42,13 @@
           [formControl]="description">{{description.value}}</textarea>
       </mat-card-content>
 
+      <mat-card-actions>
+        <mat-chip-list>
+          <mat-chip *ngFor="let collaborator of collaboratorsArray">
+            {{collaborator.firstName.charAt(0).toUpperCase()}}
+          </mat-chip>
+        </mat-chip-list>
+      </mat-card-actions>
       <!-- mat card footer -->
       <mat-card-footer>
 
@@ -49,7 +56,7 @@
           <button mat-icon-button color="">
             <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
           </button>
-          <button mat-icon-button color="">
+          <button (click)="addCollaborator()" mat-icon-button color="">
             <mat-icon matTooltip="Collaborator">person_add</mat-icon>
           </button>
           <button mat-icon-button color="" [matMenuTriggerFor]="cardColorMenu">
@@ -151,7 +158,7 @@
           <button mat-icon-button color="">
             <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
           </button>
-          <button mat-icon-button color="">
+          <button (click)="addCollaborator()" mat-icon-button color="">
             <mat-icon matTooltip="Collaborator">person_add</mat-icon>
           </button>
           <button mat-icon-button color="" [matMenuTriggerFor]="cardColorMenu">

@@ -14,7 +14,7 @@
               {{data.user.email}}
           </div>
         </mat-list-item>
-        <div *ngIf="data.collaborators.length>0">
+        <div *ngIf="data.collaborators">
           <mat-list-item *ngFor="let person of data.collaborators">
             <mat-icon mat-list-icon>person</mat-icon>
             <div mat-line>
@@ -23,7 +23,7 @@
             <div mat-line>
                 {{person.email}}
             </div>
-            <button (click)="remove(data.id,person.userId)" mat-icon-button><mat-icon>cancel</mat-icon></button>
+            <button (click)="remove(person.userId)" mat-icon-button><mat-icon>cancel</mat-icon></button>
           </mat-list-item>
         </div>
         
