@@ -65,7 +65,7 @@ export class PinnedNotesComponent implements OnInit {
         if(result.color){
           this.updateBackgroundColor(result.color, note);
         }
-        else if (result.isDeleted) {
+        if (result.isDeleted) {
           this.delete(note);
         }
         else {

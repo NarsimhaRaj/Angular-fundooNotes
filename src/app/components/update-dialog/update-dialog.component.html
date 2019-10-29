@@ -28,7 +28,7 @@
             </mat-list-item>
             <mat-list-item>
                 <mat-icon mat-list-icon>add</mat-icon>
-                <input matInput (keyup.enter)="EnterCheckList($event)" placeholder="Take a note...">
+                <input matInput (keyup.enter)="EnterCheckList($event)" placeholder="Take a note..." [formControl]="listDescription">
                 <mat-icon>clear</mat-icon>
             </mat-list-item>
         </mat-list>
@@ -49,7 +49,7 @@
     </div>
     
     <!-- mat- dialog footer -->
-    <div mat-dialog-footer fxLayoutAlign="space-between center">
+    <div mat-dialog-footer fxLayoutAlign="space-between center" fxLayout.lt-sm="column">
 
         <div class="footer-icons-div" fxLayoutAlign="space-around center">
 
@@ -106,7 +106,7 @@
 
 
             <button (click)="archive();" mat-icon-button color="">
-                <mat-icon [matTooltip]=" data.isArchive ? Unarchive : Archive">archive</mat-icon>
+                <mat-icon>archive</mat-icon>
             </button>
 
 
@@ -148,15 +148,6 @@
                     Ask Question
                 </div>
             </mat-menu>
-
-
-            <button mat-icon-button color="">
-                <mat-icon matTooltip="Undo">undo</mat-icon>
-            </button>
-
-            <button mat-icon-button color="">
-                <mat-icon matTooltip="Redo">redo</mat-icon>
-            </button>
 
         </div>
 

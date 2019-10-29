@@ -42,7 +42,12 @@ export class UpdateDialogComponent implements OnInit {
    * @description pass the modified or updated data where dialogRef is being called
    */
   onCloseClick():void{
-    this.dialogRef.close({noteId:this.noteId,title:this.title.value,description:this.description.value, color:this.color.value});
+    this.dialogRef.close({
+      noteId:this.noteId,
+      title:this.title.value,
+      description:this.description.value,
+      color:this.color.value
+    });
   }
 
   archive(){
@@ -150,4 +155,32 @@ export class UpdateDialogComponent implements OnInit {
     this.getAllLabels();
   }
 
+  /**
+   * @description on pressing enter value gets added to checklistArray
+   * @param event enter key event trggered
+   */
+  EnterCheckList(event){
+    if(event.keyCode==13 && this.listDescription.value!="")
+    {
+      let data={itemName:this.listDescription.value,status:"open"};
+      this.data.noteCheckLists.push(data);
+
+      this.noteServices.addCheckList(this.data.id,data).subscribe(response=>{});
+
+      this.listDescription.setValue("");
+    }
+  }
+
+   /**
+   * @description delete item from checkList on pressing cancel button
+   * @param item item to be deleted
+   */
+  filterCheckList(item){
+    this.data.noteCheckLists=this.data.noteCheckLists.filter(listItem=>listItem!=item);
+    console.log(item.id);
+    console.log(this.data.id);
+    this.noteServices.removeCheckListItem(this.data.id,item.id).subscribe((response)=>{
+      console.log(response);
+    });
+  }
 }

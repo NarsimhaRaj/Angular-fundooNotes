@@ -93,6 +93,7 @@ export class ArchiveComponent implements OnInit {
   getNotesList() {
     this.noteServices.getNotesList().subscribe((response: any) => {
       this.notesList = response.data.data;
+      this.notesList.reverse();
     }, (error) => {
       this.snackBar.open(error.message, undefined, { duration: 2000 });
     })
@@ -163,6 +164,20 @@ export class ArchiveComponent implements OnInit {
       });
     }
     this.emitObservable.next();
+  }
+
+  /**
+   * @description if atleast on open or close list item exist then show list item otherwise hide it
+   * @param noteCheckLists checkList notes
+   * @param status status of list item  
+   */
+  checkListItemStatus(noteCheckLists,status){
+    for(let item of noteCheckLists)
+    {
+      if(item.status==status)
+        return true;
+    }
+    return false;
   }
 
   ngOnDestroy() {

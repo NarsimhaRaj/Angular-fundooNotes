@@ -166,8 +166,25 @@ export class NoteService {
     return this.httpService.postWithToken(url,data);
 
   }
+  /**
+   * @description to update a checkList item of aparticular notes 
+   * @param noteId note id to update item in that notes
+   * @param checkListId checklist item id
+   * @param data new updated data 
+   */
   updateCheckList(noteId,checkListId,data){
     let url=`/notes/${noteId}/checklist/${checkListId}/update`;
     return this.httpService.postWithToken(url,data);
+  }
+
+  /**
+   * @description deleting a list item from notes checkLists 
+   * @param noteId id of notes 
+   * @param checkListId checklist item id
+   */
+  removeCheckListItem(noteId,checkListId){
+    let url=`/notes/${noteId}/noteCheckLists/${checkListId}`;
+
+    return this.httpService.delete(url,null);
   }
 }

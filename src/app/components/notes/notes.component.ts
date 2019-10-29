@@ -233,6 +233,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   getNotesList() {
     this.noteServices.getNotesList().subscribe((response: any) => {
       this.notesList = response.data.data;
+      this.notesList.reverse();
       this.pinCountZero = this.pinned(this.notesList);
     }, (error) => {
       this.snackBar.open(error.message, undefined, { duration: 2000 });
@@ -351,8 +352,19 @@ export class NotesComponent implements OnInit, OnDestroy {
   filterCheckList(item){
     this.checkListArray=this.checkListArray.filter(listItem=>listItem!=item)
   }
+
+  // checkListItemStatus(event,item){
+  //   if(event.checked){
+  //     for(let index in this.checkListArray){
+  //       if(this.checkListArray[index]==item){
+  //         // this.checkListArray[index]={itemName:item.itemName,status:}
+  //       }
+  //     }
+  //   }
+  // }
+
   /**
-   * 
+   *@description to save a checklist notes  
    */
   saveCheckList(){
     if (this.title.valid) {

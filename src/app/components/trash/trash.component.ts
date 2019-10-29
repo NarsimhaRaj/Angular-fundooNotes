@@ -54,6 +54,7 @@ export class TrashComponent implements OnInit {
   getNotesList() {
     this.noteServices.getNotesList().subscribe((response: any) => {
       this.notesList = response.data.data;
+      this.notesList.reverse();
     }, (error) => {
       this.snackBar.open(error.message, undefined, { duration: 2000 });
     })
