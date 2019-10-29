@@ -1,43 +1,57 @@
 <h1 mat-dialog-title>Edit Labels</h1>
 <div mat-dialog-content fxLayout="row">
-  <button mat-icon-button (click)="labelName.setValue('')"><mat-icon>clear</mat-icon></button>
+  <button mat-icon-button (click)="labelName.setValue('')">
+    <mat-icon>clear</mat-icon>
+  </button>
   <mat-form-field appearance="fill legacy" style="width:70%">
     <input matInput placeholder="create new label" [formControl]="labelName">
   </mat-form-field>
-  <button mat-icon-button (click)="createLabel()"><mat-icon>done</mat-icon></button>
+  <button mat-icon-button (click)="createLabel()">
+    <mat-icon>done</mat-icon>
+  </button>
 </div>
 <div mat-dialog-actions>
 
-  <mat-list role="list" *ngFor="let label of labels" >
+  <mat-list role="list" *ngFor="let label of labels">
 
-      <mat-list-item fxFlexFill fxLayout="row" [disableRipple]="true" role="listitem" fxLayoutAlign="space-around center">
+    <mat-list-item fxFlexFill fxLayout="row" [disableRipple]="true" role="listitem" fxLayoutAlign="space-around center">
 
-        <div class="edit-delete-mat-icons">
+      <div class="edit-delete-mat-icons" mat-list-icon>
 
-          <div class="mat-icon-label" style="margin-left:0"><button mat-icon-button><mat-icon>label</mat-icon></button></div>
+        <div class="mat-icon-label" style="margin-left:0"><button mat-icon-button>
+            <mat-icon>label</mat-icon>
+          </button></div>
 
-          <div class="mat-icon-delete" style="margin-left:0">
-            <button mat-icon-button (click)="deleteLabel(label.id)"><mat-icon>delete</mat-icon></button>
-          </div>
-
+        <div class="mat-icon-delete" style="margin-left:0">
+          <button mat-icon-button (click)="deleteLabel(label.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
         </div>
 
-        <div [fxHide]=" label.id==defaultLabelId ? true :false " style=" margin-left:10%" > {{label.label}}  </div>
-        <div [fxHide]=" label.id!=defaultLabelId ? true :false" >
-            <input matInput [value]="label.label" [formControl]="editedTextLabel"/>
-        </div>
- 
-        <!-- <span style="flex: 1 1 auto">
+      </div>
+
+      <div [fxHide]=" label.id==defaultLabelId ? true :false " style=" margin-left:10%"> {{label.label}} </div>
+      <div [fxHide]=" label.id!=defaultLabelId ? true :false">
+        <input matInput [value]="label.label" [formControl]="editedTextLabel" />
+      </div>
+
+      <!-- <span style="flex: 1 1 auto">
         
         </span>
        -->
-        <div [fxHide]=" label.id==defaultLabelId ? true :false" (click)="setEditLabel(label.id)" style="float: right;"><button mat-icon-button><mat-icon>edit</mat-icon></button></div>
-        <div [fxHide]=" label.id!=defaultLabelId ? true :false">
-            <button (click)="updateLabel(label.id)" mat-icon-button><mat-icon>done</mat-icon></button>         
-        </div>
- 
-      </mat-list-item>
-    </mat-list>   
+      <div [fxHide]=" label.id==defaultLabelId ? true :false" style="float: right;">
+        <button mat-icon-button (click)="setEditLabel(label.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+      <div [fxHide]=" label.id!=defaultLabelId ? true :false">
+        <button (click)="updateLabel(label.id)" mat-icon-button>
+          <mat-icon>done</mat-icon>
+        </button>
+      </div>
+
+    </mat-list-item>
+  </mat-list>
 </div>
 <mat-divider></mat-divider>
 <div mat-dialog-footer style="margin-right:0">
