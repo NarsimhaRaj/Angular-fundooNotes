@@ -5,11 +5,9 @@ import { MatSnackBar, MatDialog } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { UserService } from 'src/app/services/userServices/user.service';
-import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { LabelService } from 'src/app/services/label/label.service';
 import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator-dialog.component';
-import { ResourceLoader } from '@angular/compiler';
 
 
 @Component({
@@ -109,6 +107,12 @@ export class NotesComponent implements OnInit, OnDestroy {
       this.searchWord=search;
     })
 
+  }
+
+  refreshNotsList(event){
+    this.getNotesList();
+      // to get All labels of user 
+    this.getAllLabels();
   }
 
   /**

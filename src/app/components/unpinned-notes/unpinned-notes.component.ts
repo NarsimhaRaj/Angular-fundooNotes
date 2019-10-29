@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator-dialog.component';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 import { UserService } from 'src/app/services/userServices/user.service';
@@ -26,9 +26,9 @@ export class UnpinnedNotesComponent implements OnInit {
 
   @Input() data:any;
 
+  @Output() componentRef=new EventEmitter();
 
-  constructor(private userService: UserService, private noteServices: NoteService, private snackBar: MatSnackBar,
-    public dialog: MatDialog, private dashBoard: DashboardComponent, private labelService: LabelService,private noteComponent:NotesComponent) {
+  constructor(private noteServices: NoteService, public dialog: MatDialog, private dashBoard: DashboardComponent) {
     
 
     this.data = this.dashBoard.getData();
@@ -75,7 +75,7 @@ export class UnpinnedNotesComponent implements OnInit {
             })
           }
         }
-        this.noteComponent.emitObservable.next();
+        this.componentRef.emit(null);
       });
     }
 
@@ -89,7 +89,7 @@ export class UnpinnedNotesComponent implements OnInit {
     let data = { noteIdList: [note.id], isDeleted: true };
 
     this.noteServices.deleteNotes(data).subscribe((response) => {
-      this.noteComponent.emitObservable.next();
+      this.componentRef.emit(null);
     });
   }
 
@@ -102,14 +102,14 @@ export class UnpinnedNotesComponent implements OnInit {
       let data = { noteIdList: [note.id], isArchived: true, isPined: false };
 
       this.noteServices.addToArchive(data).subscribe((response) => {
-        this.noteComponent.emitObservable.next();
+        this.componentRef.emit(null);
       });
     }
     else {
       let data = { noteIdList: [note.id], isArchived: true };
 
       this.noteServices.addToArchive(data).subscribe((response) => {
-        this.noteComponent.emitObservable.next();
+        this.componentRef.emit(null);
       });
     }
   }
@@ -122,7 +122,7 @@ export class UnpinnedNotesComponent implements OnInit {
   updateBackgroundColor(color, note) {
     let data = { noteIdList: [note.id], color: color };
     this.noteServices.updateBackgroundColor(data).subscribe((response) => {
-      this.noteComponent.emitObservable.next();
+      this.componentRef.emit(null);
     });
   }
 
@@ -134,7 +134,7 @@ export class UnpinnedNotesComponent implements OnInit {
   pinUnpin(note, isPinned: boolean) {
     let data = { noteIdList: [note.id], isPined: isPinned };
     this.noteServices.pinUnpinNotes(data).subscribe((response) => {
-      this.noteComponent.emitObservable.next();
+      this.componentRef.emit(null);
     });
   }
 
@@ -155,7 +155,7 @@ export class UnpinnedNotesComponent implements OnInit {
       this.noteServices.updateCheckList(noteId,item.id,data).subscribe((response)=>{
       });
     }
-    this.noteComponent.emitObservable.next();
+    this.componentRef.emit(null);
   }
 
   /**
@@ -170,7 +170,7 @@ export class UnpinnedNotesComponent implements OnInit {
         panelClass: "matDialogBox"
       });
       dialogRef.componentInstance.emitCollaboratorChanges.subscribe(() => {
-        this.noteComponent.emitObservable.next();
+        this.componentRef.emit(null);
       });
     }
     
@@ -186,7 +186,7 @@ export class UnpinnedNotesComponent implements OnInit {
     if (event.checked) {
       this.noteServices.addLabelToNote(noteId, labelId).subscribe((response) => {
         // console.log(response);
-        this.noteComponent.emitObservable.next();
+        this.componentRef.emit(null);
       })
     }
     else {
@@ -202,8 +202,7 @@ export class UnpinnedNotesComponent implements OnInit {
    */
   removeLabel(noteId, labelId) {
     this.noteServices.removeLabelToNotes(noteId, labelId).subscribe((response) => {
-      // console.log(response);
-      this.noteComponent.emitObservable.next();
+      this.componentRef.emit(null);
     })
   }
 
