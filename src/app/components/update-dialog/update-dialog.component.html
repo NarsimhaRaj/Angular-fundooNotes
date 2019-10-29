@@ -21,7 +21,7 @@
         <!-- if checkList Notes is Present -->
         <mat-list *ngIf="data.noteCheckLists.length>0">
             <mat-list-item *ngFor="let item of data.noteCheckLists">
-                <mat-checkbox (change)="checkListItemStatus($event)" fxFlex>{{item.itemName}}</mat-checkbox>
+                <mat-checkbox (change)="changecheckListStatus(item,$event)" [checked]="item.status=='close'?true:false" fxFlex>{{item.itemName}}</mat-checkbox>
                 <button (click)="filterCheckList(item)" mat-icon-button>
                     <mat-icon>clear</mat-icon>
                 </button>

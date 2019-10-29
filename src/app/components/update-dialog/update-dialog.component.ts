@@ -183,4 +183,23 @@ export class UpdateDialogComponent implements OnInit {
       console.log(response);
     });
   }
+
+  /**
+   * @description to update checkbox status with close on checked or open on unchecked
+   * @param event event is an event emitter of mat checkbox 
+   * @param noteId note id of checkList
+   * @param item checkList item details
+   */
+  changecheckListStatus(item,event){
+    if(event.checked){
+      let data={itemName:item.itemName,status:"close"};
+      this.noteServices.updateCheckList(this.noteId,item.id,data).subscribe((response)=>{
+      });
+    }
+    else{
+      let data={itemName:item.itemName,status:"open"};
+      this.noteServices.updateCheckList(this.noteId,item.id,data).subscribe((response)=>{
+      });
+    }
+  }
 }
