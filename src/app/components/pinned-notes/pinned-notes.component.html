@@ -63,25 +63,7 @@
               <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
             </button>
             <mat-menu #reminder="matMenu">
-              <mat-card>
-                <mat-list>
-                  <div mat-list-item>
-                    <pre>Later Today  8:00 PM</pre>
-                  </div>
-                  <div mat-list-item>
-                    <pre>Tomorrow     8:00 PM</pre>
-                  </div>
-                  <div mat-list-item>
-                    <pre>Next week    Mon, 8:00 PM</pre>
-                  </div>
-                  <div mat-list-item>
-                    <div>
-                      <mat-icon>access_time</mat-icon> Pick date & time
-                    </div>
-                  </div>
-                </mat-list>
-  
-              </mat-card>
+              <app-reminder-component (reminderData)="setReminder($event);" ></app-reminder-component>
             </mat-menu>
           </div>
   

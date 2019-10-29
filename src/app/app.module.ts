@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatListModule, MatButtonModule, MatToolbarModule, MatExpansionModule,
    MatCheckboxModule, MatCardModule, MatTooltipModule, MatTabsModule,
-    MatProgressBarModule, MatChipsModule, MatDatepickerModule, MatAutocompleteModule } from '@angular/material'
+    MatProgressBarModule, MatChipsModule, MatDatepickerModule, MatAutocompleteModule, MatNativeDateModule } from '@angular/material'
 import { MatMenuModule, MatOptionModule, MatSelectModule } from '@angular/material'
 import { MatFormFieldModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatDialogModule } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,6 +37,7 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
 import { SearchPipe } from './pipe/search.pipe';
 import { PinnedNotesComponent } from './components/pinned-notes/pinned-notes.component';
 import { UnpinnedNotesComponent } from './components/unpinned-notes/unpinned-notes.component';
+import { ReminderComponentComponent } from './components/reminder-component/reminder-component.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { UnpinnedNotesComponent } from './components/unpinned-notes/unpinned-not
     ShoppingCartComponent,
     SearchPipe,
     PinnedNotesComponent,
-    UnpinnedNotesComponent
+    UnpinnedNotesComponent,
+    ReminderComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +85,7 @@ import { UnpinnedNotesComponent } from './components/unpinned-notes/unpinned-not
     MatChipsModule,
     MatProgressBarModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatAutocompleteModule,
     BrowserAnimationsModule,
     AppRoutingModule,

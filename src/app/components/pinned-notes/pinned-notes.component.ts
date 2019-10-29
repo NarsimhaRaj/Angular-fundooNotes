@@ -234,4 +234,12 @@ export class PinnedNotesComponent implements OnInit {
     }
     return false;
   }
+
+  /**
+   * @description to set reminder to a notes
+   * @param reminderTimeDate 
+   */
+  setReminder(reminderTimeDate){
+
+  }
 }
