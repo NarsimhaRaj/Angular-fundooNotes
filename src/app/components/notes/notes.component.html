@@ -304,14 +304,14 @@
         <h5>PINNED</h5>
       </div>
     
-      <app-pinned-notes [data]="data" [notesList]="notesList" [isAdvancedUser]="isAdvancedUser" [labels]="labels" [searchWord]="searchWord" (componentRef)="refreshNotsList($event)" ></app-pinned-notes>
+      <app-pinned-notes [data]="data" [notesList]="notesList" [isAdvancedUser]="isAdvancedUser" [labels]="labels" [searchWord]="searchWord" (componentRef)="refreshNotesList($event)" ></app-pinned-notes>
     
       <!-- unpinned notes list  -->
       <div *ngIf="pinCountZero" style="width:90%;">
         <h5>OTHERS</h5>
       </div>
       
-      <app-unpinned-notes [data]="data" [notesList]="notesList" [isAdvancedUser]="isAdvancedUser" [labels]="labels" [searchWord]="searchWord" (componentRef)="refreshNotsList($event)" ></app-unpinned-notes>
+      <app-unpinned-notes [data]="data" [notesList]="notesList" [isAdvancedUser]="isAdvancedUser" [labels]="labels" [searchWord]="searchWord" (componentRef)="refreshNotesList($event)" ></app-unpinned-notes>
     </div>
   </div>
 

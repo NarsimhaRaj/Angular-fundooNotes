@@ -220,4 +220,18 @@ export class PinnedNotesComponent implements OnInit {
     return false;
 
   }
+  
+  /**
+   * @description if atleast on open or close list item exist then show list item otherwise hide it
+   * @param noteCheckLists checkList notes
+   * @param status status of list item  
+   */
+  checkListItemStatus(noteCheckLists,status){
+    for(let item of noteCheckLists)
+    {
+      if(item.status==status)
+        return true;
+    }
+    return false;
+  }
 }

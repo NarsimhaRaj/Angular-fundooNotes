@@ -21,14 +21,26 @@
             {{note.description}}
           </div>
           <!-- if checkList Notes is Present -->
-          <mat-list *ngIf="note.description==''" style="white-space: pre-wrap;overflow-wrap: break-word;">
-            <mat-list-item *ngFor="let item of note.noteCheckLists">
-              <mat-checkbox [ngClass]="{'checkList-text-decoration': item.status=='close' ? true :false }"
-                (click)="$event.stopPropagation()" (change)="changecheckListStatus(note.id,item,$event)"
-                color="primary" [checked]=" item.status=='close' ? true : false " fxFlex>{{item.itemName}}
-              </mat-checkbox>
-            </mat-list-item>
-          </mat-list>
+          <div *ngIf="note.description==''" style="white-space: pre-wrap;overflow-wrap: break-word;" fxLayout="column">
+              <div *ngIf="checkListItemStatus(note.noteCheckLists,'open');" fxLayout="column">
+                <div *ngFor="let item of note.noteCheckLists" >
+    
+                    <mat-checkbox *ngIf="item.status=='open'" (click)="$event.stopPropagation()" (change)="changecheckListStatus(note.id,item,$event)" 
+                      color="primary" [checked]="false" fxFlex>{{item.itemName}}
+                    </mat-checkbox>
+                  </div>
+              </div>
+              <div *ngIf="checkListItemStatus( note.noteCheckLists, 'close');" fxLayout="column">
+                <div *ngFor="let item of note.noteCheckLists">
+              
+                    <mat-checkbox *ngIf="item.status=='close'" style="text-decoration:line-through;"
+                    (click)="$event.stopPropagation()" (change)="changecheckListStatus(note.id,item,$event)" color="primary"
+                      [checked]="true" fxFlex>{{item.itemName}}
+                    </mat-checkbox>
+                  </div>
+              </div>
+    
+            </div>
     
         </mat-card-content>
         <mat-card-actions>

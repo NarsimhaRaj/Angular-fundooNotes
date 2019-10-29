@@ -109,10 +109,18 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   }
 
-  refreshNotsList(event){
+  /**
+   * @description refreshes notesList and labels list
+   * @param event event name
+   */
+  refreshNotesList(event){
     this.getNotesList();
       // to get All labels of user 
     this.getAllLabels();
+  }
+
+  updateBackgroundColor(color){
+    this.matCardColor=color;
   }
 
   /**
@@ -212,15 +220,10 @@ export class NotesComponent implements OnInit, OnDestroy {
   }
 
   reloadAfterNoteCreation(){
-    if(this.newNotesLabelsArray.length<=0)
-        {
-          this.emitObservable.next();
-        }
-
-        if(this.collaboratorsArray.length<=0)
-        {
-          this.emitObservable.next();
-        }
+    if(this.newNotesLabelsArray.length<=0 || this.collaboratorsArray.length<=0)
+    {
+      this.emitObservable.next();
+    }
   }
 
 
@@ -262,6 +265,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.isArchived=false;
     this.isPinned=false;
     this.panelOpenState=!this.panelOpenState;
+    this.matCardColor="";
   }
 
   /**
