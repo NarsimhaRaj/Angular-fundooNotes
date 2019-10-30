@@ -27,9 +27,15 @@
           </mat-card-content>
           <mat-card-actions>
             <mat-chip-list>
-              <mat-chip *ngFor="let label of note.noteLabels">
-                {{label.label}}
-              </mat-chip>
+                <mat-chip *ngFor="let reminder of note.reminder" [removable]="true">
+                    {{ reminder | date:"mediumDate" }}, {{ reminder | date:'shortTime':'GMT' }}
+                </mat-chip>
+                <mat-chip *ngFor="let person of note.collaborators">
+                  {{person.firstName.charAt(0).toUpperCase()}}
+                </mat-chip>
+                <mat-chip *ngFor="let label of note.noteLabels" [removable]="true">
+                  {{label.label}}
+                </mat-chip>
             </mat-chip-list>
         </mat-card-actions>
         <mat-card-footer>

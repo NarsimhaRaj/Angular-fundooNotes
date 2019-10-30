@@ -75,7 +75,7 @@
           </mat-list-item>
     
           <!-- remainders -->
-          <mat-list-item [ngClass]="{'mat-list-item-selected': onReminderListSelected}" [fxHide]="!isAdvancedUser">
+          <mat-list-item [ngClass]="{'mat-list-item-selected': onReminderListSelected}" [fxHide]="!isAdvancedUser" (click)="goToReminderNotesList()">
               <div><mat-icon>notifications_none</mat-icon></div><div style="margin-left:3em">Remainders</div>
           </mat-list-item>
           

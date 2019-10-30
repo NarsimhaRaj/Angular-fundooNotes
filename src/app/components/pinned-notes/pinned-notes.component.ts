@@ -239,7 +239,24 @@ export class PinnedNotesComponent implements OnInit {
    * @description to set reminder to a notes
    * @param reminderTimeDate 
    */
-  setReminder(reminderTimeDate){
+  setReminder(reminderTimeDate,note){
+    let data={noteIdList:[note.id],reminder:reminderTimeDate};
 
+    console.log(data.reminder);
+    this.noteServices.addUpdateReminderNotes(data).subscribe((response)=>{
+      // console.log(response)
+      this.componentRef.emit(null);
+    });
+  }
+
+  /**
+   * @description to delete a note's reminder
+   * @param noteId id of notes with reminder
+   */
+  removeReminder(noteId){
+    let data={noteIdList:[noteId]};
+    this.noteServices.removeReminderNotes(data).subscribe((response)=>{
+      this.componentRef.emit(null);
+    })
   }
 }

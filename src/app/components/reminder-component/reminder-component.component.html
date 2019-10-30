@@ -25,7 +25,7 @@
   </mat-list-item>
   <mat-list-item>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker1" [formControl]="date">
+      <input matInput [min]="minDate" [matDatepicker]="picker1" [formControl]="date">
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>

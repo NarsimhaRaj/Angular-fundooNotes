@@ -13,11 +13,11 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-archive',
-  templateUrl: './archive.component.html',
-  styleUrls: ['./archive.component.scss']
+  selector: 'app-reminder-notes',
+  templateUrl: './reminder-notes.component.html',
+  styleUrls: ['./reminder-notes.component.scss']
 })
-export class ArchiveComponent implements OnInit {
+export class ReminderNotesComponent implements OnInit {
 
   notesList: any;
 
@@ -91,7 +91,7 @@ export class ArchiveComponent implements OnInit {
 
 
   getNotesList() {
-    this.noteServices.getNotesList().subscribe((response: any) => {
+    this.noteServices.getReminderNotesList().subscribe((response: any) => {
       this.notesList = response.data.data;
       this.notesList.reverse();
     }, (error) => {
@@ -99,8 +99,8 @@ export class ArchiveComponent implements OnInit {
     })
   }
 
-  pinUnpin(note) {
-    let data = { noteIdList: [note.id], isPined: true, isArchived:false };
+  pinUnpin(note,isPinned) {
+    let data = { noteIdList: [note.id], isPined: isPinned, isArchived:false };
     this.noteServices.pinUnpinNotes(data).subscribe((response) => {
       this.emitObservable.next();
     });

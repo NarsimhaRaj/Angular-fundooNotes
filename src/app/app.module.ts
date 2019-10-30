@@ -38,6 +38,8 @@ import { SearchPipe } from './pipe/search.pipe';
 import { PinnedNotesComponent } from './components/pinned-notes/pinned-notes.component';
 import { UnpinnedNotesComponent } from './components/unpinned-notes/unpinned-notes.component';
 import { ReminderComponentComponent } from './components/reminder-component/reminder-component.component';
+import { DatePipe } from '@angular/common';
+import { ReminderNotesComponent } from './components/reminder-notes/reminder-notes.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import { ReminderComponentComponent } from './components/reminder-component/remi
     SearchPipe,
     PinnedNotesComponent,
     UnpinnedNotesComponent,
-    ReminderComponentComponent
+    ReminderComponentComponent,
+    ReminderNotesComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +101,7 @@ import { ReminderComponentComponent } from './components/reminder-component/remi
     NgxPopper
   ],
   entryComponents: [UpdateDialogComponent, CartDialogComponent, LabelsDialogComponent, CollaboratorDialogComponent],
-  providers: [UserService, HttpService, AuthGuard, CartService, LabelService, RegisterGuard],
+  providers: [UserService, HttpService, AuthGuard, CartService, LabelService, RegisterGuard,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -187,4 +187,31 @@ export class NoteService {
 
     return this.httpService.delete(url,null);
   }
+
+  /**
+   * @description to add or update a remindier notes
+   * @param data send data to add to notes
+   */
+  addUpdateReminderNotes(data){
+    let url=`/notes/addUpdateReminderNotes`;
+    return this.httpService.postWithToken(url,data);
+  }
+
+  /**
+   * @description to add or update a remindier notes
+   * @param data send data to add to notes
+   */
+  removeReminderNotes(data){
+    let url=`/notes/removeReminderNotes`;
+    return this.httpService.postWithToken(url,data);
+  }
+
+  /**
+   * @description getting all reminder notes List
+   */
+  getReminderNotesList(){
+    let url=`/notes/getReminderNotesList`;
+    return this.httpService.getWithToken(url);
+  }
+
 }
