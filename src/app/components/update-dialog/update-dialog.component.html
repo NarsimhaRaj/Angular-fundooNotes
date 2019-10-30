@@ -20,9 +20,9 @@
         </mat-form-field>
         <!-- if checkList Notes is Present -->
         <div *ngIf="data.noteCheckLists.length>0" fxLayout="column">
-            <div *ngFor="let item of data.noteCheckLists" fxLayout="row" fxLayoutAlign="center center"> 
+            <div *ngFor="let item of data.noteCheckLists; index as i" fxLayout="row" fxLayoutAlign="center center"> 
                 <mat-checkbox (change)="changecheckListStatus(item,$event)" [checked]="item.status=='close'?true:false"></mat-checkbox>
-                <input matInput type="text" [value]="item.itemName">
+                <input matInput type="text" [formControl]="listItemFormArray.controls[i]">
                 <button (click)="filterCheckList(item)" mat-icon-button>
                     <mat-icon>clear</mat-icon>
                 </button>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormArray } from '@angular/forms';
 import { NoteService } from 'src/app/services/noteServices/note.service';
 import { Subject } from 'rxjs';
 import { LabelService } from 'src/app/services/label/label.service';
@@ -13,52 +13,78 @@ import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator
 })
 export class UpdateDialogComponent implements OnInit {
 
-  localData:any;
-  title=new FormControl('');
-  description=new FormControl('');
-  color=new FormControl('');
-  noteId:String;
+  localData: any;
+  title = new FormControl('');
+  description = new FormControl('');
+  color = new FormControl('');
+  noteId: String;
 
-  emitColorEvent=new Subject();
+  emitColorEvent = new Subject();
 
-  emitLableEvent=new Subject();
+  emitLableEvent = new Subject();
 
-  listDescription=new FormControl('');
-  
+  listDescription = new FormControl('');
+
+  listItemFormArray = new FormArray([]);
+
   // all the labels creted by user
-  labels=new Array();
-  checkListArray=new Array();
+  labels = new Array();
+  checkListArray = new Array();
 
   constructor(
     public dialogRef: MatDialogRef<UpdateDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private noteServices:NoteService,private labelService:LabelService,
-    private dialog:MatDialog) { 
-      this.noteId=data.id;
-      this.title.setValue(data.title);
-      this.description.setValue(data.description);
-      this.color.setValue(data.color);   
+    @Inject(MAT_DIALOG_DATA) public data: any, private noteServices: NoteService, private labelService: LabelService,
+    private dialog: MatDialog) {
+    this.noteId = data.id;
+    this.title.setValue(data.title);
+    this.description.setValue(data.description);
+    this.color.setValue(data.color);
+
+    for (let item of data.noteCheckLists) {
+      this.listItemFormArray.push(new FormControl(item.itemName));
     }
+    console.log(this.listItemFormArray.controls[0]);
+    console.log(this.listItemFormArray.controls[1]);
+  }
   /**
    * @description pass the modified or updated data where dialogRef is being called
    */
-  onCloseClick():void{
+  onCloseClick(): void {
+    
+    if(this.data.description==""){
+      this.saveListItemChanges();
+    }
+
     this.dialogRef.close({
-      noteId:this.noteId,
-      title:this.title.value,
-      description:this.description.value,
-      color:this.color.value
+      noteId: this.noteId,
+      title: this.title.value,
+      description: this.description.value,
+      color: this.color.value
     });
   }
+  /**
+   * @description to save changes made to notes 
+   */
+  saveListItemChanges(){
+    let index=0;
+    for(let newItem of this.listItemFormArray.controls){
+      let item=this.data.noteCheckLists[index];
+      let data={itemName:newItem.value,status:item.status};
+      this.noteServices.updateCheckList(this.noteId, item.id, data).subscribe((response) => {
+      });
+      index++;
+    }
+  }
 
-  archive(){
-    this.dialogRef.close({isArchived:true, note:this.data});
+  archive() {
+    this.dialogRef.close({ isArchived: true, note: this.data });
   }
   /**
    * @description to update color of note on clickign selected color in update dialog box
    * @param color type of color
    */
-  updateBackgroundColor(color){
-    this.data.color=color;
+  updateBackgroundColor(color) {
+    this.data.color = color;
     this.color.setValue(color);
   }
 
@@ -66,8 +92,8 @@ export class UpdateDialogComponent implements OnInit {
    * @description to deletes a note on clicking delete button 
    * @param note note which has to be deleted
    */
-  delete(){
-    
+  delete() {
+
     let data = { noteListId: [this.noteId], isDeleted: true };
     this.dialogRef.close(data);
   }
@@ -84,10 +110,9 @@ export class UpdateDialogComponent implements OnInit {
     });
   }
 
-  searchLabel(labelId){
-    for(let label of this.labels)
-    {
-      if(label.id==labelId)
+  searchLabel(labelId) {
+    for (let label of this.labels) {
+      if (label.id == labelId)
         return label;
     }
   }
@@ -116,8 +141,8 @@ export class UpdateDialogComponent implements OnInit {
    */
   removeLabel(noteId, labelId) {
     this.noteServices.removeLabelToNotes(noteId, labelId).subscribe((response) => {
-      let index=this.data.noteLabels.indexOf(this.searchLabel(labelId));
-      this.data.noteLabels.splice(index,1);
+      let index = this.data.noteLabels.indexOf(this.searchLabel(labelId));
+      this.data.noteLabels.splice(index, 1);
     })
   }
 
@@ -147,11 +172,11 @@ export class UpdateDialogComponent implements OnInit {
       panelClass: "matDialogBox"
     });
     dialogRef.componentInstance.emitCollaboratorChanges.subscribe(() => {
-      
+
     });
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getAllLabels();
   }
 
@@ -159,27 +184,26 @@ export class UpdateDialogComponent implements OnInit {
    * @description on pressing enter value gets added to checklistArray
    * @param event enter key event trggered
    */
-  EnterCheckList(event){
-    if(event.keyCode==13 && this.listDescription.value!="")
-    {
-      let data={itemName:this.listDescription.value,status:"open"};
+  EnterCheckList(event) {
+    if (event.keyCode == 13 && this.listDescription.value != "") {
+      let data = { itemName: this.listDescription.value, status: "open" };
       this.data.noteCheckLists.push(data);
 
-      this.noteServices.addCheckList(this.data.id,data).subscribe(response=>{});
+      this.noteServices.addCheckList(this.data.id, data).subscribe(response => { });
 
       this.listDescription.setValue("");
     }
   }
 
-   /**
-   * @description delete item from checkList on pressing cancel button
-   * @param item item to be deleted
-   */
-  filterCheckList(item){
-    this.data.noteCheckLists=this.data.noteCheckLists.filter(listItem=>listItem!=item);
+  /**
+  * @description delete item from checkList on pressing cancel button
+  * @param item item to be deleted
+  */
+  filterCheckList(item) {
+    this.data.noteCheckLists = this.data.noteCheckLists.filter(listItem => listItem != item);
     console.log(item.id);
     console.log(this.data.id);
-    this.noteServices.removeCheckListItem(this.data.id,item.id).subscribe((response)=>{
+    this.noteServices.removeCheckListItem(this.data.id, item.id).subscribe((response) => {
       console.log(response);
     });
   }
@@ -190,15 +214,15 @@ export class UpdateDialogComponent implements OnInit {
    * @param noteId note id of checkList
    * @param item checkList item details
    */
-  changecheckListStatus(item,event){
-    if(event.checked){
-      let data={itemName:item.itemName,status:"close"};
-      this.noteServices.updateCheckList(this.noteId,item.id,data).subscribe((response)=>{
+  changecheckListStatus(item, event) {
+    if (event.checked) {
+      let data = { itemName: item.itemName, status: "close" };
+      this.noteServices.updateCheckList(this.noteId, item.id, data).subscribe((response) => {
       });
     }
-    else{
-      let data={itemName:item.itemName,status:"open"};
-      this.noteServices.updateCheckList(this.noteId,item.id,data).subscribe((response)=>{
+    else {
+      let data = { itemName: item.itemName, status: "open" };
+      this.noteServices.updateCheckList(this.noteId, item.id, data).subscribe((response) => {
       });
     }
   }
