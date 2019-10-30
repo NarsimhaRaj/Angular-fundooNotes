@@ -66,7 +66,7 @@ export class UnpinnedNotesComponent implements OnInit {
         if(result!=undefined &&  result.color){
           this.updateBackgroundColor(result.color, note);
         }
-        else if (result.isDeleted) {
+        else if (result!=undefined && result.isDeleted) {
           this.delete(note);
         }
         else {
@@ -76,6 +76,7 @@ export class UnpinnedNotesComponent implements OnInit {
           }
         }
         this.componentRef.emit(null);
+        console.log(note);
       });
     }
 

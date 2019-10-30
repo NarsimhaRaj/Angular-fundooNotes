@@ -23,7 +23,7 @@
             <div *ngFor="let item of data.noteCheckLists; index as i" fxLayout="row" fxLayoutAlign="center center"> 
                 <mat-checkbox (change)="changecheckListStatus(item,$event)" [checked]="item.status=='close'?true:false"></mat-checkbox>
                 <input matInput type="text" [formControl]="listItemFormArray.controls[i]">
-                <button (click)="filterCheckList(item)" mat-icon-button>
+                <button (click)="filterCheckList(item,i)" mat-icon-button>
                     <mat-icon>clear</mat-icon>
                 </button>
             </div>

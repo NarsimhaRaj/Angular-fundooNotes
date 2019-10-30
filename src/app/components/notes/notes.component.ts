@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 // import { Observable } from 'rxjs';
 import { NoteService } from 'src/app/services/noteServices/note.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormArray } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { UserService } from 'src/app/services/userServices/user.service';
 import { DashboardComponent } from '../dashboard/dashboard.component';
@@ -28,7 +28,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   //checkList matcard open variable 
   checkListExpansionPanel: boolean = false;
-  checkListArray = new Array();
+  checkListArray = new FormArray([]);
   listDescription = new FormControl('');
 
   // mat card title and description formcontrol varibales
@@ -259,7 +259,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.title.setValue("");
     this.description.setValue("");
     this.collaboratorsArray = [];
-    this.checkListArray = [];
+    this.checkListArray = new FormArray([]);
     this.newNotesLabelsArray = [];
     this.matCardColor = "";
     this.isArchived = false;
@@ -337,7 +337,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   EnterCheckList(event) {
     if (event.keyCode == 13 && this.listDescription.value != "") {
       let data = { itemName: this.listDescription.value, status: "open" };
-      this.checkListArray.push(data);
+      this.checkListArray.push(new FormControl(data));
       this.listDescription.setValue("");
     }
   }
@@ -346,8 +346,8 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @description delete item from checkList on pressing cancel button
    * @param item item to be deleted
    */
-  filterCheckList(item) {
-    this.checkListArray = this.checkListArray.filter(listItem => listItem != item)
+  filterCheckList(index) {
+    this.checkListArray.removeAt(index);
   }
 
   /**
@@ -397,7 +397,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   saveCheckListArray(noteId) {
     while (this.checkListArray.length > 0) {
-      this.noteServices.addCheckList(noteId, this.checkListArray.shift()).subscribe(response => {});
+      this.noteServices.addCheckList(noteId, this.checkListArray.controls.shift().value).subscribe(response => {});
     }
   }
 

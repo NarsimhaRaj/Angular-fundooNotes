@@ -40,11 +40,13 @@ export class UpdateDialogComponent implements OnInit {
     this.description.setValue(data.description);
     this.color.setValue(data.color);
 
-    for (let item of data.noteCheckLists) {
+    this.saveListFormArray();
+  }
+
+  saveListFormArray(){
+    for (let item of this.data.noteCheckLists) {
       this.listItemFormArray.push(new FormControl(item.itemName));
     }
-    console.log(this.listItemFormArray.controls[0]);
-    console.log(this.listItemFormArray.controls[1]);
   }
   /**
    * @description pass the modified or updated data where dialogRef is being called
@@ -187,9 +189,12 @@ export class UpdateDialogComponent implements OnInit {
   EnterCheckList(event) {
     if (event.keyCode == 13 && this.listDescription.value != "") {
       let data = { itemName: this.listDescription.value, status: "open" };
-      this.data.noteCheckLists.push(data);
 
-      this.noteServices.addCheckList(this.data.id, data).subscribe(response => { });
+      this.noteServices.addCheckList(this.data.id, data).subscribe(response => {
+        this.data.noteCheckLists.push(response);
+       });
+
+      this.listItemFormArray.push(new FormControl(this.listDescription.value));
 
       this.listDescription.setValue("");
     }
@@ -199,12 +204,13 @@ export class UpdateDialogComponent implements OnInit {
   * @description delete item from checkList on pressing cancel button
   * @param item item to be deleted
   */
-  filterCheckList(item) {
+  filterCheckList(item,index) {
     this.data.noteCheckLists = this.data.noteCheckLists.filter(listItem => listItem != item);
-    console.log(item.id);
-    console.log(this.data.id);
+    
+    this.listItemFormArray.removeAt(index);
+    // console.log(item,index);
     this.noteServices.removeCheckListItem(this.data.id, item.id).subscribe((response) => {
-      console.log(response);
+      
     });
   }
 
@@ -217,11 +223,24 @@ export class UpdateDialogComponent implements OnInit {
   changecheckListStatus(item, event) {
     if (event.checked) {
       let data = { itemName: item.itemName, status: "close" };
+      this.data.noteCheckLists.filter((listItem)=>{
+        if(listItem==item){
+          listItem.status='close';
+        }
+      })
       this.noteServices.updateCheckList(this.noteId, item.id, data).subscribe((response) => {
       });
     }
     else {
       let data = { itemName: item.itemName, status: "open" };
+      
+      this.data.noteCheckLists.filter((listItem)=>{
+        if(listItem==item){
+          listItem.status='open';
+        }
+        return true;
+      })
+
       this.noteServices.updateCheckList(this.noteId, item.id, data).subscribe((response) => {
       });
     }

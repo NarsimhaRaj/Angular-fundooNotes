@@ -168,10 +168,10 @@
       <!-- mat-card content -->
       <mat-card-content>
         <div fxLayout="column">
-          <div *ngFor="let item of checkListArray" fxLayout="row" fxLayoutAlign="center center"> 
-              <mat-checkbox (change)="checkListItemStatus($event,item)" [checked]="item.status=='close'?true:false"></mat-checkbox>
-              <input matInput type="text" [value]="item.itemName">
-              <button (click)="filterCheckList(item)" mat-icon-button>
+          <div *ngFor="let frmCtrl of checkListArray.controls; index as i" fxLayout="row" fxLayoutAlign="center center"> 
+              <mat-checkbox (change)="checkListItemStatus($event,frmCtrl.value)" [checked]="frmCtrl.value.status=='close'?true:false"></mat-checkbox>
+              <input matInput type="text" [value]="frmCtrl.value.itemName">
+              <button (click)="filterCheckList(i)" mat-icon-button>
                   <mat-icon>clear</mat-icon>
               </button>
           </div>
