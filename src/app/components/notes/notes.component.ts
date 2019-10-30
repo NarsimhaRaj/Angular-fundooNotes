@@ -25,11 +25,11 @@ export class NotesComponent implements OnInit, OnDestroy {
   //mat cards expansion panel variables
   private getNotesObs: any;
   panelOpenState: Boolean = false;
-  
+
   //checkList matcard open variable 
-  checkListExpansionPanel: boolean=false;
-  checkListArray=new Array();
-  listDescription=new FormControl('');
+  checkListExpansionPanel: boolean = false;
+  checkListArray = new Array();
+  listDescription = new FormControl('');
 
   // mat card title and description formcontrol varibales
   title = new FormControl('', [
@@ -58,9 +58,9 @@ export class NotesComponent implements OnInit, OnDestroy {
   labels: any
 
   // to store collaboartos to new notes which will be created
-  collaboratorsArray=new Array();
+  collaboratorsArray = new Array();
   //  to store labels to new notes which will be created
-  newNotesLabelsArray=new Array();
+  newNotesLabelsArray = new Array();
 
   // to emit an event after every modifications
   public emitObservable: Subject<void> = new Subject<void>();
@@ -68,9 +68,9 @@ export class NotesComponent implements OnInit, OnDestroy {
   date = new FormControl(new Date());
   serializedDate = new FormControl((new Date()).toISOString());
 
-  searchWord:string;
+  searchWord: string;
 
-  component:NotesComponent;
+  component: NotesComponent;
 
   constructor(private userService: UserService, private noteServices: NoteService, private snackBar: MatSnackBar,
     public dialog: MatDialog, private dashBoard: DashboardComponent, private labelService: LabelService) {
@@ -103,8 +103,8 @@ export class NotesComponent implements OnInit, OnDestroy {
       this.getAllLabels();
     });
 
-    this.dashBoard.emitSearchEvent.subscribe((search:string)=>{
-      this.searchWord=search;
+    this.dashBoard.emitSearchEvent.subscribe((search: string) => {
+      this.searchWord = search;
     })
 
   }
@@ -113,14 +113,14 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @description refreshes notesList and labels list
    * @param event event name
    */
-  refreshNotesList(event){
+  refreshNotesList(event) {
     this.getNotesList();
-      // to get All labels of user 
+    // to get All labels of user 
     this.getAllLabels();
   }
 
-  updateBackgroundColor(color){
-    this.matCardColor=color;
+  updateBackgroundColor(color) {
+    this.matCardColor = color;
   }
 
   /**
@@ -133,7 +133,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     });
   }
 
-  
+
 
   /**
    * @description to pin or unpin a notes
@@ -175,18 +175,18 @@ export class NotesComponent implements OnInit, OnDestroy {
    */
   save() {
     if (this.title.valid || this.description.valid) {
-      var notes = { 
-        title: this.title.value, 
-        description: this.description.value, 
-        color: this.matCardColor, 
+      var notes = {
+        title: this.title.value,
+        description: this.description.value,
+        color: this.matCardColor,
         isPined: this.isPinned, isArchived: this.isArchived
-       }
-  
-        this.noteServices.addNotes(notes).subscribe((response:any) => {
+      }
+
+      this.noteServices.addNotes(notes).subscribe((response: any) => {
         this.isPinned = false;
         this.isArchived = false;
-        let noteId=response.status.details.id;
-        
+        let noteId = response.status.details.id;
+
         this.saveCollaboratorArray(noteId);
         this.saveLabelsArray(noteId);
 
@@ -203,25 +203,24 @@ export class NotesComponent implements OnInit, OnDestroy {
     }
   }
 
-  saveCollaboratorArray(noteId){
-    while(this.collaboratorsArray.length>0){
-      this.noteServices.addCollaborator(noteId,this.collaboratorsArray.shift()).subscribe((responce)=>{
-        this.emitObservable.next();  
-      });
-    }
-  }
-
-  saveLabelsArray(noteId){
-    while(this.newNotesLabelsArray.length>0){
-      this.noteServices.addLabelToNote(noteId,this.newNotesLabelsArray.shift().id).subscribe((response)=>{
+  saveCollaboratorArray(noteId) {
+    while (this.collaboratorsArray.length > 0) {
+      this.noteServices.addCollaborator(noteId, this.collaboratorsArray.shift()).subscribe((responce) => {
         this.emitObservable.next();
       });
     }
   }
 
-  reloadAfterNoteCreation(){
-    if(this.newNotesLabelsArray.length<=0 && this.collaboratorsArray.length<=0)
-    {
+  saveLabelsArray(noteId) {
+    while (this.newNotesLabelsArray.length > 0) {
+      this.noteServices.addLabelToNote(noteId, this.newNotesLabelsArray.shift().id).subscribe((response) => {
+        this.emitObservable.next();
+      });
+    }
+  }
+
+  reloadAfterNoteCreation() {
+    if (this.newNotesLabelsArray.length <= 0 && this.collaboratorsArray.length <= 0) {
       this.emitObservable.next();
     }
   }
@@ -240,7 +239,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     })
   }
 
-  
+
 
   /**
    * @description get all the labels created by user
@@ -259,14 +258,14 @@ export class NotesComponent implements OnInit, OnDestroy {
 
     this.title.setValue("");
     this.description.setValue("");
-    this.collaboratorsArray=[];
-    this.checkListArray=[];
-    this.newNotesLabelsArray=[];
-    this.matCardColor="";
-    this.isArchived=false;
-    this.isPinned=false;
-    this.panelOpenState=!this.panelOpenState;
-    this.matCardColor="";
+    this.collaboratorsArray = [];
+    this.checkListArray = [];
+    this.newNotesLabelsArray = [];
+    this.matCardColor = "";
+    this.isArchived = false;
+    this.isPinned = false;
+    this.panelOpenState = !this.panelOpenState;
+    this.matCardColor = "";
   }
 
   /**
@@ -290,7 +289,7 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @param labelId label id
    */
   removeLabel(label) {
-    this.newNotesLabelsArray=this.newNotesLabelsArray.filter(note_label => note_label!=label);
+    this.newNotesLabelsArray = this.newNotesLabelsArray.filter(note_label => note_label != label);
   }
 
   /**
@@ -313,22 +312,21 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @param note note details  
    */
   addCollaborator() {
-      let user=JSON.parse(sessionStorage.getItem('user'));
-      const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
-        width: '550px',
-        data: {user:user,collaborators:this.collaboratorsArray},
-        panelClass: "matDialogBox"
-      });
-      dialogRef.componentInstance.emitCollaboratorChanges.subscribe((result:any) => {
-        if(result.newCollaborator)
-        {
-          this.collaboratorsArray.push(result.user)
-        }
-        else{
-          this.collaboratorsArray=result;
-        }
-      });
-  
+    let user = JSON.parse(sessionStorage.getItem('user'));
+    const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
+      width: '550px',
+      data: { user: user, collaborators: this.collaboratorsArray },
+      panelClass: "matDialogBox"
+    });
+    dialogRef.componentInstance.emitCollaboratorChanges.subscribe((result: any) => {
+      if (result.newCollaborator) {
+        this.collaboratorsArray.push(result.user)
+      }
+      else {
+        this.collaboratorsArray = result;
+      }
+    });
+
   }
 
 
@@ -336,10 +334,9 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @description on pressing enter value gets added to checklistArray
    * @param event enter key event trggered
    */
-  EnterCheckList(event){
-    if(event.keyCode==13 && this.listDescription.value!="")
-    {
-      let data={itemName:this.listDescription.value,status:"open"};
+  EnterCheckList(event) {
+    if (event.keyCode == 13 && this.listDescription.value != "") {
+      let data = { itemName: this.listDescription.value, status: "open" };
       this.checkListArray.push(data);
       this.listDescription.setValue("");
     }
@@ -349,42 +346,59 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @description delete item from checkList on pressing cancel button
    * @param item item to be deleted
    */
-  filterCheckList(item){
-    this.checkListArray=this.checkListArray.filter(listItem=>listItem!=item)
+  filterCheckList(item) {
+    this.checkListArray = this.checkListArray.filter(listItem => listItem != item)
   }
 
-  // checkListItemStatus(event,item){
-  //   if(event.checked){
-  //     for(let index in this.checkListArray){
-  //       if(this.checkListArray[index]==item){
-  //         // this.checkListArray[index]={itemName:item.itemName,status:}
-  //       }
-  //     }
-  //   }
-  // }
+  /**
+   * @description changing chcklist item status on checking and unchecking 
+   * @param event change eventEmitter argument
+   * @param item list item whose status changed
+   */
+  checkListItemStatus(event,item){
+    if(event.checked){
+      for(let index in this.checkListArray){
+        if(this.checkListArray[index]==item){
+          if(this.checkListArray[index].status=='close'){
+            this.checkListArray[index]={itemName:item.itemName,status:'open'};
+          }
+          else{
+            this.checkListArray[index]={itemName:item.itemName,status:'close'}
+          }
+        }
+      }
+    }
+  }
 
   /**
    *@description to save a checklist notes  
    */
-  saveCheckList(){
+  saveCheckList() {
     if (this.title.valid) {
       var notes = { title: this.title.value, description: "", color: this.matCardColor, isPined: this.isPinned, isArchived: this.isArchived }
-      this.noteServices.addNotes(notes).subscribe((response:any) => {
+      this.noteServices.addNotes(notes).subscribe((response: any) => {
         this.isPinned = false;
         this.isArchived = false;
-        
-        let noteId=response.status.details.id;
+        let noteId = response.status.details.id;
 
+        this.saveCheckListArray(noteId);
         this.saveCollaboratorArray(noteId);
         this.saveLabelsArray(noteId);
 
         this.reloadAfterNoteCreation();
+
       }, (error: any) => {
         this.snackBar.open(error.message, undefined, { duration: 2000 });
       });
     }
     this.title.setValue("");
     this.description.setValue("");
+  }
+
+  saveCheckListArray(noteId) {
+    while (this.checkListArray.length > 0) {
+      this.noteServices.addCheckList(noteId, this.checkListArray.shift()).subscribe(response => {});
+    }
   }
 
   /**
