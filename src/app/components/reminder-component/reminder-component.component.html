@@ -2,14 +2,14 @@
   <mat-list-item>
     Reminder :
   </mat-list-item>
-  <mat-list-item>
+  <mat-list-item [class.disabled]="checkTime(20)" (click)="setReminder('8:00 PM')">
     <pre>Later Today          8:00 PM</pre>
   </mat-list-item>
-  <mat-list-item>
-    <pre>Tomorrow             8:00 PM</pre>
+  <mat-list-item (click)="setReminder('8:00 AM',null,'tomorrow')">
+    <pre>Tomorrow             8:00 AM</pre>
   </mat-list-item>
-  <mat-list-item>
-    <pre>Next week            8:00 PM</pre>
+  <mat-list-item (click)="setReminder('8:00 AM','Mon')">
+    <pre>Next week        Mon,8:00 PM</pre>
   </mat-list-item>
   <mat-list-item (click)="$event.stopPropagation()" (click)="showDefaultReminder=!showDefaultReminder">
     <div>
@@ -19,7 +19,7 @@
   </mat-list-item>
 </mat-list>
 
-<mat-list *ngIf="!showDefaultReminder">
+<mat-list *ngIf="!showDefaultReminder" (click)="$event.stopPropagation();">
   <mat-list-item (click)="$event.stopPropagation()" (click)="showDefaultReminder=!showDefaultReminder">
     <pre><mat-icon>keyboard_backspace</mat-icon>   Pick Date & Time</pre>
   </mat-list-item>
@@ -40,16 +40,16 @@
   </mat-list-item>
   <mat-menu #timeMenu="matMenu">
     <mat-list>
-      <mat-list-item [class.disabled]="checkTime(8)">
+      <mat-list-item [class.disabled]="checkTime(8)" (click)="setTime('8:00 AM')">
         <pre>Morning            8:00 AM</pre>
       </mat-list-item>
-      <mat-list-item [class.disabled]="checkTime(13)">
+      <mat-list-item [class.disabled]="checkTime(13)" (click)="setTime('1:00 PM')">
         <pre>Afternoon          1:00 PM</pre>
       </mat-list-item>
-      <mat-list-item [class.disabled]="checkTime(18)">
+      <mat-list-item [class.disabled]="checkTime(18)" (click)="setTime('6:00 PM')">
         <pre>Evening            6:00 PM</pre>
       </mat-list-item>
-      <mat-list-item [class.disabled]="checkTime(20)">
+      <mat-list-item [class.disabled]="checkTime(20)" (click)="setTime('8:00 PM')">
         <pre>Night              8:00 PM</pre>
       </mat-list-item>
     </mat-list>

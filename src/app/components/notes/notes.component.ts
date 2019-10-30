@@ -57,6 +57,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   // contians list of all labels
   labels: any
 
+  reminder: String='';
   // to store collaboartos to new notes which will be created
   collaboratorsArray = new Array();
   //  to store labels to new notes which will be created
@@ -187,6 +188,8 @@ export class NotesComponent implements OnInit, OnDestroy {
         this.isArchived = false;
         let noteId = response.status.details.id;
 
+        this.saveReminder(noteId);
+
         this.saveCollaboratorArray(noteId);
         this.saveLabelsArray(noteId);
 
@@ -197,9 +200,15 @@ export class NotesComponent implements OnInit, OnDestroy {
       });;
 
       // resetting title and description to empty
-      this.title.setValue("");
-      this.description.setValue("");
+      this.delete();
       // calling child event 
+    }
+  }
+  saveReminder(noteId) {
+    if (this.reminder) {
+      let data = { noteIdList: [noteId], reminder: this.reminder };
+      console.log(data.reminder);
+      this.noteServices.addUpdateReminderNotes(data).subscribe((response) => { this.emitObservable.next(); });
     }
   }
 
@@ -355,15 +364,15 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @param event change eventEmitter argument
    * @param item list item whose status changed
    */
-  checkListItemStatus(event,item){
-    if(event.checked){
-      for(let index in this.checkListArray){
-        if(this.checkListArray[index]==item){
-          if(this.checkListArray[index].status=='close'){
-            this.checkListArray[index]={itemName:item.itemName,status:'open'};
+  checkListItemStatus(event, item) {
+    if (event.checked) {
+      for (let index in this.checkListArray) {
+        if (this.checkListArray[index] == item) {
+          if (this.checkListArray[index].status == 'close') {
+            this.checkListArray[index] = { itemName: item.itemName, status: 'open' };
           }
-          else{
-            this.checkListArray[index]={itemName:item.itemName,status:'close'}
+          else {
+            this.checkListArray[index] = { itemName: item.itemName, status: 'close' }
           }
         }
       }
@@ -382,6 +391,8 @@ export class NotesComponent implements OnInit, OnDestroy {
         let noteId = response.status.details.id;
 
         this.saveCheckListArray(noteId);
+
+        this.saveReminder(noteId);
         this.saveCollaboratorArray(noteId);
         this.saveLabelsArray(noteId);
 
@@ -391,14 +402,30 @@ export class NotesComponent implements OnInit, OnDestroy {
         this.snackBar.open(error.message, undefined, { duration: 2000 });
       });
     }
-    this.title.setValue("");
-    this.description.setValue("");
+    this.delete();
   }
 
   saveCheckListArray(noteId) {
     while (this.checkListArray.length > 0) {
-      this.noteServices.addCheckList(noteId, this.checkListArray.controls.shift().value).subscribe(response => {});
+      this.noteServices.addCheckList(noteId, this.checkListArray.controls.shift().value).subscribe(response => { });
     }
+  }
+
+
+  /**
+   * @description to set reminder to a notes
+   * @param reminderTimeDate 
+   */
+  setReminder(reminderTimeDate) {
+    this.reminder = reminderTimeDate;
+  }
+
+  /**
+   * @description to delete a note's reminder
+   * @param noteId id of notes with reminder
+   */
+  removeReminder(noteId) {
+    this.reminder = "";
   }
 
   /**

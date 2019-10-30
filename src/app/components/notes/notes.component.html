@@ -45,9 +45,16 @@
       <!-- mat card actions to show reminders collaborators, labels -->
       <mat-card-actions>
         <mat-chip-list>
+<!-- 
+          <mat-chip *ngIf="reminder!=''" [removable]="true" (removed)="removeReminder()">
+            {{ reminder }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip> -->
+
           <mat-chip *ngFor="let collaborator of collaboratorsArray">
             {{collaborator.firstName.charAt(0).toUpperCase()}}
           </mat-chip>
+
           <mat-chip *ngFor="let label of newNotesLabelsArray">
             {{label.label}}
           </mat-chip>
@@ -57,9 +64,14 @@
       <mat-card-footer>
 
         <div class="footer-icons-div" fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
-          <button mat-icon-button color="">
+          
+          <button mat-icon-button color="" [matMenuTriggerFor]="reminder">
             <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
           </button>
+          <mat-menu #reminder="matMenu">
+            <app-reminder-component (reminderData)="setReminder($event);"></app-reminder-component>
+          </mat-menu>
+
           <button (click)="addCollaborator()" mat-icon-button color="">
             <mat-icon matTooltip="Collaborator">person_add</mat-icon>
           </button>
@@ -112,16 +124,15 @@
               <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;">
                 <mat-form-field appearance="outline">
                   <input matInput type="search" placeholder="search label">
-                  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
-                    (click)="value=''">
+                  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
                     <mat-icon>search</mat-icon>
                   </button>
                 </mat-form-field>
               </div>
               <div (click)="$event.stopPropagation();" *ngFor="let label of labels">
                 <div mat-menu-item>
-                  <mat-checkbox (change)="addLable(label,$event)" color="primary"
-                    [checked]="isChecked(label)">{{label.label}}</mat-checkbox>
+                  <mat-checkbox (change)="addLable(label,$event)" color="primary" [checked]="isChecked(label)">
+                    {{label.label}}</mat-checkbox>
                 </div>
               </div>
             </mat-menu>
@@ -168,28 +179,37 @@
       <!-- mat-card content -->
       <mat-card-content>
         <div fxLayout="column">
-          <div *ngFor="let frmCtrl of checkListArray.controls; index as i" fxLayout="row" fxLayoutAlign="center center"> 
-              <mat-checkbox (change)="checkListItemStatus($event,frmCtrl.value)" [checked]="frmCtrl.value.status=='close'?true:false"></mat-checkbox>
-              <input matInput type="text" [value]="frmCtrl.value.itemName">
-              <button (click)="filterCheckList(i)" mat-icon-button>
-                  <mat-icon>clear</mat-icon>
-              </button>
+          <div *ngFor="let frmCtrl of checkListArray.controls; index as i" fxLayout="row" fxLayoutAlign="center center">
+            <mat-checkbox (change)="checkListItemStatus($event,frmCtrl.value)"
+              [checked]="frmCtrl.value.status=='close'?true:false"></mat-checkbox>
+            <input matInput type="text" [value]="frmCtrl.value.itemName">
+            <button (click)="filterCheckList(i)" mat-icon-button>
+              <mat-icon>clear</mat-icon>
+            </button>
           </div>
           <div fxLayout="row" fxLayoutAlign="center center">
-              <mat-icon mat-list-icon>add</mat-icon>
-              <input matInput (keyup.enter)="EnterCheckList($event)" placeholder="Take a note..." [formControl]="listDescription">
-              <mat-icon>clear</mat-icon>
+            <mat-icon mat-list-icon>add</mat-icon>
+            <input matInput (keyup.enter)="EnterCheckList($event)" placeholder="Take a note..."
+              [formControl]="listDescription">
+            <mat-icon>clear</mat-icon>
           </div>
-      </div>
+        </div>
       </mat-card-content>
 
       <!-- mat card actions to add reminders, collaborators, labels -->
       <mat-card-actions>
         <mat-card-actions>
           <mat-chip-list>
+
+            <!-- <mat-chip *ngIf="reminder!=''" [removable]="true" (removed)="removeReminder()">
+              {{ reminder }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip> -->
+
             <mat-chip *ngFor="let collaborator of collaboratorsArray">
               {{collaborator.firstName.charAt(0).toUpperCase()}}
             </mat-chip>
+
             <mat-chip *ngFor="let label of newNotesLabelsArray">
               {{label.label}}
             </mat-chip>
@@ -201,9 +221,13 @@
       <mat-card-footer>
 
         <div class="footer-icons-div" fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
-          <button mat-icon-button color="">
+
+          <button mat-icon-button color="" [matMenuTriggerFor]="reminder">
             <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
           </button>
+          <mat-menu #reminder="matMenu">
+            <app-reminder-component (reminderData)="setReminder($event);"></app-reminder-component>
+          </mat-menu>
           <button (click)="addCollaborator()" mat-icon-button color="">
             <mat-icon matTooltip="Collaborator">person_add</mat-icon>
           </button>
@@ -256,16 +280,15 @@
               <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;">
                 <mat-form-field appearance="outline">
                   <input matInput type="search" placeholder="search label">
-                  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
-                    (click)="value=''">
+                  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
                     <mat-icon>search</mat-icon>
                   </button>
                 </mat-form-field>
               </div>
               <div (click)="$event.stopPropagation();" *ngFor="let label of labels">
                 <div mat-menu-item>
-                  <mat-checkbox (change)="addLable(label,$event)" color="primary"
-                    [checked]="isChecked(label)">{{label.label}}</mat-checkbox>
+                  <mat-checkbox (change)="addLable(label,$event)" color="primary" [checked]="isChecked(label)">
+                    {{label.label}}</mat-checkbox>
                 </div>
               </div>
             </mat-menu>
@@ -302,15 +325,17 @@
       <div *ngIf="pinCountZero" style="width:90%;" fxLayoutAlign="start center">
         <h5>PINNED</h5>
       </div>
-    
-      <app-pinned-notes [data]="data" [notesList]="notesList" [isAdvancedUser]="isAdvancedUser" [labels]="labels" [searchWord]="searchWord" (componentRef)="refreshNotesList($event)" ></app-pinned-notes>
-    
+
+      <app-pinned-notes [data]="data" [notesList]="notesList" [isAdvancedUser]="isAdvancedUser" [labels]="labels"
+        [searchWord]="searchWord" (componentRef)="refreshNotesList($event)"></app-pinned-notes>
+
       <!-- unpinned notes list  -->
       <div *ngIf="pinCountZero" style="width:90%;">
         <h5>OTHERS</h5>
       </div>
-      
-      <app-unpinned-notes [data]="data" [notesList]="notesList" [isAdvancedUser]="isAdvancedUser" [labels]="labels" [searchWord]="searchWord" (componentRef)="refreshNotesList($event)" ></app-unpinned-notes>
+
+      <app-unpinned-notes [data]="data" [notesList]="notesList" [isAdvancedUser]="isAdvancedUser" [labels]="labels"
+        [searchWord]="searchWord" (componentRef)="refreshNotesList($event)"></app-unpinned-notes>
     </div>
   </div>
 

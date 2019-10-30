@@ -16,7 +16,7 @@ export class ReminderComponentComponent implements OnInit {
   time: FormControl = new FormControl(new Date().toLocaleTimeString('en-US', { hour: "2-digit", minute: "2-digit", hour12: true }));
 
   date = new FormControl(new Date());
-  minDate=new Date();
+  minDate = new Date();
 
   @Output() reminderData = new EventEmitter();
   constructor() { }
@@ -38,7 +38,7 @@ export class ReminderComponentComponent implements OnInit {
     let reminderDate = new DatePipe('en-US').transform(this.date.value, "yyyy-MM-dd");
     let reminderTime = this.convertTo24Hour(this.time.value);
     // console.log(reminderTime)
-    this.reminderData.emit(reminderDate+"T"+reminderTime);
+    this.reminderData.emit(reminderDate + "T" + reminderTime);
   }
 
   convertTo24Hour(timeStr) {
@@ -56,6 +56,41 @@ export class ReminderComponentComponent implements OnInit {
     } else {
       hoursInt += offset;
     }
-    return hoursInt + ":" + minutes;
+    if(hoursInt<10){
+      hours="0"+hoursInt;
+    }
+    else
+      hours=hoursInt;
+
+    return hours + ":" + minutes;
+  }
+
+  setReminder(time, day?, tomorrow?) {
+
+    if (tomorrow) {
+      var currentDate = new Date();
+      currentDate.setDate(currentDate.getDate() + 1);
+      console.log(currentDate);
+      let reminderDate = new DatePipe('en-US').transform(currentDate, "yyyy-MM-dd");
+      let reminderTime = this.convertTo24Hour(time);
+      this.reminderData.emit(reminderDate + "T" + reminderTime);
+    }
+    else if (day) {
+      var date = new Date();
+      date.setDate(date.getDate() +  (1 - 1 - date.getDay() + 7) % 7 + 1);
+      console.log("sdfsdfgdsfg");
+      let reminderDate = new DatePipe('en-US').transform(date, "yyyy-MM-dd");
+      let reminderTime = this.convertTo24Hour(time);
+      this.reminderData.emit(reminderDate + "T" + reminderTime);
+    }
+    else {
+      let reminderDate = new DatePipe('en-US').transform(new Date(), "yyyy-MM-dd");
+      let reminderTime = this.convertTo24Hour(time);
+      this.reminderData.emit(reminderDate + "T" + reminderTime);
+    }
+  }
+
+  setTime(time) {
+    this.time.setValue(time);
   }
 }
