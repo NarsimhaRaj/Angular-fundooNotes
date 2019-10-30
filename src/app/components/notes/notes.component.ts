@@ -220,7 +220,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   }
 
   reloadAfterNoteCreation(){
-    if(this.newNotesLabelsArray.length<=0 || this.collaboratorsArray.length<=0)
+    if(this.newNotesLabelsArray.length<=0 && this.collaboratorsArray.length<=0)
     {
       this.emitObservable.next();
     }
@@ -373,15 +373,12 @@ export class NotesComponent implements OnInit, OnDestroy {
         this.isPinned = false;
         this.isArchived = false;
         
-        while(this.checkListArray.length>0)
-        {
-          
-          this.noteServices.addCheckList(response.status.details.id,this.checkListArray.shift()).subscribe(response=>{
-            this.emitObservable.next();
-          });
-        }
-        if(this.checkListArray.length==0)
-          this.emitObservable.next();
+        let noteId=response.status.details.id;
+
+        this.saveCollaboratorArray(noteId);
+        this.saveLabelsArray(noteId);
+
+        this.reloadAfterNoteCreation();
       }, (error: any) => {
         this.snackBar.open(error.message, undefined, { duration: 2000 });
       });

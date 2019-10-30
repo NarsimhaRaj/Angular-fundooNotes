@@ -19,19 +19,20 @@
             <textarea matInput matTextareaAutosize [value]="data.description" [formControl]="description"></textarea>
         </mat-form-field>
         <!-- if checkList Notes is Present -->
-        <mat-list *ngIf="data.noteCheckLists.length>0">
-            <mat-list-item *ngFor="let item of data.noteCheckLists">
-                <mat-checkbox (change)="changecheckListStatus(item,$event)" [checked]="item.status=='close'?true:false" fxFlex>{{item.itemName}}</mat-checkbox>
+        <div *ngIf="data.noteCheckLists.length>0" fxLayout="column">
+            <div *ngFor="let item of data.noteCheckLists" fxLayout="row" fxLayoutAlign="center center"> 
+                <mat-checkbox (change)="changecheckListStatus(item,$event)" [checked]="item.status=='close'?true:false"></mat-checkbox>
+                <input matInput type="text" [value]="item.itemName">
                 <button (click)="filterCheckList(item)" mat-icon-button>
                     <mat-icon>clear</mat-icon>
                 </button>
-            </mat-list-item>
-            <mat-list-item>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
                 <mat-icon mat-list-icon>add</mat-icon>
                 <input matInput (keyup.enter)="EnterCheckList($event)" placeholder="Take a note..." [formControl]="listDescription">
                 <mat-icon>clear</mat-icon>
-            </mat-list-item>
-        </mat-list>
+            </div>
+        </div>
     </div>
 
     <!-- mat dialog actions -->

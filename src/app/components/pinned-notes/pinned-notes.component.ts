@@ -58,14 +58,14 @@ export class PinnedNotesComponent implements OnInit {
       
       dialogRef.afterClosed().subscribe(result => {
 
-        if(result.isArchived){
+        if(result!=undefined && result.isArchived){
           console.log(result);
           this.archive(result.note);
         }
-        if(result.color){
+        if(result!=undefined &&  result.color){
           this.updateBackgroundColor(result.color, note);
         }
-        if (result.isDeleted) {
+        if (result!=undefined && result.isDeleted) {
           this.delete(note);
         }
         else {

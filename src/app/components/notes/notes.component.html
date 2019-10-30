@@ -167,21 +167,20 @@
       </mat-card-title>
       <!-- mat-card content -->
       <mat-card-content>
-        <mat-list>
-          <mat-list-item *ngFor="let item of checkListArray">
-            <mat-checkbox (change)="checkListItemStatus($event,item)" fxFlex>{{item.itemName}}</mat-checkbox>
-            <button (click)="filterCheckList(item)" mat-icon-button>
+        <div fxLayout="column">
+          <div *ngFor="let item of checkListArray" fxLayout="row" fxLayoutAlign="center center"> 
+              <mat-checkbox (change)="checkListItemStatus($event,item)" [checked]="item.status=='close'?true:false"></mat-checkbox>
+              <input matInput type="text" [value]="item.itemName">
+              <button (click)="filterCheckList(item)" mat-icon-button>
+                  <mat-icon>clear</mat-icon>
+              </button>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center center">
+              <mat-icon mat-list-icon>add</mat-icon>
+              <input matInput (keyup.enter)="EnterCheckList($event)" placeholder="Take a note..." [formControl]="listDescription">
               <mat-icon>clear</mat-icon>
-            </button>
-          </mat-list-item>
-          <mat-list-item>
-            <mat-icon mat-list-icon>add</mat-icon>
-            <input matInput (keyup.enter)="EnterCheckList($event)" placeholder="Take a note..."
-              [formControl]="listDescription">
-            <mat-icon>clear</mat-icon>
-          </mat-list-item>
-        </mat-list>
-
+          </div>
+      </div>
       </mat-card-content>
 
       <!-- mat card actions to add reminders, collaborators, labels -->
