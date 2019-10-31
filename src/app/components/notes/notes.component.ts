@@ -57,7 +57,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   // contians list of all labels
   labels: any
 
-  reminder: String='';
+  newNotesReminder: any;
   // to store collaboartos to new notes which will be created
   collaboratorsArray = new Array();
   //  to store labels to new notes which will be created
@@ -69,9 +69,8 @@ export class NotesComponent implements OnInit, OnDestroy {
   date = new FormControl(new Date());
   serializedDate = new FormControl((new Date()).toISOString());
 
+  // holds searchWord of search bar
   searchWord: string;
-
-  component: NotesComponent;
 
   constructor(private userService: UserService, private noteServices: NoteService, private snackBar: MatSnackBar,
     public dialog: MatDialog, private dashBoard: DashboardComponent, private labelService: LabelService) {
@@ -200,15 +199,20 @@ export class NotesComponent implements OnInit, OnDestroy {
       });;
 
       // resetting title and description to empty
-      this.delete();
+      this.title.setValue("");
+      this.description.setValue("");
       // calling child event 
     }
   }
   saveReminder(noteId) {
-    if (this.reminder) {
-      let data = { noteIdList: [noteId], reminder: this.reminder };
-      console.log(data.reminder);
-      this.noteServices.addUpdateReminderNotes(data).subscribe((response) => { this.emitObservable.next(); });
+    console.log("here",this.newNotesReminder)
+    if (this.newNotesReminder) {
+      let data = { noteIdList: [noteId], reminder: this.newNotesReminder };
+      this.noteServices.addUpdateReminderNotes(data).subscribe((response) => { 
+        console.log(response);
+        this.newNotesReminder=undefined;
+        this.emitObservable.next(); 
+      });
     }
   }
 
@@ -275,6 +279,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.isPinned = false;
     this.panelOpenState = !this.panelOpenState;
     this.matCardColor = "";
+    this.newNotesReminder = undefined;
   }
 
   /**
@@ -417,7 +422,8 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @param reminderTimeDate 
    */
   setReminder(reminderTimeDate) {
-    this.reminder = reminderTimeDate;
+    this.newNotesReminder = new Date(reminderTimeDate).toString();
+    console.log(this.newNotesReminder);
   }
 
   /**
@@ -425,7 +431,7 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @param noteId id of notes with reminder
    */
   removeReminder(noteId) {
-    this.reminder = "";
+    this.newNotesReminder = undefined;
   }
 
   /**

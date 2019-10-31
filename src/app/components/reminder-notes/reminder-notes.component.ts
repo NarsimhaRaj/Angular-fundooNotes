@@ -4,6 +4,7 @@ import { MatSnackBar, MatDialog } from '@angular/material';
 import { Subject } from 'rxjs';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator-dialog.component';
 
 export interface DialogData {
   noteId: String;
@@ -63,32 +64,59 @@ export class ReminderNotesComponent implements OnInit {
 
   }
 
+  /**
+   * @description opens a dialog box for updating selected note
+   * @param note note, which has to be updated
+   */
   openDialog(note): void {
 
-    const dialogRef = this.dialog.open(UpdateDialogComponent, {
-      width: '550px',
-      data: note,
-      panelClass: "matDialogBox"
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-
-      this.updateBackgroundColor(result.color,note);
-      if(result.isDeleted){
-        this.delete(note);
-      }
-      else{
-        if (result) {
-          this.noteServices.updateNotes(result).subscribe((response) => {
-          })
-        }
-      }
+      const dialogRef = this.dialog.open(UpdateDialogComponent, {
+        width: '550px',
+        data: note,
+        panelClass: "matDialogBox"
+      });
       
-      this.emitObservable.next();
-    });
+      dialogRef.afterClosed().subscribe(result => {
+
+        if(result!=undefined && result.isArchived){
+          this.archive(result.note);
+        }
+        if(result!=undefined &&  result.color){
+          this.updateBackgroundColor(result.color, note);
+        }
+        if (result!=undefined && result.isDeleted) {
+          this.delete(note);
+        }
+        else {
+          if (result) {
+            this.noteServices.updateNotes(result).subscribe((response) => {
+            })
+          }
+        }
+        this.emitObservable.next();
+      });
 
   }
 
+  /**
+   * @description : add notes to archive notes list
+   * @param note: note to be added
+   */
+  archive(note) {
+    if (note.isPined) {
+      let data = { noteIdList: [note.id], isArchived: true, isPined: false };
+      this.noteServices.addToArchive(data).subscribe((response) => {
+        this.emitObservable.next();
+      });
+    }
+    else {
+      let data = { noteIdList: [note.id], isArchived: true };
+
+      this.noteServices.addToArchive(data).subscribe((response) => {
+        this.emitObservable.next();
+      });
+    }
+  }
 
   getNotesList() {
     this.noteServices.getReminderNotesList().subscribe((response: any) => {
@@ -203,6 +231,24 @@ export class ReminderNotesComponent implements OnInit {
     this.noteServices.removeReminderNotes(data).subscribe((response)=>{
       this.emitObservable.next();
     })
+  }
+
+  /**
+   * @description opens a dialog box for adding collaborator to notes 
+   * @param note note details  
+   */
+  addCollaborator(note?) {
+    if(note){
+      const dialogRef = this.dialog.open(CollaboratorDialogComponent, {
+        width: '550px',
+        data: note,
+        panelClass: "matDialogBox"
+      });
+      dialogRef.componentInstance.emitCollaboratorChanges.subscribe(() => {
+        this.emitObservable.next();
+      });
+    }
+    
   }
 
   ngOnDestroy() {

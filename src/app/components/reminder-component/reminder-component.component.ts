@@ -70,7 +70,6 @@ export class ReminderComponentComponent implements OnInit {
     if (tomorrow) {
       var currentDate = new Date();
       currentDate.setDate(currentDate.getDate() + 1);
-      console.log(currentDate);
       let reminderDate = new DatePipe('en-US').transform(currentDate, "yyyy-MM-dd");
       let reminderTime = this.convertTo24Hour(time);
       this.reminderData.emit(reminderDate + "T" + reminderTime);
@@ -78,13 +77,12 @@ export class ReminderComponentComponent implements OnInit {
     else if (day) {
       var date = new Date();
       date.setDate(date.getDate() +  (1 - 1 - date.getDay() + 7) % 7 + 1);
-      console.log("sdfsdfgdsfg");
       let reminderDate = new DatePipe('en-US').transform(date, "yyyy-MM-dd");
       let reminderTime = this.convertTo24Hour(time);
       this.reminderData.emit(reminderDate + "T" + reminderTime);
     }
     else {
-      let reminderDate = new DatePipe('en-US').transform(new Date(), "yyyy-MM-dd");
+      let reminderDate = new DatePipe('en-US').transform(Date.now(), "yyyy-MM-dd");
       let reminderTime = this.convertTo24Hour(time);
       this.reminderData.emit(reminderDate + "T" + reminderTime);
     }

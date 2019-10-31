@@ -47,7 +47,7 @@
       <mat-card-actions>
         <mat-chip-list>
           <mat-chip *ngFor="let reminder of note.reminder" [removable]="true" (removed)="removeReminder(note.id)">
-              {{ reminder | date:"mediumDate" }}, {{ reminder | date:'shortTime':'GMT' }}
+              {{ reminder | myDate }}
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>
           <mat-chip *ngFor="let person of note.collaborators">

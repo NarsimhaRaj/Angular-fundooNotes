@@ -40,6 +40,7 @@ import { UnpinnedNotesComponent } from './components/unpinned-notes/unpinned-not
 import { ReminderComponentComponent } from './components/reminder-component/reminder-component.component';
 import { DatePipe } from '@angular/common';
 import { ReminderNotesComponent } from './components/reminder-notes/reminder-notes.component';
+import { MyDatePipe } from './pipe/date/my-date.pipe';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ReminderNotesComponent } from './components/reminder-notes/reminder-not
     PinnedNotesComponent,
     UnpinnedNotesComponent,
     ReminderComponentComponent,
-    ReminderNotesComponent
+    ReminderNotesComponent,
+    MyDatePipe,
   ],
   imports: [
     BrowserModule,

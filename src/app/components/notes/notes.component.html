@@ -45,11 +45,11 @@
       <!-- mat card actions to show reminders collaborators, labels -->
       <mat-card-actions>
         <mat-chip-list>
-<!-- 
-          <mat-chip *ngIf="reminder!=''" [removable]="true" (removed)="removeReminder()">
-            {{ reminder }}
+
+          <mat-chip *ngIf="newNotesReminder" [removable]="true" (removed)="removeReminder()">
+            {{ newNotesReminder | date:"mediumDate" }} {{ newNotesReminder | date:'shortTime' }}
             <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip> -->
+          </mat-chip>
 
           <mat-chip *ngFor="let collaborator of collaboratorsArray">
             {{collaborator.firstName.charAt(0).toUpperCase()}}
@@ -201,10 +201,10 @@
         <mat-card-actions>
           <mat-chip-list>
 
-            <!-- <mat-chip *ngIf="reminder!=''" [removable]="true" (removed)="removeReminder()">
-              {{ reminder }}
+            <mat-chip *ngIf="newNotesReminder" [removable]="true" (removed)="removeReminder()">
+              {{ newNotesReminder | date:"mediumDate" }} {{ newNotesReminder | date:'shortTime' }}
               <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip> -->
+            </mat-chip>
 
             <mat-chip *ngFor="let collaborator of collaboratorsArray">
               {{collaborator.firstName.charAt(0).toUpperCase()}}
