@@ -6,6 +6,8 @@ import { UserService } from 'src/app/services/userServices/user.service';
 import { Subject } from 'rxjs';
 import { LabelsDialogComponent } from '../labels-dialog/labels-dialog.component';
 import { LabelService } from 'src/app/services/label/label.service';
+import { environment } from 'src/environments/environment.prod';
+import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog.component';
 
 
 @Component({
@@ -23,6 +25,8 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   // to store a list of labels 
   labels:any;
+
+  profileImageUrl:any;
 
   // to change backround color of selected sidenav list 
   onNoteListSelected:Boolean=false;
@@ -45,6 +49,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   emitSearchEvent=new Subject();
 
   openSearhBar:boolean=false;
+
   // changes mode of sidenav on max width 600px
   private _mobileQueryListener: () => void;
 
@@ -82,6 +87,10 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.userDetails=JSON.parse(this.userServices.getUser());
     // to get userService using userId on first initialization
     this.getUserService();
+
+    sessionStorage.setItem("fundooProfileimage",this.userDetails.imageUrl);
+
+    this.getProfilemage();
     // to get all labels created by user
     this.getAllLabels();
 
@@ -197,6 +206,32 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   searchBox(event){
     this.emitSearchEvent.next(event.target.value);
+  }
+
+  /**
+   * @description gets userProfile image after login
+   */
+  getProfilemage(){
+    let profileImage=sessionStorage.getItem("fundooProfileimage");
+    this.profileImageUrl = `url(http://fundoonotes.incubation.bridgelabz.com/${profileImage})`;
+  }
+
+  fileChangeEvent(event){
+    const dialogRef = this.dialog.open(ImageCropDialogComponent, {
+      width: '550px',
+      height:"400px",
+      data: event
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      let fd=new FormData();
+      fd.append('file',result);
+      // console.log(result);
+      this.userServices.uploadProfileImage(fd).subscribe((response:any)=>{
+        sessionStorage.setItem("fundooProfileimage",response.status.imageUrl);
+        this.getProfilemage();
+      });
+    });
   }
 
   ngOnDestroy(): void {

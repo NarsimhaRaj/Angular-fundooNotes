@@ -99,4 +99,8 @@ export class UserService {
     return this.httpService.postWithToken(url,data);
   }
   
+  uploadProfileImage(formData){
+    let url="/user/uploadProfileImage";
+    return this.httpService.postWithToken(url,formData);
+  }
 }

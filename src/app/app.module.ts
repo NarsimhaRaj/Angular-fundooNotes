@@ -41,6 +41,8 @@ import { ReminderComponentComponent } from './components/reminder-component/remi
 import { DatePipe } from '@angular/common';
 import { ReminderNotesComponent } from './components/reminder-notes/reminder-notes.component';
 import { MyDatePipe } from './pipe/date/my-date.pipe';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { ImageCropDialogComponent } from './components/image-crop-dialog/image-crop-dialog.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import { MyDatePipe } from './pipe/date/my-date.pipe';
     ReminderComponentComponent,
     ReminderNotesComponent,
     MyDatePipe,
+    ImageCropDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,9 +103,17 @@ import { MyDatePipe } from './pipe/date/my-date.pipe';
     HttpClientModule,
     LayoutModule,
     ClickOutsideModule,
-    NgxPopper
+    NgxPopper,
+    ImageCropperModule
   ],
-  entryComponents: [UpdateDialogComponent, CartDialogComponent, LabelsDialogComponent, CollaboratorDialogComponent],
+  entryComponents: 
+  [
+    UpdateDialogComponent, 
+    CartDialogComponent, 
+    LabelsDialogComponent, 
+    CollaboratorDialogComponent,
+    ImageCropDialogComponent
+  ],
   providers: [UserService, HttpService, AuthGuard, CartService, LabelService, RegisterGuard,DatePipe],
   bootstrap: [AppComponent]
 })

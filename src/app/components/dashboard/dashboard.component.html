@@ -45,11 +45,16 @@
               <mat-icon fxHide.lt-sm="true" matTooltip="Apps">apps</mat-icon>
             </div>
             <div>
-              <button mat-mini-fab color="" [matMenuTriggerFor]="account">{{userDetails.imageUrl}}</button>
+              <button mat-mini-fab color="" [matMenuTriggerFor]="account" [style.background-image]="profileImageUrl"></button>
                 <mat-menu #account="matMenu">
                   <mat-card>
                     <div style="height:20%; width:30%">
-                      <div><h1>{{userDetails.firstName}}</h1></div>
+                      <div (click)="$event.stopPropagation()" fxLayout="row">
+                        <button mat-fab color="primary" (click)="fileInput.click()" [style.background-image]="profileImageUrl">
+                          <input #fileInput type="file" (change)="fileChangeEvent($event)" style="display:none;" />
+                        </button> 
+                        <h1>{{userDetails.firstName}}</h1>
+                      </div>
                       <div>{{userDetails.email}}</div>
                     </div>
                   </mat-card>

@@ -1,0 +1,14 @@
+<div mat-dialog-content>
+    <image-cropper 
+    [imageChangedEvent]="imageChangedEvent"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="1 / 1"
+    [resizeToWidth]="128"
+    format="png" 
+    (imageCropped)="imageCropped($event)">
+        
+    </image-cropper>
+</div>
+<div mat-dialog-actions>
+  <button (click)="onUpload()" mat-button >Upload</button>
+</div>
