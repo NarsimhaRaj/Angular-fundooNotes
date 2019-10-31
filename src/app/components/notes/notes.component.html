@@ -47,7 +47,7 @@
         <mat-chip-list>
 
           <mat-chip *ngIf="newNotesReminder" [removable]="true" (removed)="removeReminder()">
-            {{ newNotesReminder | date:"mediumDate" }} {{ newNotesReminder | date:'shortTime' }}
+            {{ newNotesReminder | myDate }}
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>
 
@@ -179,11 +179,11 @@
       <!-- mat-card content -->
       <mat-card-content>
         <div fxLayout="column">
-          <div *ngFor="let frmCtrl of checkListArray.controls; index as i" fxLayout="row" fxLayoutAlign="center center">
-            <mat-checkbox (change)="checkListItemStatus($event,frmCtrl.value)"
-              [checked]="frmCtrl.value.status=='close'?true:false"></mat-checkbox>
-            <input matInput type="text" [value]="frmCtrl.value.itemName">
-            <button (click)="filterCheckList(i)" mat-icon-button>
+          <div *ngFor="let item of checkListArray; index as i" fxLayout="row" fxLayoutAlign="center center">
+            <mat-checkbox (change)="checkListItemStatus($event,item)"
+              [checked]="item.status=='close'?true:false"></mat-checkbox>
+            <input matInput type="text" [formControl]="listItemFormArray.controls[i]">
+            <button (click)="filterCheckList(item,i)" mat-icon-button>
               <mat-icon>clear</mat-icon>
             </button>
           </div>
@@ -198,11 +198,10 @@
 
       <!-- mat card actions to add reminders, collaborators, labels -->
       <mat-card-actions>
-        <mat-card-actions>
           <mat-chip-list>
 
             <mat-chip *ngIf="newNotesReminder" [removable]="true" (removed)="removeReminder()">
-              {{ newNotesReminder | date:"mediumDate" }} {{ newNotesReminder | date:'shortTime' }}
+              {{ newNotesReminder | myDate }}
               <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
 
@@ -214,7 +213,6 @@
               {{label.label}}
             </mat-chip>
           </mat-chip-list>
-        </mat-card-actions>
       </mat-card-actions>
 
       <!-- mat card footer -->

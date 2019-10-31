@@ -28,7 +28,8 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   //checkList matcard open variable 
   checkListExpansionPanel: boolean = false;
-  checkListArray = new FormArray([]);
+  checkListArray = new Array();
+  listItemFormArray =new FormArray([]);
   listDescription = new FormControl('');
 
   // mat card title and description formcontrol varibales
@@ -207,7 +208,7 @@ export class NotesComponent implements OnInit, OnDestroy {
   saveReminder(noteId) {
     console.log("here",this.newNotesReminder)
     if (this.newNotesReminder) {
-      let data = { noteIdList: [noteId], reminder: this.newNotesReminder };
+      let data = { noteIdList: [noteId], reminder: this.newNotesReminder.replace("GMT+0530","GMT+0000") };
       this.noteServices.addUpdateReminderNotes(data).subscribe((response) => { 
         console.log(response);
         this.newNotesReminder=undefined;
@@ -272,7 +273,7 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.title.setValue("");
     this.description.setValue("");
     this.collaboratorsArray = [];
-    this.checkListArray = new FormArray([]);
+    this.checkListArray = [];
     this.newNotesLabelsArray = [];
     this.matCardColor = "";
     this.isArchived = false;
@@ -351,7 +352,8 @@ export class NotesComponent implements OnInit, OnDestroy {
   EnterCheckList(event) {
     if (event.keyCode == 13 && this.listDescription.value != "") {
       let data = { itemName: this.listDescription.value, status: "open" };
-      this.checkListArray.push(new FormControl(data));
+      this.checkListArray.push(data);
+      this.listItemFormArray.push(new FormControl(this.listDescription.value));
       this.listDescription.setValue("");
     }
   }
@@ -360,8 +362,9 @@ export class NotesComponent implements OnInit, OnDestroy {
    * @description delete item from checkList on pressing cancel button
    * @param item item to be deleted
    */
-  filterCheckList(index) {
-    this.checkListArray.removeAt(index);
+  filterCheckList(oldItem,index) {
+    this.checkListArray=this.checkListArray.filter(item=>oldItem!=item);
+    this.listItemFormArray.removeAt(index);
   }
 
   /**
@@ -407,12 +410,20 @@ export class NotesComponent implements OnInit, OnDestroy {
         this.snackBar.open(error.message, undefined, { duration: 2000 });
       });
     }
-    this.delete();
+    this.title.setValue("");
   }
 
   saveCheckListArray(noteId) {
+
+    var index=0;
+    for(let item in this.checkListArray){
+      this.checkListArray[item].itemName=this.listItemFormArray.controls[index].value;
+      index++;
+      console.log(index);
+    }
     while (this.checkListArray.length > 0) {
-      this.noteServices.addCheckList(noteId, this.checkListArray.controls.shift().value).subscribe(response => { });
+      this.noteServices.addCheckList(noteId, this.checkListArray.shift()).subscribe(response => {
+       });
     }
   }
 
