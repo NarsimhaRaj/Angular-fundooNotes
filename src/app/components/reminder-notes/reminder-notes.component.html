@@ -1,5 +1,5 @@
 <div style="width:100%;" fxLayoutAlign="center center" >
-    <div style="width:70%;" fxLayoutAlign="start center"  [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
+    <div style="width:60%;" fxLayoutAlign="start center"  [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column" gdGridAlign>
 
         <div *ngFor="let note of notesList | search:searchWord">
           <mat-card [ngStyle]="{'background-color':note.color}" ngStyle.gt-xs="margin-left:15px;"
