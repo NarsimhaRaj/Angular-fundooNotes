@@ -25,7 +25,9 @@ export class ImageCropDialogComponent implements OnInit {
   }
 
   imageCropped(event: ImageCroppedEvent) {
-    this.fileToUpload=event.base64;
+    console.log(event);
+    let fileBeforeUpload=this.imageChangedEvent.target.files[0];
+    this.fileToUpload=new File([event.file,fileBeforeUpload],"blob",{type:fileBeforeUpload.type});
   }
   ngOnInit() {
   }

@@ -214,6 +214,8 @@ export class DashboardComponent implements OnInit,OnDestroy {
   getProfilemage(){
     let profileImage=sessionStorage.getItem("fundooProfileimage");
     this.profileImageUrl = `url(http://fundoonotes.incubation.bridgelabz.com/${profileImage})`;
+
+    console.log(this.profileImageUrl)
   }
 
   fileChangeEvent(event){
@@ -230,6 +232,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
       this.userServices.uploadProfileImage(fd).subscribe((response:any)=>{
         sessionStorage.setItem("fundooProfileimage",response.status.imageUrl);
         this.getProfilemage();
+        console.log(response)
       });
     });
   }
