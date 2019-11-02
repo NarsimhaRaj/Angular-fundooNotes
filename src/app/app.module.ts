@@ -43,6 +43,8 @@ import { ReminderNotesComponent } from './components/reminder-notes/reminder-not
 import { MyDatePipe } from './pipe/date/my-date.pipe';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropDialogComponent } from './components/image-crop-dialog/image-crop-dialog.component';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+
 
 @NgModule({
   declarations: [
@@ -104,7 +106,9 @@ import { ImageCropDialogComponent } from './components/image-crop-dialog/image-c
     LayoutModule,
     ClickOutsideModule,
     NgxPopper,
-    ImageCropperModule
+    ImageCropperModule,
+    FroalaEditorModule.forRoot(), 
+    FroalaViewModule.forRoot()
   ],
   entryComponents: 
   [
