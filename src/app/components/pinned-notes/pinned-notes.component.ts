@@ -6,6 +6,7 @@ import { NotesComponent } from '../notes/notes.component';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator-dialog.component';
 import { EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pinned-notes',
@@ -27,8 +28,8 @@ export class PinnedNotesComponent implements OnInit {
 
   @Output() componentRef=new EventEmitter();
 
-  constructor(private noteServices: NoteService, public dialog: MatDialog, private dashBoard: DashboardComponent) {
-    
+  constructor(private noteServices: NoteService, public dialog: MatDialog, private dashBoard: DashboardComponent,
+    private route:Router) {    
 
     this.data = this.dashBoard.getData();
 
@@ -271,5 +272,9 @@ export class PinnedNotesComponent implements OnInit {
     if(today.getTime()>reminderDate.getTime())
       return "line-through";
     return "none";
+  }
+
+  goToQuestionAnswer(noteId){
+    this.route.navigate(["dashboard/QuestionAnswer",noteId]);
   }
 }

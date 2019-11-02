@@ -188,6 +188,15 @@ export class NoteService {
     return this.httpService.delete(url,null);
   }
 
+  // /**
+  //  * @description gets all checkList Items in the notes with notesid
+  //  * @param noteId note Id
+  //  */
+  // getNoteCheckLists(noteId){
+  //   let url= `/notes/${noteId}/noteCheckLists`;
+  //   return this.httpService.getWithToken(url);
+  // }
+
   /**
    * @description to add or update a remindier notes
    * @param data send data to add to notes
@@ -211,6 +220,15 @@ export class NoteService {
    */
   getReminderNotesList(){
     let url=`/notes/getReminderNotesList`;
+    return this.httpService.getWithToken(url);
+  }
+
+  /**
+   * @description get a notes details with its Id
+   * @param noteId notes Id in string format
+   */
+  getNoteWithId(noteId){
+    let url=`/notes/getNotesDetail/${noteId}`;
     return this.httpService.getWithToken(url);
   }
 

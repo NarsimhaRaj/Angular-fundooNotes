@@ -92,4 +92,11 @@ export class HttpService {
     });
     return this.http.post(environment.baseDomainUrl + url ,data,{ headers : headersOptions, params:params });
   }
+
+  patch(url){
+    let headersOptions = new HttpHeaders({
+      "Authorization": JSON.parse(sessionStorage.getItem("user")).id
+    });
+    return this.http.patch(environment.baseDomainUrl + url ,null,{ headers : headersOptions });
+  }
 }

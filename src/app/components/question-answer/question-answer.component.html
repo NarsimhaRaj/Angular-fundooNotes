@@ -1,0 +1,32 @@
+<div style="width:80%; margin-left:10%" fxLayout="column">
+    <div fxLayout="row" fxFlex>
+        <div style="width:80%; height:200px; overflow: auto;">
+            <div>
+                <h1>{{notes.title}}</h1>
+            </div>
+            <div>
+                <h4>
+                    {{notes.description}}
+                </h4>
+            </div>
+            <div *ngIf="notes?.noteCheckLists?.length > 0">
+                <div *ngFor="let list of notes.noteCheckLists">
+                    <mat-checkbox [checked]="list.status=='close' ? true : false ">{{list.itemName}}</mat-checkbox>
+                </div>
+            </div>
+        </div>
+        <div fxLayoutAlign="center start" style="width:20%">
+            <div>
+                <button mat-button (click)="closeQuestionAnswers()">
+                    close
+                </button>
+            </div>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div [froalaEditor] aria-placeholder="Type something"></div>
+    <div fxLayoutAlign="end center">
+        <button (click)="askQuestion()" mat-button color="primary">ASK</button>
+    </div>
+    <mat-divider></mat-divider>
+</div>
