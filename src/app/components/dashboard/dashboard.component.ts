@@ -214,10 +214,12 @@ export class DashboardComponent implements OnInit,OnDestroy {
   getProfilemage(){
     let profileImage=sessionStorage.getItem("fundooProfileimage");
     this.profileImageUrl = `url(http://fundoonotes.incubation.bridgelabz.com/${profileImage})`;
-
-    console.log(this.profileImageUrl)
   }
 
+  /**
+   * @description it opens a imagecrop dialog component with selected image as cropped input, saves profileimages on upload
+   * @param event input file event 
+   */
   fileChangeEvent(event){
     const dialogRef = this.dialog.open(ImageCropDialogComponent, {
       width: 'auto',

@@ -19,19 +19,30 @@ export class ImageCropDialogComponent implements OnInit {
     this.imageChangedEvent=data;
   }
 
+  /**
+   * @description closes dialogbox and passes data
+   */
   onUpload(){
     this.dialogRef.close(this.fileToUpload);
   }
 
+  /**
+   * @description this function gets called everytime we make changes while image cropping
+   * @param event cropped event 
+   */
   imageCropped(event: ImageCroppedEvent) {
     var fileBeforeUpload=this.imageChangedEvent.target.files[0];
-    this.fileToUpload=new File([this.dataURItoBlob(event.base64)], fileBeforeUpload.name,{type:fileBeforeUpload.type});
+    this.fileToUpload=new File([this.base64toBlob(event.base64)], fileBeforeUpload.name,{type:fileBeforeUpload.type});
     // console.log(this.fileToUpload);
   }
   ngOnInit() {
   }
 
-  dataURItoBlob(dataURI): Blob {
+  /**
+   * @description converting base64 data to blob 
+   * @param dataURI cropped image base 64 data
+   */
+  base64toBlob(dataURI): Blob {
     const byteString = atob(dataURI.split(',')[1]);
     const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
     const ab = new ArrayBuffer(byteString.length);

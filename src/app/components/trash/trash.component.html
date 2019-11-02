@@ -27,7 +27,7 @@
           </mat-card-content>
           <mat-card-actions>
             <mat-chip-list>
-                <mat-chip *ngFor="let reminder of note.reminder" [removable]="true">
+                <mat-chip *ngFor="let reminder of note.reminder" [removable]="true" [style.text-decoration]="reminderDecoration(reminder)">
                   {{ reminder | myDate }}
                 </mat-chip>
                 <mat-chip *ngFor="let person of note.collaborators">

@@ -49,7 +49,7 @@
         </mat-card-content>
         <mat-card-actions>
           <mat-chip-list>
-            <mat-chip *ngFor="let reminder of note.reminder" [removable]="true" (removed)="removeReminder(note.id)">
+            <mat-chip *ngFor="let reminder of note.reminder" [removable]="true" (removed)="removeReminder(note.id)" [style.text-decoration]="reminderDecoration(reminder)">
 
               {{ reminder | myDate }}
               <mat-icon matChipRemove>cancel</mat-icon>

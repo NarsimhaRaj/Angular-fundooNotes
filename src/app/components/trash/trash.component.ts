@@ -86,6 +86,19 @@ export class TrashComponent implements OnInit {
     });
   }
 
+  /**
+   * @description if reminder completed then strike that reminder
+   * @param reminder note reminder
+   */
+  reminderDecoration(reminder){
+    let today=new Date();
+    let newReminder=reminder.replace('GMT+0000','GMT+0530');
+    let reminderDate=new Date(newReminder);
+    if(today.getTime()>reminderDate.getTime())
+      return "line-through";
+    return "none";
+  }
+
   ngOnDestroy() {
     this.getNotesObs.unsubscribe();
   }
