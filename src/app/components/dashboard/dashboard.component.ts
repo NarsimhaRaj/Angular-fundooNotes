@@ -220,8 +220,8 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   fileChangeEvent(event){
     const dialogRef = this.dialog.open(ImageCropDialogComponent, {
-      width: '550px',
-      height:"400px",
+      width: 'auto',
+      height:"auto",
       data: event
     });
 

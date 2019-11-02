@@ -24,8 +24,6 @@ export class MyDatePipe implements PipeTransform {
     var tomorrow=today.setDate(today.getDate()+1);
     var tomorrowFormat=new DatePipe('en-US').transform(tomorrow, "MMM d, y")
     
-
-    console.log(todayFormat,tomorrowFormat,remiderDate)
     if(remiderDate==tomorrowFormat)
     {
       return "tomorrow"+" "+time;

@@ -1,11 +1,13 @@
-<div mat-dialog-content>
+<div mat-dialog-content style="width:300px;height:250px;"> 
     <image-cropper 
     [imageChangedEvent]="imageChangedEvent"
     [maintainAspectRatio]="true"
     [aspectRatio]="1 / 1"
     [resizeToWidth]="128"
     format="png" 
-    (imageCropped)="imageCropped($event)">
+    (imageCropped)="imageCropped($event)"
+    [roundCropper]="true"
+    (outputType)="file">
         
     </image-cropper>
 </div>
