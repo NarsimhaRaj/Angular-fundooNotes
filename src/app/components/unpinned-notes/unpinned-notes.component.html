@@ -44,22 +44,24 @@
         </div>
 
       </mat-card-content>
-      <mat-card-actions>
-        <mat-chip-list>
-          <mat-chip *ngFor="let reminder of note.reminder" [removable]="true" (removed)="removeReminder(note.id)" [style.text-decoration]="reminderDecoration(reminder)">
+      <mat-card-actions fxLayout="column">
+        <div>
+          <mat-chip-list>
+            <mat-chip *ngFor="let reminder of note.reminder" [removable]="true" (removed)="removeReminder(note.id)"
+              [style.text-decoration]="reminderDecoration(reminder)">
               {{ reminder | myDate }}
-            <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip>
-          <mat-chip *ngFor="let person of note.collaborators">
-            {{person.firstName.charAt(0).toUpperCase()}}
-          </mat-chip>
-          <mat-chip *ngFor="let label of note.noteLabels" [removable]="true" (removed)="removeLabel(note.id,label.id)">
-            {{label.label}}
-            <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip>
-        </mat-chip-list>
-      </mat-card-actions>
-      <mat-card-footer>
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <mat-chip *ngFor="let person of note.collaborators">
+              {{person.firstName.charAt(0).toUpperCase()}}
+            </mat-chip>
+            <mat-chip *ngFor="let label of note.noteLabels" [removable]="true"
+              (removed)="removeLabel(note.id,label.id)">
+              {{label.label}}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
         <div fxLayoutAlign="space-around center" [fxHide]="!isAdvancedUser">
 
           <div>
@@ -159,13 +161,26 @@
               <div mat-menu-item>
                 Show checkboxs
               </div>
-              <div mat-menu-item>
-                Ask Question
+              <div mat-menu-item *ngIf="note.questionAndAnswerNotes.length==0" (click)="goToQuestionAnswer(note.id)">
+                Ask question
+              </div>
+              <div mat-menu-item *ngIf="note.questionAndAnswerNotes.length>0" (click)="goToQuestionAnswer(note.id)">
+                Show question
               </div>
             </mat-menu>
           </div>
         </div>
 
+      </mat-card-actions>
+      <mat-card-footer fxLayoutAlign="center center">
+        <div style="width:80%" fxLayout="column" *ngIf="note.questionAndAnswerNotes.length>0"
+          (click)="goToQuestionAnswer(note.id);">
+          <mat-divider></mat-divider>
+          <div>Question Asked</div>
+          <div *ngFor="let question of note.questionAndAnswerNotes">
+            <div [innerHTML]="question.message"></div>
+          </div>
+        </div>
       </mat-card-footer>
 
     </mat-card>

@@ -24,9 +24,20 @@
         </div>
     </div>
     <mat-divider></mat-divider>
-    <div [froalaEditor] aria-placeholder="Type something"></div>
-    <div fxLayoutAlign="end center">
+    <mat-list *ngIf="notes.questionAndAnswerNotes.length>0"  fxLayout="column">
+        <mat-list-item> <em><b>Question Asked</b></em> </mat-list-item>
+        <mat-list-item *ngFor="let question of notes.questionAndAnswerNotes">
+            <div [innerHTML]="question.message"></div>
+        </mat-list-item>
+    </mat-list>
+    <div *ngIf="notes.questionAndAnswerNotes.length == 0" [froalaEditor] aria-placeholder="Type something"></div>
+    <div *ngIf="notes.questionAndAnswerNotes.length == 0" fxLayoutAlign="end center">
         <button (click)="askQuestion()" mat-button color="primary">ASK</button>
     </div>
+
     <mat-divider></mat-divider>
+    <div *ngIf="notes.questionAndAnswerNotes.length == 0">
+        {{notes.user.firstName}} {{ notes.user.lastName}} 
+        <!-- {{notes.questionAndAnswerNotes[0].createdDate | myDate}} -->
+    </div>
 </div>

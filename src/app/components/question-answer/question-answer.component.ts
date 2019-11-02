@@ -13,7 +13,9 @@ export class QuestionAnswerComponent implements OnInit {
   notes:any={
     title:"",
     description:"",
-    noteCheckLists:[]
+    noteCheckLists:[],
+    questionAndAnswerNotes:[{createdDate:""}],
+    user:{}
   };
 
   noteCheckLists:any;

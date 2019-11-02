@@ -7,6 +7,7 @@ import { MatSnackBar, MatDialog } from '@angular/material';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { LabelService } from 'src/app/services/label/label.service';
 import { NotesComponent } from '../notes/notes.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-unpinned-notes',
@@ -28,7 +29,8 @@ export class UnpinnedNotesComponent implements OnInit {
 
   @Output() componentRef=new EventEmitter();
 
-  constructor(private noteServices: NoteService, public dialog: MatDialog, private dashBoard: DashboardComponent) {
+  constructor(private noteServices: NoteService, public dialog: MatDialog, private dashBoard: DashboardComponent,
+    private route:Router) {
     
 
     this.data = this.dashBoard.getData();
@@ -273,6 +275,10 @@ export class UnpinnedNotesComponent implements OnInit {
     if(today.getTime()>reminderDate.getTime())
       return "line-through";
     return "none";
+  }
+
+  goToQuestionAnswer(noteId){
+    this.route.navigate(["dashboard/QuestionAnswer",noteId]);
   }
 
 }
