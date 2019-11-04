@@ -28,12 +28,6 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   profileImageUrl:any;
 
-  // to change backround color of selected sidenav list 
-  onNoteListSelected:Boolean=false;
-  onArchiveListSelected:Boolean=false;
-  onReminderListSelected:Boolean=false;
-  onTrashListSelected:Boolean=false;
-
   // to emit a an event on selecting grid or list view 
   emitView=new Subject();
 
@@ -66,21 +60,6 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
 
-  }
-
-  /**
-   * @description sets on of the sidenav list value to true, css class with background color gets applied on whichever list return true 
-   * @param nList notes sidenav list item
-   * @param rList reminder sidenav list item
-   * @param aList archive sidenav list item
-   * @param tList trash sidenav list item
-   */
-  sideNavSelectedList(nList,rList,aList,tList){
-
-    this.onNoteListSelected=nList;
-    this.onReminderListSelected=rList;
-    this.onArchiveListSelected=aList;
-    this.onTrashListSelected=tList;
   }
 
   ngOnInit(){
@@ -140,40 +119,6 @@ export class DashboardComponent implements OnInit,OnDestroy {
     dialogRef.afterClosed().subscribe((result) => {
       this.emitLablesEvent.next();
     });
-  }
-
-  /**
-   * @description route will be changed to archive component  on clicking archive button on sidenav
-   */
-  goToArchiveComponent(){
-   
-    this.sideNavSelectedList(false,false,true,false);
-    this.route.navigateByUrl("dashboard/archive");
-  }
-
-  /**
-   * @description route will be chnaged to notes component on clicking note button on sidenav
-   */
-  goToNotesComponent(){
-   
-    this.sideNavSelectedList(true,false,false,false);
-    this.route.navigateByUrl("dashboard");
-  }
-  /**
-   * @description route changes to trash component on clicking trash button on sidenav
-   */
-  goToTrashComponent(){
-
-    this.sideNavSelectedList(false,false,false,true);
-    this.route.navigateByUrl("dashboard/trashNotes");
-  }
-
-  goToCartComponent(){
-    this.route.navigateByUrl("dashboard/cart");
-  }
-
-  goToReminderNotesList(){
-    this.route.navigateByUrl("dashboard/reminderNotes");
   }
 
  /**
