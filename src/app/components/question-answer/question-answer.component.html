@@ -1,6 +1,6 @@
-<div style="width:80%; margin-left:10%" fxLayout="column">
+<div style="width:80%; margin-left:10%; margin-top:-1em" fxLayout="column">
     <div fxLayout="row" fxFlex>
-        <div style="width:80%; height:200px; overflow: auto;">
+        <div style="width:80%; height:auto; overflow: auto;">
             <div>
                 <h1>{{notes.title}}</h1>
             </div>
@@ -24,20 +24,55 @@
         </div>
     </div>
     <mat-divider></mat-divider>
-    <mat-list *ngIf="notes.questionAndAnswerNotes.length>0"  fxLayout="column">
+    <mat-list *ngIf="notes.questionAndAnswerNotes.length>0" fxLayout="column">
         <mat-list-item> <em><b>Question Asked</b></em> </mat-list-item>
-        <mat-list-item *ngFor="let question of notes.questionAndAnswerNotes">
-            <div [innerHTML]="question.message"></div>
+        <mat-list-item>
+            <div [innerHTML]="notes.questionAndAnswerNotes[0].message"></div>
         </mat-list-item>
     </mat-list>
-    <div *ngIf="notes.questionAndAnswerNotes.length == 0" [froalaEditor] aria-placeholder="Type something"></div>
-    <div *ngIf="notes.questionAndAnswerNotes.length == 0" fxLayoutAlign="end center">
-        <button (click)="askQuestion()" mat-button color="primary">ASK</button>
-    </div>
-
     <mat-divider></mat-divider>
-    <div *ngIf="notes.questionAndAnswerNotes.length == 0">
-        {{notes.user.firstName}} {{ notes.user.lastName}} 
-        <!-- {{notes.questionAndAnswerNotes[0].createdDate | myDate}} -->
+    <div *ngIf="notes.questionAndAnswerNotes.length != 0 else condition" fxLayoutGap="2px">
+        <div>
+            <div fxLayout="row" fxLayoutAlign="space-around center" style="width:60%">
+                <div>
+                    <button mat-mini-fab color=""
+                        [style.background-image]="getImageUrl(notes.questionAndAnswerNotes[0].user.imageUrl)"
+                        style="background-size: 100% 100%;"></button>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="space-between center">
+                    <div>
+                        <h5>{{notes.questionAndAnswerNotes[0].user.firstName}}
+                            {{notes.questionAndAnswerNotes[0].user.lastName}}
+                            {{notes.questionAndAnswerNotes[0].createdDate | date:"medium"}}</h5>
+                    </div>
+                    <div >
+                        <h3>
+                            <div [innerHTML]="notes.questionAndAnswerNotes[0].message"></div>
+                        </h3>
+                    </div>
+                </div>
+                <div (click)="reply=!reply">
+                    <mat-icon>reply</mat-icon>
+                </div>
+                <div>
+                    <mat-icon>thumb_up</mat-icon>
+                </div>
+                <div>
+                    <pre>{{likes}} likes</pre>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="reply">
+            <div [froalaEditor] aria-placeholder="Type something"></div>
+            <div fxLayoutAlign="end center">
+                <button (click)="askQuestion()" mat-button color="primary">ASK</button>
+            </div>
+        </div>
     </div>
+    <ng-template #condition>
+        <div [froalaEditor] aria-placeholder="Type something"></div>
+        <div fxLayoutAlign="end center">
+            <button (click)="askQuestion()" mat-button color="primary">ASK</button>
+        </div>
+    </ng-template>
 </div>

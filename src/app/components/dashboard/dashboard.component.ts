@@ -141,14 +141,6 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   }
 
-  /**
-   * @description redirect to labelnotes with lablename
-   * @param labelName name of the label on notes
-   */
-  getNoteListByLabel(labelName){
-    this.route.navigate(["dashboard/labelNotes",labelName]);
-  }
-
   searchBox(event){
     this.emitSearchEvent.next(event.target.value);
   }

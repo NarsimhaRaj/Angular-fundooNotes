@@ -9,32 +9,41 @@ import { NoteService } from 'src/app/services/noteServices/note.service';
 })
 export class QuestionAnswerComponent implements OnInit {
 
-  noteId:string;
-  notes:any={
-    title:"",
-    description:"",
-    noteCheckLists:[],
-    questionAndAnswerNotes:[{createdDate:""}],
-    user:{}
+  noteId: string;
+  notes: any = {
+    title: "",
+    description: "",
+    noteCheckLists: [],
+    questionAndAnswerNotes: [{
+      createdDate: "",
+      user: {
+        firstName: "", lastName: "", imageUrl: ""
+      }
+    }],
   };
+  reply: boolean = false;
+  likes=0;
 
-  noteCheckLists:any;
-  constructor( private activeRoute:ActivatedRoute, private noteService:NoteService, private route:Router) { }
+  noteCheckLists: any;
+  constructor(private activeRoute: ActivatedRoute, private noteService: NoteService, private route: Router) { }
 
   ngOnInit() {
-    this.activeRoute.paramMap.subscribe((params)=>{
-      this.noteId=params.get("noteId");
-
-      // gets details of notes with  noteId
-      this.noteService.getNoteWithId(this.noteId).subscribe((response:any)=>{
-        this.notes=response.data.data[0];
-        console.log(response);
-      });
+    this.activeRoute.paramMap.subscribe((params) => {
+      this.noteId = params.get("noteId");
     })
+    // gets details of notes with  noteId
+    this.noteService.getNoteWithId(this.noteId).subscribe((response: any) => {
+      this.notes = response.data.data[0];
+      console.log(response);
+    });
   }
 
-  closeQuestionAnswers(){
+  closeQuestionAnswers() {
     this.route.navigateByUrl("dashboard");
+  }
+
+  getImageUrl(imageUrl) {
+    return `url(http://fundoonotes.incubation.bridgelabz.com/${imageUrl})`;
   }
 
 }

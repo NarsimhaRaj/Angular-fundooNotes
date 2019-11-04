@@ -91,7 +91,7 @@
           <mat-label style="margin-left:1em; margin-top:1em; margin-bottom: 1em" [fxHide]="!isAdvancedUser">LABELS</mat-label> 
           
         
-          <mat-list-item *ngFor="let label of labels" (click)="getNoteListByLabel(label.label)"> 
+          <mat-list-item *ngFor="let label of labels" [routerLink]='["/dashboard/labelNotes",label.label]'> 
               <mat-icon>label</mat-icon><div style="margin-left:3em">{{label.label}}</div>
           </mat-list-item>
 
