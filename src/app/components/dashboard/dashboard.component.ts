@@ -171,7 +171,6 @@ export class DashboardComponent implements OnInit,OnDestroy {
       this.userServices.uploadProfileImage(fd).subscribe((response:any)=>{
         sessionStorage.setItem("fundooProfileimage",response.status.imageUrl);
         this.getProfilemage();
-        console.log(response)
       });
     });
   }
