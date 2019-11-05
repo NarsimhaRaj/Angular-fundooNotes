@@ -231,5 +231,4 @@ export class NoteService {
     let url=`/notes/getNotesDetail/${noteId}`;
     return this.httpService.getWithToken(url);
   }
-
 }

@@ -172,7 +172,7 @@
         </div>
       </mat-card-actions>
       <mat-card-footer fxLayoutAlign="center center">
-        <div style="width:80%" fxLayout="column" *ngIf="note.questionAndAnswerNotes.length>0">
+        <div style="width:80%" fxLayout="column" (click)="goToQuestionAnswer(note.id)" *ngIf="note.questionAndAnswerNotes.length>0">
           <mat-divider></mat-divider>
           <div>Question Asked</div>
           <div *ngFor="let question of note.questionAndAnswerNotes">

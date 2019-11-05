@@ -1,3 +1,22 @@
 @import 'src/app/SCSS/styles';
 
 h4,h5,h3 { font-weight:normal; }
+
+.rating > div {
+    width:100%;
+    height:auto;
+    direction:rtl;
+    transform: scale(1.5,1.5)
+}
+.rating > div >  span {
+    position: relative;
+}
+.rating > div > span:hover:before,
+.rating > div > span:hover ~ span:before {
+    content: "\2605";
+    position: absolute;
+    color:green;
+}
+.selected{
+    color:green;
+}
