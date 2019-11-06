@@ -150,14 +150,16 @@ export class PinnedNotesComponent implements OnInit {
     if(event.checked){
       let data={itemName:item.itemName,status:"close"};
       this.noteServices.updateCheckList(noteId,item.id,data).subscribe((response)=>{
+        this.componentRef.emit(null);
       });
     }
     else{
       let data={itemName:item.itemName,status:"open"};
       this.noteServices.updateCheckList(noteId,item.id,data).subscribe((response)=>{
+        this.componentRef.emit(null);
       });
     }
-    this.componentRef.emit(null);
+    
   }
 
   /**
