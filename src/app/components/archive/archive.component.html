@@ -194,7 +194,7 @@
           <div style="width:80%" fxLayout="column" [routerLink]='["/dashboard/QuestionAnswer",note.id]'
             *ngIf="note.questionAndAnswerNotes.length>0">
             <mat-divider></mat-divider>
-            <div>Question Asked</div>
+            <div><b>Question Asked</b></div>
             <div>
               <div [innerHTML]="note.questionAndAnswerNotes[0].message"></div>
             </div>

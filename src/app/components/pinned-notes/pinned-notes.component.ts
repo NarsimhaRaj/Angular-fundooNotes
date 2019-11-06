@@ -284,8 +284,5 @@ export class PinnedNotesComponent implements OnInit {
       return "line-through";
     return "none";
   }
-
-  goToQuestionAnswer(noteId){
-    this.route.navigate(["dashboard/QuestionAnswer",noteId]);
-  }
+  
 }

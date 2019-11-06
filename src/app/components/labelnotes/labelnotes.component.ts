@@ -69,23 +69,22 @@ export class LabelnotesComponent implements OnInit {
 
   ngOnInit() {
 
-    this.activeRoute.paramMap.subscribe((params)=>{
-      this.labelName=params.get("labelName");
-      this.getNoteListByLabel(this.labelName);
-    })
-
+    this.init();
     this.getNotesObs = this.emitObservable.subscribe(() => {
-      
-      this.activeRoute.paramMap.subscribe((params)=>{
-        this.labelName=params.get("labelName");
-        this.getNoteListByLabel(this.labelName);
-      })
-      // this.getNoteListByLabel(this.labelName);
+      this.init();
     });
 
     this.dashBoard.emitSearchEvent.subscribe((search:string)=>{
       this.searchWord=search;
     })
+  }
+
+  init(){
+    this.activeRoute.paramMap.subscribe((params)=>{
+      this.labelName=params.get("labelName");
+      this.getNoteListByLabel(this.labelName);
+    })
+    this.getAllLabels();
   }
 
   refreshNotesList(event){

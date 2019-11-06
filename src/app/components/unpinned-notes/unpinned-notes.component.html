@@ -161,24 +161,22 @@
               <div mat-menu-item>
                 Show checkboxs
               </div>
-              <div mat-menu-item *ngIf="note.questionAndAnswerNotes.length==0" (click)="goToQuestionAnswer(note.id)">
+              <div mat-menu-item *ngIf="note.questionAndAnswerNotes.length==0" [routerLink]='["/dashboard/QuestionAnswer",note.id]'>
                 Ask question
               </div>
-              <div mat-menu-item *ngIf="note.questionAndAnswerNotes.length>0" (click)="goToQuestionAnswer(note.id)">
+              <div mat-menu-item *ngIf="note.questionAndAnswerNotes.length>0" [routerLink]='["/dashboard/QuestionAnswer",note.id]'>
                 Show question
               </div>
             </mat-menu>
           </div>
         </div>
-
       </mat-card-actions>
       <mat-card-footer fxLayoutAlign="center center">
-        <div style="width:80%" fxLayout="column" *ngIf="note.questionAndAnswerNotes.length>0"
-          (click)="goToQuestionAnswer(note.id);">
+        <div style="width:80%" fxLayout="column" [routerLink]='["/dashboard/QuestionAnswer",note.id]' *ngIf="note.questionAndAnswerNotes.length>0">
           <mat-divider></mat-divider>
-          <div>Question Asked</div>
+          <div><b>Question Asked</b></div>
           <div>
-              <div [innerHTML]="note.questionAndAnswerNotes[0].message"></div>
+            <div [innerHTML]="note.questionAndAnswerNotes[0].message"></div>
           </div>
         </div>
       </mat-card-footer>

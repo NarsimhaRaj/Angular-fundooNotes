@@ -288,8 +288,4 @@ export class UnpinnedNotesComponent implements OnInit {
     return "none";
   }
 
-  goToQuestionAnswer(noteId){
-    this.route.navigate(["dashboard/QuestionAnswer",noteId]);
-  }
-
 }
