@@ -72,6 +72,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   // holds searchWord of search bar
   searchWord: string;
+  searchLabel:string;
 
   constructor(private userService: UserService, private noteServices: NoteService, private snackBar: MatSnackBar,
     public dialog: MatDialog, private dashBoard: DashboardComponent, private labelService: LabelService) {
@@ -281,6 +282,15 @@ export class NotesComponent implements OnInit, OnDestroy {
     this.panelOpenState = !this.panelOpenState;
     this.matCardColor = "";
     this.newNotesReminder = undefined;
+  }
+
+  /**
+   * @description keyboard char input reading to search
+   * @param event 
+   */
+  searchLabelMatInput(event){
+    this.searchLabel=event.target.value;
+    console.log(this.searchLabel)
   }
 
   /**

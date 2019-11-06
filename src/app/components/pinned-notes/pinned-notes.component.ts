@@ -28,6 +28,8 @@ export class PinnedNotesComponent implements OnInit {
 
   @Output() componentRef=new EventEmitter();
 
+  searchLabel:string;
+
   constructor(private noteServices: NoteService, public dialog: MatDialog, private dashBoard: DashboardComponent,
     private route:Router) {    
 
@@ -220,6 +222,15 @@ export class PinnedNotesComponent implements OnInit {
     }
     return false;
 
+  }
+
+  /**
+   * @description keyboard char input reading to search
+   * @param event 
+   */
+  searchLabelMatInput(event){
+    this.searchLabel=event.target.value;
+    console.log(this.searchLabel)
   }
   
   /**

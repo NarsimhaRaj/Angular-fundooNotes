@@ -151,7 +151,7 @@
                     </button>
                   </mat-form-field>
                 </div>
-                <div (click)="$event.stopPropagation();" *ngFor="let label of labels">
+                <div (click)="$event.stopPropagation();" *ngFor="let label of labels | searchLabel:searchLabel">
                   <div mat-menu-item>
                     <mat-checkbox (change)="addLable(note.id,label.id,$event)" color="primary"
                       [checked]="isChecked(note,label)">{{label.label}}</mat-checkbox>
@@ -175,8 +175,8 @@
         <div style="width:80%" fxLayout="column" (click)="goToQuestionAnswer(note.id)" *ngIf="note.questionAndAnswerNotes.length>0">
           <mat-divider></mat-divider>
           <div>Question Asked</div>
-          <div *ngFor="let question of note.questionAndAnswerNotes">
-            <div [innerHTML]="question.message"></div>
+          <div>
+            <div [innerHTML]="note.questionAndAnswerNotes[0].message"></div>
           </div>
         </div>
       </mat-card-footer>

@@ -4,6 +4,7 @@ import { MatSnackBar, MatDialog } from '@angular/material';
 import { Subject } from 'rxjs';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { LabelService } from 'src/app/services/label/label.service';
 
 export interface DialogData {
   noteId: String;
@@ -21,6 +22,8 @@ export class ArchiveComponent implements OnInit {
 
   notesList: any;
 
+  labels=new Array();
+
   private getNotesObs: any;
   colorChange: boolean[] = new Array();
 
@@ -32,11 +35,12 @@ export class ArchiveComponent implements OnInit {
 
   // filtering notes with searchWord
   searchWord:string;
+  searchLabel:string;
   
   public emitObservable: Subject<void> = new Subject<void>();
 
   constructor(private noteServices: NoteService, private snackBar: MatSnackBar, public dialog: MatDialog,
-    private dashBoard: DashboardComponent) {
+    private dashBoard: DashboardComponent,private labelService:LabelService) {
 
     // modifies data on list and grid view
     this.data = this.dashBoard.getData();
@@ -52,9 +56,11 @@ export class ArchiveComponent implements OnInit {
     console.log("created");
 
     this.getNotesList();
-
+    this.getAllLabels();
+    
     this.getNotesObs = this.emitObservable.subscribe(() => {
       this.getNotesList();
+      this.getAllLabels();
     });
 
     this.dashBoard.emitSearchEvent.subscribe((search:string)=>{
@@ -220,5 +226,69 @@ export class ArchiveComponent implements OnInit {
 
   ngOnDestroy() {
     this.getNotesObs.unsubscribe();
+  }
+
+  /**
+   * @description get all the labels created by user
+   */
+  getAllLabels() {
+    this.labelService.getNoteLabelList().subscribe((response: any) => {
+      this.labels = response.data.details;
+    });
+  }
+
+  /**
+   * @description adds a label to notes
+   * @param noteId note id of note to which label will be added 
+   * @param label label details to add
+   */
+  addLable(noteId, labelId, event) {
+
+    if (event.checked) {
+      this.noteServices.addLabelToNote(noteId, labelId).subscribe((response) => {
+        // console.log(response);
+        this.emitObservable.next();
+      })
+    }
+    else {
+      this.removeLabel(noteId, labelId);
+    }
+
+  }
+
+  /**
+   * @description removing a label with post request params 
+   * @param noteId noteid to which label attached
+   * @param labelId label id
+   */
+  removeLabel(noteId, labelId) {
+    this.noteServices.removeLabelToNotes(noteId, labelId).subscribe((response) => {
+      // console.log(response);
+      this.emitObservable.next();
+    })
+  }
+
+  /**
+   * @description to show that label is already selected and checkbox is checked
+   * @param note note to which check label is checked or not 
+   * @param label label details 
+   */
+  isChecked(note, label) {
+
+    for (let notelabel of note.noteLabels) {
+      if (notelabel.label == label.label)
+        return true;
+    }
+    return false;
+
+  }
+
+  /**
+   * @description keyboard char input reading to search
+   * @param event 
+   */
+  searchLabelMatInput(event){
+    this.searchLabel=event.target.value;
+    console.log(this.searchLabel)
   }
 }

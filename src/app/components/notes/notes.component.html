@@ -283,7 +283,7 @@
                   </button>
                 </mat-form-field>
               </div>
-              <div (click)="$event.stopPropagation();" *ngFor="let label of labels">
+              <div (click)="$event.stopPropagation();" *ngFor="let label of labels | searchLabel:searchLabel">
                 <div mat-menu-item>
                   <mat-checkbox (change)="addLable(label,$event)" color="primary" [checked]="isChecked(label)">
                     {{label.label}}</mat-checkbox>

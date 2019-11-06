@@ -45,6 +45,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropDialogComponent } from './components/image-crop-dialog/image-crop-dialog.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { QuestionAnswerComponent } from './components/question-answer/question-answer.component';
+import { SearchLabelPipe } from './pipe/searchLabel/search-label.pipe';
 
 
 @NgModule({
@@ -73,6 +74,7 @@ import { QuestionAnswerComponent } from './components/question-answer/question-a
     MyDatePipe,
     ImageCropDialogComponent,
     QuestionAnswerComponent,
+    SearchLabelPipe,
   ],
   imports: [
     BrowserModule,
