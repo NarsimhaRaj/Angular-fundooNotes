@@ -24,17 +24,17 @@
         </div>
     </div>
     <mat-divider></mat-divider>
-    <mat-list *ngIf="notes?.questionAndAnswerNotes?.length>0" fxLayout="column">
-        <mat-list-item> <em><b>Question Asked</b></em> </mat-list-item>
-        <mat-list-item *ngFor="let question of notes.questionAndAnswerNotes">
+    <div *ngIf="notes?.questionAndAnswerNotes?.length>0" fxLayout="column" style="overflow-y: scroll;height: 100px" >
+        <div *ngFor="let question of notes.questionAndAnswerNotes" fxLayout="column">
+            <div><em><b>Question Asked</b></em></div>
             <div [innerHTML]="question.message"></div>
-        </mat-list-item>
-    </mat-list>
+        </div>
+    </div>
     <mat-divider></mat-divider>
     <div *ngIf="notes?.questionAndAnswerNotes?.length != 0 else condition" fxLayoutGap="2px">
         <div>
             <div *ngFor="let question of notes.questionAndAnswerNotes; index as i" fxLayout="row"
-                fxLayoutAlign="space-around center">
+                fxLayoutAlign="start center" fxLayoutGap="5%">
                 <div>
                     <button mat-mini-fab color="" [style.background-image]="getImageUrl(question.user.imageUrl)"
                         style="background-size: 100% 100%;"></button>
@@ -50,9 +50,6 @@
                             <div [innerHTML]="question.message"></div>
                         </h3>
                     </div>
-                </div>
-                <div (click)="reply=!reply">
-                    <mat-icon>reply</mat-icon>
                 </div>
                 <div fxLayout="column">
                     <div *ngIf="isLiked[i]" (click)="like(question,true,i);">
@@ -74,6 +71,9 @@
                     <div>
                         {{getAvgRating(question.rate)}}
                     </div>
+                </div>
+                <div (click)="reply=!reply">
+                    <mat-icon>reply</mat-icon>
                 </div>
             </div>
         </div>

@@ -136,6 +136,10 @@ export class QuestionAnswerComponent implements OnInit {
    */
   getAvgRating(rate){
     let sum=0;
+    
+    if(rate.length==0)
+      return 0;
+    
     for(let r of rate){
       sum+=r.rate;
     }
