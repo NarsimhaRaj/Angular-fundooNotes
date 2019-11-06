@@ -67,7 +67,7 @@
                 </div>
                 <div fxLayout="column">
                     <div fxLayout="row" class="rating">
-                        <div *ngFor="let index of stars">
+                        <div *ngFor="let index of stars" [ngClass]="{'selected': index <= ratings[i]}">
                             <span (click)="rate(question.id,index)">☆</span>
                         </div>
                     </div>

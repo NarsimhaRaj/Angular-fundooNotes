@@ -8,11 +8,11 @@ h4,h5,h3 { font-weight:normal; }
     direction:rtl;
     transform: scale(1.5,1.5)
 }
-.rating > div >  span {
+.rating > div {
     position: relative;
 }
-.rating > div > span:hover:before,
-.rating > div > span:hover ~ span:before {
+.rating > div :hover:before,
+.rating > div :hover ~ div:before {
     content: "\2605";
     position: absolute;
     color:green;
