@@ -145,4 +145,16 @@ export class QuestionAnswerComponent implements OnInit {
     }
     return sum/rate.length;
   }
+
+  Liked(question){
+    if(question){
+      let userId=JSON.parse(sessionStorage.getItem('user'))['userId'];
+      for(let like of question.like){
+        if(like.userId==userId){
+          return like.like;     
+        }
+      }
+    }
+    return false;
+  }
 }

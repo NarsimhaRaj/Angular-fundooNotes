@@ -52,10 +52,10 @@
                     </div>
                 </div>
                 <div fxLayout="column">
-                    <div *ngIf="isLiked[i]" (click)="like(question,true,i);">
+                    <div *ngIf="!!question && !Liked(question)" (click)="like(question,true,i);">
                         <mat-icon>thumb_up</mat-icon>
                     </div>
-                    <div *ngIf="!isLiked[i]" (click)="like(question,false,i);">
+                    <div *ngIf="!!question && Liked(question)" (click)="like(question,false,i);">
                         <mat-icon color="primary">thumb_up</mat-icon>
                     </div>
                     <div>
