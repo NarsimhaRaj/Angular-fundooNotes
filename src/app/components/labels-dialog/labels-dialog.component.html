@@ -12,17 +12,17 @@
 </div>
 <div mat-dialog-actions>
 
-  <mat-list role="list" *ngFor="let label of labels">
+  <mat-nav-list style="width:100%;">
 
-    <mat-list-item fxFlexFill fxLayout="row" [disableRipple]="true" role="listitem" fxLayoutAlign="space-around center">
+    <mat-list-item *ngFor="let label of labels" style="width:100%;">
 
       <div class="edit-delete-mat-icons" mat-list-icon>
 
-        <div class="mat-icon-label" style="margin-left:0"><button mat-icon-button>
+        <div class="mat-icon-label"><button mat-icon-button>
             <mat-icon>label</mat-icon>
           </button></div>
 
-        <div class="mat-icon-delete" style="margin-left:0">
+        <div class="mat-icon-delete">
           <button mat-icon-button (click)="deleteLabel(label.id)">
             <mat-icon>delete</mat-icon>
           </button>
@@ -30,15 +30,12 @@
 
       </div>
 
-      <div [fxHide]=" label.id==defaultLabelId ? true :false " style=" margin-left:10%"> {{label.label}} </div>
+      <div [fxHide]=" label.id==defaultLabelId ? true :false "> {{label.label}} </div>
       <div [fxHide]=" label.id!=defaultLabelId ? true :false">
         <input matInput [value]="label.label" [formControl]="editedTextLabel" />
       </div>
-
-      <!-- <span style="flex: 1 1 auto">
-        
-        </span>
-       -->
+      <span style="flex: 1 1 auto">
+      </span>
       <div [fxHide]=" label.id==defaultLabelId ? true :false" style="float: right;">
         <button mat-icon-button (click)="setEditLabel(label.id)">
           <mat-icon>edit</mat-icon>
@@ -51,7 +48,7 @@
       </div>
 
     </mat-list-item>
-  </mat-list>
+  </mat-nav-list>
 </div>
 <mat-divider></mat-divider>
 <div mat-dialog-footer style="margin-right:0">
