@@ -24,14 +24,14 @@
         </div>
     </div>
     <mat-divider></mat-divider>
-    <mat-list *ngIf="notes.questionAndAnswerNotes.length>0" fxLayout="column">
+    <mat-list *ngIf="notes?.questionAndAnswerNotes?.length>0" fxLayout="column">
         <mat-list-item> <em><b>Question Asked</b></em> </mat-list-item>
         <mat-list-item *ngFor="let question of notes.questionAndAnswerNotes">
             <div [innerHTML]="question.message"></div>
         </mat-list-item>
     </mat-list>
     <mat-divider></mat-divider>
-    <div *ngIf="notes.questionAndAnswerNotes.length != 0 else condition" fxLayoutGap="2px">
+    <div *ngIf="notes?.questionAndAnswerNotes?.length != 0 else condition" fxLayoutGap="2px">
         <div>
             <div *ngFor="let question of notes.questionAndAnswerNotes; index as i" fxLayout="row"
                 fxLayoutAlign="space-around center">
@@ -55,10 +55,10 @@
                     <mat-icon>reply</mat-icon>
                 </div>
                 <div fxLayout="column">
-                    <div [fxShow]="isLiked" (click)="like(question.id,true);">
+                    <div *ngIf="isLiked[i]" (click)="like(question,true,i);">
                         <mat-icon>thumb_up</mat-icon>
                     </div>
-                    <div [fxShow]="!isLiked" (click)="like(question.id,false);">
+                    <div *ngIf="!isLiked[i]" (click)="like(question,false,i);">
                         <mat-icon color="primary">thumb_up</mat-icon>
                     </div>
                     <div>
@@ -67,12 +67,12 @@
                 </div>
                 <div fxLayout="column">
                     <div fxLayout="row" class="rating">
-                        <div *ngFor="let index of stars" [ngClass]="{'selected': index <= ratings[i]}">
+                        <div *ngFor="let index of stars" [ngClass]="{'selected': index <= getAvgRating(question.rate)}">
                             <span (click)="rate(question.id,index)">☆</span>
                         </div>
                     </div>
                     <div>
-                        {{ratings[i]}}
+                        {{getAvgRating(question.rate)}}
                     </div>
                 </div>
             </div>

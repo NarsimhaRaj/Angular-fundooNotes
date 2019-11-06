@@ -22,6 +22,7 @@ export class QuestionAnswerComponent implements OnInit {
         userId: "",
         like: false
       }],
+      userId:"",
       rate: [],
       user: {
         firstName: "", lastName: "", imageUrl: ""
@@ -30,8 +31,8 @@ export class QuestionAnswerComponent implements OnInit {
   };
   reply: boolean = false;
   likes = [];
-  isLiked: boolean = true;
   ratings = [];
+  isLiked=[];
 
   stars: number[] = [1, 2, 3, 4, 5];
 
@@ -59,13 +60,14 @@ export class QuestionAnswerComponent implements OnInit {
 
     let question: any;
     let index = 0;
-
-    this.likes.length=this.notes.questionAndAnswerNotes.length;
-    this.ratings.length=this.notes.questionAndAnswerNotes.length;
+    let length=this.notes.questionAndAnswerNotes.length;
+    this.likes.length=length;
+    this.ratings.length=length;
+    this.isLiked.length=length;
 
     this.likes.fill(0);
     this.ratings.fill(0);
-    
+
     for (question of this.notes.questionAndAnswerNotes) {
       for (let like of question.like) {
         if (like.like){
@@ -102,27 +104,41 @@ export class QuestionAnswerComponent implements OnInit {
    * @param questionId question id
    * @param like like is boolean value if hit like true, if dislike = false
    */
-  like(questionId,like) {
-    this.isLiked=!this.isLiked;
+  like(question,like,index) {
+    this.isLiked[index]=!this.isLiked[index];
     let data = {
       like: like
     }
-    console.log(data,questionId);
-    this.qAnsService.like(questionId, data).subscribe((response) => {
-      console.log(response);
+    this.qAnsService.like(question.id, data).subscribe((response) => {
       this.getNotes(this.noteId);
+      // this.isLiked(question.like,question.id);
     })
   }
 
+  /**
+   * @description rating added to question 
+   * @param questionId question id to which rating is updated
+   * @param num rating number 1 to 5
+   */
   rate(questionId,num) {
 
     let data = { 
       rate: num.toString()
     }
-    console.log(data);
     this.qAnsService.rate(questionId, data).subscribe((response) => {
-      console.log(response);
       this.getNotes(this.noteId);
     })
+  }
+
+  /**
+   * @description calculates avg rating of a question returns value
+   * @param rate an array of rating received by users to a question
+   */
+  getAvgRating(rate){
+    let sum=0;
+    for(let r of rate){
+      sum+=r.rate;
+    }
+    return sum/rate.length;
   }
 }
