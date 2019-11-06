@@ -14,8 +14,11 @@ export class ShoppingCartComponent implements OnInit {
   signinOrder=true;
   reviewOrder=false;
   completeOrder=false;
+  isAdvancedUser=true;
 
-  constructor(private userService:UserService) { }
+  constructor(private userService:UserService) {
+    this.getUserService();
+   }
 
   ngOnInit() {
     this.getService();
@@ -24,6 +27,16 @@ export class ShoppingCartComponent implements OnInit {
   getService(){
     this.userService.getService().subscribe((response:any)=>{
       this.services=response.data.data;
+    });
+  }
+
+    /**
+   * @description to get logged in user registered service we sent a rest api request
+   */
+  getUserService() {
+    this.userService.getUserDetailsById().subscribe((response: any) => {
+      if (response.service == "basic")
+        this.isAdvancedUser = false;
     });
   }
 
