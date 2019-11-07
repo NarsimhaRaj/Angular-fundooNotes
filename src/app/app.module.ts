@@ -35,8 +35,6 @@ import { LabelnotesComponent } from './components/labelnotes/labelnotes.componen
 import { CollaboratorDialogComponent } from './components/collaborator-dialog/collaborator-dialog.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { SearchPipe } from './pipe/search.pipe';
-import { PinnedNotesComponent } from './components/pinned-notes/pinned-notes.component';
-import { UnpinnedNotesComponent } from './components/unpinned-notes/unpinned-notes.component';
 import { ReminderComponentComponent } from './components/reminder-component/reminder-component.component';
 import { DatePipe } from '@angular/common';
 import { ReminderNotesComponent } from './components/reminder-notes/reminder-notes.component';
@@ -68,8 +66,6 @@ import { PinUnpinNotesComponent } from './components/pin-unpin-notes/pin-unpin-n
     CollaboratorDialogComponent,
     ShoppingCartComponent,
     SearchPipe,
-    PinnedNotesComponent,
-    UnpinnedNotesComponent,
     ReminderComponentComponent,
     ReminderNotesComponent,
     MyDatePipe,

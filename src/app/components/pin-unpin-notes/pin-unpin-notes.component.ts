@@ -63,13 +63,14 @@ export class PinUnpinNotesComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
 
         if(result!=undefined && result.isArchived){
-          console.log(result);
           this.archive(result.note);
         }
         if(result!=undefined &&  result.color){
           this.updateBackgroundColor(result.color, note);
         }
-        else if (result!=undefined && result.isDeleted) {
+        
+        if (result!=undefined && result.isDeleted) {
+          console.log("entering here333");
           this.delete(note);
         }
         else {
@@ -79,7 +80,6 @@ export class PinUnpinNotesComponent implements OnInit {
           }
         }
         this.componentRef.emit(null);
-        console.log(note);
       });
     }
 
