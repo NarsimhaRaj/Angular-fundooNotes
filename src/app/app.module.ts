@@ -46,6 +46,7 @@ import { ImageCropDialogComponent } from './components/image-crop-dialog/image-c
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { QuestionAnswerComponent } from './components/question-answer/question-answer.component';
 import { SearchLabelPipe } from './pipe/searchLabel/search-label.pipe';
+import { PinUnpinNotesComponent } from './components/pin-unpin-notes/pin-unpin-notes.component';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { SearchLabelPipe } from './pipe/searchLabel/search-label.pipe';
     ImageCropDialogComponent,
     QuestionAnswerComponent,
     SearchLabelPipe,
+    PinUnpinNotesComponent,
   ],
   imports: [
     BrowserModule,

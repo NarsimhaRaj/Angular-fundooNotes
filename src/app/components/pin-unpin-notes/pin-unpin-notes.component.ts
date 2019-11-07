@@ -1,20 +1,17 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CollaboratorDialogComponent } from '../collaborator-dialog/collaborator-dialog.component';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
-import { UserService } from 'src/app/services/userServices/user.service';
 import { NoteService } from 'src/app/services/noteServices/note.service';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-import { LabelService } from 'src/app/services/label/label.service';
-import { NotesComponent } from '../notes/notes.component';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-unpinned-notes',
-  templateUrl: './unpinned-notes.component.html',
-  styleUrls: ['./unpinned-notes.component.scss']
+  selector: 'app-pin-unpin-notes',
+  templateUrl: './pin-unpin-notes.component.html',
+  styleUrls: ['./pin-unpin-notes.component.scss']
 })
-export class UnpinnedNotesComponent implements OnInit {
+export class PinUnpinNotesComponent implements OnInit {
 
   // list of notes
   @Input() notesList:any;
@@ -292,3 +289,4 @@ export class UnpinnedNotesComponent implements OnInit {
   }
 
 }
+

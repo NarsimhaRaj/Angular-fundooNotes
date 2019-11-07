@@ -11,8 +11,12 @@
           {{note.title}}
         </div>
         <div style="width:20%;" fxLayoutAlign="end center">
-          <button mat-icon-button color="" (click)="pinUnpin(note,true)"><img
-              src="src/assets/images/outline_fiber_pin.png" /></button>
+          <button *ngIf="!isPinned" mat-icon-button color="" (click)="pinUnpin(note,true)"><img
+              src="src/assets/images/outline_fiber_pin.png" />
+          </button>
+          <button *ngIf="isPinned" mat-icon-button color="" (click)="pinUnpin(note,false)"><img
+              src="src/assets/images/baseline_fiber_pin.png" />
+          </button>
         </div>
 
       </mat-card-title>
@@ -161,10 +165,12 @@
               <div mat-menu-item>
                 Show checkboxs
               </div>
-              <div mat-menu-item *ngIf="note.questionAndAnswerNotes.length==0" [routerLink]='["/dashboard/QuestionAnswer",note.id]'>
+              <div mat-menu-item *ngIf="note.questionAndAnswerNotes.length==0"
+                [routerLink]='["/dashboard/QuestionAnswer",note.id]'>
                 Ask question
               </div>
-              <div mat-menu-item *ngIf="note.questionAndAnswerNotes.length>0" [routerLink]='["/dashboard/QuestionAnswer",note.id]'>
+              <div mat-menu-item *ngIf="note.questionAndAnswerNotes.length>0"
+                [routerLink]='["/dashboard/QuestionAnswer",note.id]'>
                 Show question
               </div>
             </mat-menu>
@@ -172,7 +178,8 @@
         </div>
       </mat-card-actions>
       <mat-card-footer fxLayoutAlign="center center">
-        <div style="width:80%" fxLayout="column" [routerLink]='["/dashboard/QuestionAnswer",note.id]' *ngIf="note.questionAndAnswerNotes.length>0">
+        <div style="width:80%" fxLayout="column" [routerLink]='["/dashboard/QuestionAnswer",note.id]'
+          *ngIf="note.questionAndAnswerNotes.length>0">
           <mat-divider></mat-divider>
           <div><b>Question Asked</b></div>
           <div>
