@@ -63,6 +63,10 @@ export class DashboardComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit(){
+    let productId=sessionStorage.getItem("serviceId");
+    if(productId!=null && productId!=""){
+      this.route.navigateByUrl('dashboard/cart');
+    }
     this.userDetails=JSON.parse(this.userServices.getUser());
     // to get userService using userId on first initialization
     this.getUserService();

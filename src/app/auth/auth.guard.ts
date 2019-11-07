@@ -16,11 +16,12 @@ export class AuthGuard implements CanActivate {
    */
   canActivate(): boolean {
     let user = JSON.parse(sessionStorage.getItem('user'));
-    if (user != null && user.id) {
+    if (user != null && user.id) 
+    {
       return true;
     }
     else {
-      this.route.navigateByUrl('cart');
+      this.route.navigateByUrl('card');
     }
   }
 }
