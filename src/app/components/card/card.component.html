@@ -10,9 +10,9 @@
       <mat-card class="front-mat-card" (click)="openDialog(service)">
           <mat-card-title>
             price: ${{service.price}} per month
+            <div style="color:blue;">{{service.name}}</div>
           </mat-card-title>
           <mat-card-content>
-            {{service.name}}
             <ul>
               <li>${{service.price}}/month</li>
               <li>{{service.description}}</li>
