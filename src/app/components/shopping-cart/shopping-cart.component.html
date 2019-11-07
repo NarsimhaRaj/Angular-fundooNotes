@@ -1,4 +1,4 @@
-<div *ngIf="!isAdvancedUser" style="width:70%;height:auto;margin-left:15%;">
+<div *ngIf="service!=undefined" ngStyle.lt-md	="padding:0 10px 0 10px" ngStyle.gt-sm	="width:70%;height:auto;margin-left:15%;">
   <div style="width:100%;height:100%;">
       <div fxFill fxLayout="column" fxLayoutGap="2%">
           <div fxLayout="row" fxLayoutAlign="space-between center" style="width:60%">
@@ -43,37 +43,36 @@
             <div fxLayout="row" fxLayoutGap="5%">
                 <div fxLayoutAlign="center center"
                 style="width:20%;overflow-wrap:break-word;color:white;background: gray; border-radius: 5px; ">
-                {{services[0].price | currency}} per month basic
+                {{service.price | currency}} per month basic
               </div>
               <div fxLayout="column">
-                <div style="color:rgb(8, 79, 100)">{{services[0].name}} pack details</div>
+                <div style="color:rgb(8, 79, 100)">{{service.name}} pack details</div>
                 <div>
                   <ul>
-                    <li>{{services[0].description}}</li>
+                    <li>{{service.description}}</li>
                   </ul>
                 </div>
               </div>
               <div style="width:15%;overflow-wrap:break-word;">
                 <div style="color:rgb(8, 79, 100)">price</div>
-                <div>{{services[0].price | currency}}/month</div>
+                <div>{{service.price | currency}}/month</div>
               </div>
             </div>
-            <div fxLayoutAlign.lt-sm="start center">
-              <div fxLayout="column" fxLayoutAlign="center center"
-              style="border:1px solid grey; width:100%; margin-left:50%">
+            <div [fxHide]="completeOrder" ngStyle.lt-sm="order:1px solid grey; width: 100%;" style="border:1px solid grey; width:27%;height: 100%;">
+              <div fxLayout="column" fxLayoutAlign="center center">
               <div [fxHide]="!isProceedToCheckOut"><button (click)="placeOrder()" color="primary" mat-button>Place your
                   Order</button></div>
-              <div>Subtotal ( 1 item ): {{services[0].price | currency}}</div>
-              <div [fxHide]="isProceedToCheckOut"><button (click)="proceedToCheckOut()" color="primary" mat-button>Proceed to
+              <div>Subtotal ( 1 item ): {{service.price | currency}}</div>
+              <div [fxHide]="isProceedToCheckOut"><button (click)="proceedToCheckOut()" color="primary" style="overflow-wrap: break-word;" mat-button>Proceed to
                   Checkout</button></div>
             </div>
             </div>
 
           </div>
           <mat-divider></mat-divider>
-          <div [fxHide]="isProceedToCheckOut">Subtotal ( 1 item ): {{services[0].price | currency}}</div>
-          <div [fxHide]="!isProceedToCheckOut" fxLayoutAlign="space-between center" style="width:70%">
-            <div><textarea name="address" id="" cols="30" rows="6"></textarea></div>
+          <div [fxHide]="isProceedToCheckOut || completeOrder">Subtotal ( 1 item ): {{service.price | currency}}</div>
+          <div [fxHide]="!isProceedToCheckOut || completeOrder" fxLayoutAlign="space-between center" fxLayout.lt-sm="column" style="width:70%">
+            <div><textarea name="address" id="" cols="30" rows="6" [formControl]="address"></textarea></div>
             <div>
               <div>payment method</div>
               <div style="color:rgb(8, 79, 100)">
@@ -84,6 +83,6 @@
         </div>
   </div>
 </div>
-<div *ngIf="isAdvancedUser" style="margin-left:35% ">
+<div *ngIf="service==undefined" style="margin-left:35% ">
   <h1>Your Cart is Empty</h1>
 </div>

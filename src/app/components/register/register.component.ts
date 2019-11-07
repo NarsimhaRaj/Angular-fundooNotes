@@ -79,7 +79,6 @@ export class RegisterComponent implements OnInit {
       console.log(newUser);
 
       this.userService.register(newUser).subscribe((response:any) => {
-        sessionStorage.removeItem("serviceId");
         this.route.navigateByUrl('/login');
       },(error)=>{
         this.snackBar.open(error.message,undefined,{duration:2000});
