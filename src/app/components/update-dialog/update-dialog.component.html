@@ -1,6 +1,6 @@
 <!-- mat dialog container -->
 <div [ngStyle]="{'background-color':data.color}" style="padding:5% 10%">
-    
+
     <!-- mat dialog title -->
     <div mat-dialog-title fxLayoutAlign="space-between center" style="width:100%;height:100%">
         <div>
@@ -9,7 +9,12 @@
             </mat-form-field>
         </div>
         <div>
-            <mat-icon>fiber_pin</mat-icon>
+            <button *ngIf="!data.isPined" mat-icon-button color="" (click)="pinUnpin(true)"><img
+                    src="src/assets/images/outline_fiber_pin.png" />
+            </button>
+            <button *ngIf="data.isPined" mat-icon-button color="" (click)="pinUnpin(false)"><img
+                    src="src/assets/images/baseline_fiber_pin.png" />
+            </button>
         </div>
     </div>
 
@@ -20,8 +25,9 @@
         </mat-form-field>
         <!-- if checkList Notes is Present -->
         <div *ngIf="data.noteCheckLists.length>0" fxLayout="column">
-            <div *ngFor="let item of data.noteCheckLists; index as i" fxLayout="row" fxLayoutAlign="center center"> 
-                <mat-checkbox (change)="changecheckListStatus(item,$event)" [checked]="item.status=='close'?true:false"></mat-checkbox>
+            <div *ngFor="let item of data.noteCheckLists; index as i" fxLayout="row" fxLayoutAlign="center center">
+                <mat-checkbox (change)="changecheckListStatus(item,$event)" [checked]="item.status=='close'?true:false">
+                </mat-checkbox>
                 <input matInput type="text" [formControl]="listItemFormArray.controls[i]">
                 <button (click)="filterCheckList(item,i)" mat-icon-button>
                     <mat-icon>clear</mat-icon>
@@ -29,7 +35,8 @@
             </div>
             <div fxLayout="row" fxLayoutAlign="center center">
                 <mat-icon mat-list-icon>add</mat-icon>
-                <input matInput (keyup.enter)="EnterCheckList($event)" placeholder="Take a note..." [formControl]="listDescription">
+                <input matInput (keyup.enter)="EnterCheckList($event)" placeholder="Take a note..."
+                    [formControl]="listDescription">
                 <mat-icon>clear</mat-icon>
             </div>
         </div>
@@ -38,6 +45,11 @@
     <!-- mat dialog actions -->
     <div mat-dialog-actions>
         <mat-chip-list>
+            <mat-chip *ngFor="let reminder of data.reminder" [removable]="true" (removed)="removeReminder()"
+                [style.text-decoration]="reminderDecoration(reminder)">
+                {{ reminder | myDate }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
             <mat-chip *ngFor="let person of data.collaborators">
                 {{person.firstName.charAt(0).toUpperCase()}}
             </mat-chip>
@@ -48,21 +60,26 @@
             </mat-chip>
         </mat-chip-list>
     </div>
-    
+
     <!-- mat- dialog footer -->
     <div mat-dialog-footer fxLayoutAlign="space-between center" fxLayout.lt-sm="column">
 
         <div class="footer-icons-div" fxLayoutAlign="space-around center">
 
-            <button mat-icon-button color="">
-                <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
-            </button>
-            
+            <div>
+                <button mat-icon-button color="" [matMenuTriggerFor]="reminder">
+                    <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
+                </button>
+                <mat-menu #reminder="matMenu">
+                    <app-reminder-component (reminderData)="setReminder($event,note);"></app-reminder-component>
+                </mat-menu>
+            </div>
+
             <button (click)="addCollaborator()" mat-icon-button color="">
                 <mat-icon matTooltip="Collaborator">person_add</mat-icon>
             </button>
-            
-            
+
+
             <button mat-icon-button color="" [matMenuTriggerFor]="colorsMenu">
                 <mat-icon matTooltip="Change color">color_lens</mat-icon>
             </button>

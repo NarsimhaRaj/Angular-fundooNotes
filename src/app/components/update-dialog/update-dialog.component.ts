@@ -78,6 +78,18 @@ export class UpdateDialogComponent implements OnInit {
     }
   }
 
+  /**
+   * @description to pin or unpin a notes
+   * @param note notes which has to be pinned
+   * @param isPinned if notes is pinned true or false value will be set 
+   */
+  pinUnpin(isPinned: boolean) {
+    let data = { noteIdList: [this.data.id], isPined: isPinned };
+    this.noteServices.pinUnpinNotes(data).subscribe((response) => {
+      this.data.isPined=isPinned;
+    });
+  }
+
   archive() {
     this.dialogRef.close({ isArchived: true, note: this.data });
   }
@@ -244,5 +256,43 @@ export class UpdateDialogComponent implements OnInit {
       this.noteServices.updateCheckList(this.noteId, item.id, data).subscribe((response) => {
       });
     }
+  }
+
+  /**
+   * @description to set reminder to a notes
+   * @param reminderTimeDate event data send from child component
+   */
+  setReminder(reminderTimeDate){
+    let data={noteIdList:[this.data.id],reminder:reminderTimeDate};
+
+    this.noteServices.addUpdateReminderNotes(data).subscribe((response)=>{
+      // console.log(response);
+      this.data.reminder.push(data.reminder);
+    });
+  }
+
+  /**
+   * @description to delete a note's reminder
+   * @param noteId id of notes with reminder
+   */
+  removeReminder(){
+    let data={noteIdList:[this.data.id]};
+    this.noteServices.removeReminderNotes(data).subscribe((response)=>{
+      this.data.reminder.pop()
+    })
+  }
+
+
+  /**
+   * @description if reminder completed then strike that reminder
+   * @param reminder note reminder
+   */
+  reminderDecoration(reminder){
+    let today=new Date();
+    let newReminder=reminder.replace('GMT+0000','GMT+0530');
+    let reminderDate=new Date(newReminder);
+    if(today.getTime()>reminderDate.getTime())
+      return "line-through";
+    return "none";
   }
 }
