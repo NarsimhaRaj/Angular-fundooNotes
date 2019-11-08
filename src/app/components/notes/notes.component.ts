@@ -149,19 +149,6 @@ export class NotesComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * @description counts number of notes are pinned 
-   */
-  pinned(notesList: any) {
-    let note: any;
-    for (note of notesList) {
-      if (note.isPined) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   onClickedOutside(e: Event) {
     this.panelOpenState = !this.panelOpenState;
   }
@@ -240,7 +227,19 @@ export class NotesComponent implements OnInit, OnDestroy {
     }
   }
 
-
+/**
+   * @description counts number of notes are pinned 
+   */
+  pinned(notesList: any) {
+    let note: any;
+    for (note of notesList) {
+      if (!note.isDeleted && note.isPined) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
   /**
    * @description to get all the notes list of user 
    */
