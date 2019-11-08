@@ -191,8 +191,8 @@ export class ReminderNotesComponent implements OnInit {
    * @param noteId note id of checkList
    * @param item checkList item details
    */
-  changecheckListStatus(noteId,item,event){
-    if(event.checked){
+  changecheckListStatus(noteId,item,checked){
+    if(checked){
       let data={itemName:item.itemName,status:"close"};
       this.noteServices.updateCheckList(noteId,item.id,data).subscribe((response)=>{
         this.emitObservable.next();
