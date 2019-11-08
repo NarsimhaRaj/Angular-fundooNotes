@@ -156,3 +156,11 @@ a{
 .checkList-text-decoration{
     text-decoration:line-through;
  }
+
+ .checklist-unchecked{
+    word-break: break-all;
+    margin:0 0 10px 0;
+ }
+ .checklist-checked{
+    text-decoration:line-through;
+ }

@@ -155,8 +155,8 @@ export class PinUnpinNotesComponent implements OnInit {
    * @param noteId note id of checkList
    * @param item checkList item details
    */
-  changecheckListStatus(noteId,item,checked){
-    if(checked){
+  changecheckListStatus(noteId,item,event){
+    if(event.checked){
       let data={itemName:item.itemName,status:"close"};
       this.noteServices.updateCheckList(noteId,item.id,data).subscribe((response)=>{
         this.componentRef.emit(null);

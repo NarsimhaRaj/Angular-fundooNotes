@@ -29,21 +29,20 @@
           <div *ngIf="note.description==''" style="white-space: pre-wrap;overflow-wrap: break-word;" fxLayout="column">
             <div *ngIf="checkListItemStatus(note.noteCheckLists,'open');" fxLayout="column">
               
-              <mat-selection-list *ngFor="let item of note.noteCheckLists" (selectionChange)="changecheckListStatus(note.id,item,true)">
-                <mat-list-option *ngIf="item.status=='open'" (click)="$event.stopPropagation()" [selected]="false" [checkboxPosition]="after">
-                  <span>{{item.itemName}}</span>
-                </mat-list-option>
-              </mat-selection-list>
+              <div *ngFor="let item of note.noteCheckLists" >
+                <mat-checkbox *ngIf="item.status=='open'" (change)="changecheckListStatus(note.id,item,$event)" (click)="$event.stopPropagation()" [checked]="false">
+                </mat-checkbox>
+                <span *ngIf="item.status=='open'" class="checklist-unchecked">{{item.itemName}}</span>
+              </div>
   
             </div>
             <div *ngIf="checkListItemStatus( note.noteCheckLists, 'close');" fxLayout="column">
   
-                <mat-selection-list *ngFor="let item of note.noteCheckLists" (selectionChange)="changecheckListStatus(note.id,item,false)">
-                  <mat-list-option *ngIf="item.status=='close'" (click)="$event.stopPropagation()" 
-                  [selected]="true" [checkboxPosition]="after">
-                    <span style="text-decoration:line-through;">{{item.itemName}}</span>
-                  </mat-list-option>
-                </mat-selection-list>
+              <div *ngFor="let item of note.noteCheckLists" >
+                <mat-checkbox *ngIf="item.status=='close'" (change)="changecheckListStatus(note.id,item,$event)" (click)="$event.stopPropagation()" [checked]="true">
+                </mat-checkbox>
+                <span *ngIf="item.status=='close'" class="checklist-unchecked checklist-checked">{{item.itemName}}</span>
+              </div>
 
             </div>
           </div>
