@@ -1,23 +1,4 @@
 @import 'src/app/SCSS/styles';
-@import '~ngx-bar-rating/themes/br-default-theme';
+// @import '~ngx-bar-rating/themes/br-default-theme';
 
 h4,h5,h3 { font-weight:normal; }
-
-.rating > div {
-    width:100%;
-    height:auto;
-    direction:rtl;
-    transform: scale(1.5,1.5)
-}
-.rating > div {
-    position: relative;
-}
-.rating > div :hover:before,
-.rating > div :hover ~ div:before {
-    content: "\2605";
-    position: absolute;
-    color:green;
-}
-.selected{
-    color:green;
-}

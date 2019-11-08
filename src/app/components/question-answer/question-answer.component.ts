@@ -16,7 +16,7 @@ export class QuestionAnswerComponent implements OnInit {
     title: "",
     description: "",
     noteCheckLists: [],
-    questionAndAnswerNotes: [{
+questionAndAnswerNotes    : [{
       createdDate: "",
       like: [{
         userId: "",
@@ -31,8 +31,6 @@ export class QuestionAnswerComponent implements OnInit {
   };
   reply: boolean = false;
   likes = [];
-  ratings = [];
-  isLiked=[];
 
   stars: number[] = [1, 2, 3, 4, 5];
 
@@ -62,20 +60,14 @@ export class QuestionAnswerComponent implements OnInit {
     let index = 0;
     let length=this.notes.questionAndAnswerNotes.length;
     this.likes.length=length;
-    this.ratings.length=length;
-    this.isLiked.length=length;
-
+  
     this.likes.fill(0);
-    this.ratings.fill(0);
-
+  
     for (question of this.notes.questionAndAnswerNotes) {
       for (let like of question.like) {
         if (like.like){
           ++this.likes[index];
         }
-      }
-      for (let rate of question.rate) {
-          this.ratings[index]=rate.rate;
       }
       index++;
     }
@@ -104,8 +96,7 @@ export class QuestionAnswerComponent implements OnInit {
    * @param questionId question id
    * @param like like is boolean value if hit like true, if dislike = false
    */
-  like(question,like,index) {
-    this.isLiked[index]=!this.isLiked[index];
+  like(question,like) {
     let data = {
       like: like
     }
