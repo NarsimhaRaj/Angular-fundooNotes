@@ -46,6 +46,7 @@ import { QuestionAnswerComponent } from './components/question-answer/question-a
 import { SearchLabelPipe } from './pipe/searchLabel/search-label.pipe';
 import { PinUnpinNotesComponent } from './components/pin-unpin-notes/pin-unpin-notes.component';
 import { ColorPickerComponent } from './components/color-picker/color-picker.component';
+import { BarRatingModule } from "ngx-bar-rating";
 
 
 @NgModule({
@@ -111,6 +112,7 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
     ClickOutsideModule,
     NgxPopper,
     ImageCropperModule,
+    BarRatingModule,
     FroalaEditorModule.forRoot(), 
     FroalaViewModule.forRoot()
   ],

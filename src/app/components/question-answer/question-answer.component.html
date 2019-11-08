@@ -63,10 +63,10 @@
                     </div>
                 </div>
                 <div fxLayout="column">
-                    <div fxLayout="row" class="rating">
-                        <div *ngFor="let index of stars" [ngClass]="{'selected': index <= getAvgRating(question.rate)}">
-                            <span (click)="rate(question.id,index)">☆</span>
-                        </div>
+                    <div class="col-md-4">
+                        <section>
+                            <bar-rating  [rate]="getAvgRating(question.rate)" [max]="5" (rateChange)="rate(question.id,$event)"></bar-rating>
+                        </section>
                     </div>
                     <div>
                         {{getAvgRating(question.rate)}}
