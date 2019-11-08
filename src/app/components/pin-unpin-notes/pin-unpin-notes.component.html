@@ -29,7 +29,7 @@
           <div *ngIf="checkListItemStatus(note.noteCheckLists,'open');" fxLayout="column">
             
             <div *ngFor="let item of note.noteCheckLists" >
-              <mat-checkbox *ngIf="item.status=='open'" (change)="changecheckListStatus(note.id,item,$event)" (click)="$event.stopPropagation()" [checked]="false">
+              <mat-checkbox *ngIf="item.status=='open'" (change)="changecheckListStatus(note.id,item,$event)" color="primary" (click)="$event.stopPropagation()" [checked]="false">
               </mat-checkbox>
               <span *ngIf="item.status=='open'" class="checklist-unchecked">{{item.itemName}}</span>
             </div>
@@ -38,7 +38,7 @@
           <div *ngIf="checkListItemStatus( note.noteCheckLists, 'close');" fxLayout="column">
 
             <div *ngFor="let item of note.noteCheckLists" >
-              <mat-checkbox *ngIf="item.status=='close'" (change)="changecheckListStatus(note.id,item,$event)" (click)="$event.stopPropagation()" [checked]="true">
+              <mat-checkbox *ngIf="item.status=='close'" (change)="changecheckListStatus(note.id,item,$event)" color="primary" (click)="$event.stopPropagation()" [checked]="true">
               </mat-checkbox>
               <span *ngIf="item.status=='close'" class="checklist-unchecked checklist-checked">{{item.itemName}}</span>
             </div>
