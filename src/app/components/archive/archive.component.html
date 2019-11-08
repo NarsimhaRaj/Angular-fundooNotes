@@ -1,7 +1,7 @@
-<div style="width:100%;height: auto;margin-bottom: 10px;" fxLayoutAlign="center start">
+<div style="width:100%;height:auto;margin-bottom: 10px;" fxLayoutAlign.gt-xs="center start">
 
-  <div style="width:60%;" fxLayoutAlign="center start" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column"
-    gdGridAlign>
+  <div ngStyle.lt-md="width:80%;height:auto;margin-left:5%;" ngStyle.gt-sm="width:60%;height:auto;" fxLayoutAlign.gt-xs="center start" [fxLayout]="data.viewLayoutType" fxLayout.lt-sm="column"
+  gdGridAlign>
 
     <div *ngFor="let note of notesList | search:searchWord">
 

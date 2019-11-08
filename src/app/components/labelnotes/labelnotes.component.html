@@ -92,9 +92,9 @@
   </div>
   
   <!-- notes list -->
-  <div style="width:100%;height:auto;margin-bottom: 10px;" fxLayoutAlign="center start">
+  <div style="width:100%;height:auto;margin-bottom: 10px;" fxLayoutAlign.gt-xs="center start">
 
-    <div style="width:60%;height:auto;" fxLayout="column" fxLayoutAlign="center start">
+    <div ngStyle.lt-md="width:80%;height:auto;" ngStyle.gt-sm="width:60%;height:auto;" fxLayout="column" fxLayoutAlign.gt-xs="center start">
 
       <!-- pinned notes -->
       <div *ngIf="pinCountZero" style="width:90%;" fxLayoutAlign="start center">
