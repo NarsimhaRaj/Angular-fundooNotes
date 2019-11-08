@@ -131,6 +131,13 @@ export class PinUnpinNotesComponent implements OnInit {
   }
 
   /**
+   * @description event emitted by colorPicker component will be caught here and emits an event to notes component
+   */
+  colorUpdateEvent(event){
+    this.componentRef.emit(null);
+  }
+
+  /**
    * @description to pin or unpin a notes
    * @param note notes which has to be pinned
    * @param isPinned if notes is pinned true or false value will be set 

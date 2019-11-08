@@ -45,6 +45,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { QuestionAnswerComponent } from './components/question-answer/question-answer.component';
 import { SearchLabelPipe } from './pipe/searchLabel/search-label.pipe';
 import { PinUnpinNotesComponent } from './components/pin-unpin-notes/pin-unpin-notes.component';
+import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 
 
 @NgModule({
@@ -73,6 +74,7 @@ import { PinUnpinNotesComponent } from './components/pin-unpin-notes/pin-unpin-n
     QuestionAnswerComponent,
     SearchLabelPipe,
     PinUnpinNotesComponent,
+    ColorPickerComponent,
   ],
   imports: [
     BrowserModule,

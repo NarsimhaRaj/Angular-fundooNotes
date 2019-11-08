@@ -88,36 +88,7 @@
             </button>
             <!-- menu of color lens -->
             <mat-menu #colorsMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
-              <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC',note)" style="background-color: #F5F5EC;">
-                </div>
-                <div mat-menu-item (click)="updateBackgroundColor('#EB716B',note)" style="background-color: #EB716B;">
-                </div>
-                <div mat-menu-item (click)="updateBackgroundColor('#FCE42A',note)" style="background-color: #FCE42A">
-                </div>
-                <div mat-menu-item (click)="updateBackgroundColor('#6DE391',note)" style="background-color: #6DE391;">
-                </div>
-              </div>
-              <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                <div mat-menu-item (click)="updateBackgroundColor('#1597DB',note)" style="background-color: #1597DB;">
-                </div>
-                <div mat-menu-item (click)="updateBackgroundColor('#08ECF2',note)" style="background-color: #08ECF2;">
-                </div>
-                <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF',note)" style="background-color: #8C7FBF;">
-                </div>
-                <div mat-menu-item (click)="updateBackgroundColor('#D37CE2',note)" style="background-color: #D37CE2;">
-                </div>
-              </div>
-              <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
-                <div mat-menu-item (click)="updateBackgroundColor('#FF8632',note)" style="background-color: #FF8632">
-                </div>
-                <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9',note)" style="background-color: #EA7AC9;">
-                </div>
-                <div mat-menu-item (click)="updateBackgroundColor('#A35237',note)" style="background-color: #A35237;">
-                </div>
-                <div mat-menu-item (click)="updateBackgroundColor('#959592',note)" style="background-color: #959592;">
-                </div>
-              </div>
+              <app-color-picker [note]="note" (colorEvent)="colorUpdateEvent($event)"></app-color-picker>
             </mat-menu>
           </div>
 
