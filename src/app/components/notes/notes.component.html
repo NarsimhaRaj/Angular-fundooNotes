@@ -84,10 +84,10 @@
           <button mat-icon-button color="">
             <mat-icon matTooltip="Add image">crop_original</mat-icon>
           </button>
-          <button mat-icon-button (click)="setArchive(true)" [fxHide]="isArchived" color="">
+          <button mat-icon-button (click)="setArchive()" [fxHide]="isArchived" color="">
             <mat-icon matTooltip="Archive">archive</mat-icon>
           </button>
-          <button mat-icon-button (click)="setArchive(false)" [fxHide]="!isArchived" color="">
+          <button mat-icon-button (click)="setArchive()" [fxHide]="!isArchived" color="">
             <mat-icon matTooltip="Unarchive">archive</mat-icon>
           </button>
           <button mat-icon-button color="" [matMenuTriggerFor]="more_vert">
@@ -107,7 +107,7 @@
               <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;">
                 <mat-form-field appearance="outline">
                   <input matInput type="search" placeholder="search label">
-                  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                  <button mat-button matSuffix mat-icon-button aria-label="Clear">
                     <mat-icon>search</mat-icon>
                   </button>
                 </mat-form-field>
@@ -221,10 +221,10 @@
           <button mat-icon-button color="">
             <mat-icon matTooltip="Add image">crop_original</mat-icon>
           </button>
-          <button mat-icon-button (click)="setArchive(true)" [fxHide]="isArchived" color="">
+          <button mat-icon-button (click)="setArchive()" [fxHide]="isArchived" color="">
             <mat-icon matTooltip="Archive">archive</mat-icon>
           </button>
-          <button mat-icon-button (click)="setArchive(false)" [fxHide]="!isArchived" color="">
+          <button mat-icon-button (click)="setArchive()" [fxHide]="!isArchived" color="">
             <mat-icon matTooltip="Unarchive">archive</mat-icon>
           </button>
           <button mat-icon-button color="" [matMenuTriggerFor]="more_vert">
@@ -244,7 +244,7 @@
               <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;">
                 <mat-form-field appearance="outline">
                   <input matInput type="search" placeholder="search label">
-                  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                  <button mat-button matSuffix mat-icon-button aria-label="Clear">
                     <mat-icon>search</mat-icon>
                   </button>
                 </mat-form-field>

@@ -154,6 +154,10 @@ export class LabelnotesComponent implements OnInit {
     }
   }
 
+  updateBackgroundColor(color) {
+    this.matCardColor = color;
+  }
+
   /**
    * @description get all the labels created by user
    */

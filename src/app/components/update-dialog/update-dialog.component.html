@@ -71,7 +71,7 @@
                     <mat-icon matTooltip="Remind me">notifications_none</mat-icon>
                 </button>
                 <mat-menu #reminder="matMenu">
-                    <app-reminder-component (reminderData)="setReminder($event,note);"></app-reminder-component>
+                    <app-reminder-component (reminderData)="setReminder($event);"></app-reminder-component>
                 </mat-menu>
             </div>
 
@@ -107,7 +107,7 @@
                 <button (click)="delete();" mat-menu-item>
                     Delete
                 </button>
-                <button [matMenuTriggerFor]="label" (click)="addLabel(data);" mat-menu-item>
+                <button [matMenuTriggerFor]="label" mat-menu-item>
                     Add label
                 </button>
                 <mat-menu #label="matMenu" style="height:30%;overflow: scroll;">
@@ -117,8 +117,7 @@
                     <div mat-menu-item (click)="$event.stopPropagation();" style="height:40px;padding:5px;">
                         <mat-form-field appearance="outline">
                             <input matInput type="search" placeholder="search label">
-                            <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
-                                (click)="value=''">
+                            <button mat-button matSuffix mat-icon-button aria-label="Clear">
                                 <mat-icon>search</mat-icon>
                             </button>
                         </mat-form-field>
