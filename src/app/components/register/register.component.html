@@ -82,7 +82,7 @@
       <!-- next or sign in buttons -->
       <div class="register-further-step common-property" fxLayout="row" fxLayoutAlign="space-between center">
         <div><a href="/login">Sign in instead</a></div>
-        <div><button mat-raised-button color="primary" (click)="register()">Sign Up</button></div>
+        <div><button [disabled]="!registerFormGroup.valid" mat-raised-button color="primary" (click)="register()">Sign Up</button></div>
       </div>
     </div>
    
